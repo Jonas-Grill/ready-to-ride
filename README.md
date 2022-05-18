@@ -1,6 +1,6 @@
 # Ready to Ride:
 
-<img src="/documentation/Logo.PNG" width="300" height="300" />
+<img src="/documentation/LOGO.PNG" width="300" height="300" />
 
 Eine native Android-App, in der man als Stallbesitzer seinen Reitstall verwalten kann und als Reiter Reitunterricht buchen kann. Über ein Buchungssystem kann der Nutzer ein bestimmtes Pferd in Kombination mit einem bestimmtem Trainer zu einer bestimmten Uhrzeit buchen. Zusätzlich gibt es Info-Seiten über alle verfügbaren Pferde und Trainer, sowie über die Reitanlage.
 
@@ -14,7 +14,7 @@ Eine native Android-App, in der man als Stallbesitzer seinen Reitstall verwalten
 
 ## Unsere Webseite
 
-TODO
+https://www.ready-to-ride.tk
 
 ## Unsere PPT-Präsentation
 
