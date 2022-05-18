@@ -73,13 +73,26 @@
         ],
         "responses": {
           "200": {
-            "description": "horse response",
+            "description": "horse list response",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Horse"
+                    "$ref": "#/components/schemas/HorseModel"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "horse list response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HorseModel"
                   }
                 }
               }
@@ -218,33 +231,39 @@
       }
     },
     "schemas": {
-      "Ex": {
+      "ExtendedHorseModel": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/Horse"
+            "$ref": "#/components/schemas/HorseModel"
           },
           {
             "type": "object",
             "required": [
-              "id"
+              "description"
             ],
             "properties": {
-              "id": {
-                "type": "integer",
-                "format": "int64"
+              "description": {
+                "type": "string",
+                "example": "Das ist ein tolles Pferd."
+              },
+              "pictures": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "example": "611d5cd230dd29fc60df7b94"
+                }
               }
             }
           }
         ]
       },
-      "Horse": {
+      "HorseModel": {
         "type": "object",
         "required": [
           "name",
           "height",
           "age",
           "colour",
-          "description",
           "race",
           "difficulty_level"
         ],
@@ -260,6 +279,7 @@
           },
           "height": {
             "type": "number",
+            "minimum": 0,
             "example": 145
           },
           "race": {
@@ -279,11 +299,8 @@
           },
           "age": {
             "type": "number",
+            "minimum": 0,
             "example": 8
-          },
-          "description": {
-            "type": "string",
-            "example": "Das ist ein tolles Pferd."
           },
           "colour": {
             "type": "string",
@@ -307,13 +324,6 @@
               "Fortgeschritten",
               "Profi"
             ]
-          },
-          "pictures": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "example": "611d5cd230dd29fc60df7b94"
-            }
           }
         }
       },
