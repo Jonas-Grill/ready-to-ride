@@ -15,78 +15,9 @@
       "get": {
         "description": "Returns all horses from the system that the user has access to.\n",
         "operationId": "findHorses",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "description": "name to filter by",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "age",
-            "in": "query",
-            "description": "age to filter by",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "colour",
-            "in": "query",
-            "description": "colour to filter by",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "height",
-            "in": "query",
-            "description": "height to filter by",
-            "required": false,
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "race",
-            "in": "query",
-            "description": "race to filter by",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "difficulty_level",
-            "in": "query",
-            "description": "difficulty_level to filter by",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "horse list response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/HorseModel"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "horse list response",
+            "description": "Horse list response",
             "content": {
               "application/json": {
                 "schema": {
@@ -111,15 +42,15 @@
         }
       },
       "post": {
-        "description": "Creates a new horse in the stable. Duplicates are allowed",
+        "description": "Creates a new horse. Duplicates are allowed",
         "operationId": "addHorse",
         "requestBody": {
-          "description": "Horse to add to the store",
+          "description": "Horse to add",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Horse"
+                "$ref": "#/components/schemas/HorseModel"
               }
             }
           }
@@ -130,7 +61,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Horse"
+                  "$ref": "#/components/schemas/HorseModel"
                 }
               }
             }
@@ -170,7 +101,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Horse"
+                  "$ref": "#/components/schemas/ExtendedHorseModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
