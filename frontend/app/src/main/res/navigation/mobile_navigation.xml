@@ -12,14 +12,38 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.readytoride.ui.gallery.GalleryFragment"
-        android:label="@string/menu_stable"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_horses"
+        android:name="com.readytoride.ui.horse.HorseFragment"
+        android:label="@string/menu_horses"
+        tools:layout="@layout/fragment_horse" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.readytoride.ui.slideshow.SlideshowFragment"
+        android:id="@+id/nav_trainer"
+        android:name="com.readytoride.ui.trainer.TrainerFragment"
         android:label="@string/menu_horses"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_trainer" />
+
+    <fragment
+        android:id="@+id/nav_stable"
+        android:name="com.readytoride.ui.stable.StableFragment"
+        android:label="@string/menu_horses"
+        tools:layout="@layout/fragment_stable" />
+
+    <fragment
+        android:id="@+id/nav_lessons"
+        android:name="com.readytoride.ui.booking.BookingFragment"
+        android:label="@string/menu_horses"
+        tools:layout="@layout/fragment_booking" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.readytoride.ui.profile.ProfileFragment"
+        android:label="@string/menu_horses"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/nav_contact"
+        android:name="com.readytoride.ui.contact.ContactFragment"
+        android:label="@string/menu_horses"
+        tools:layout="@layout/fragment_contact" />
 </navigation>
