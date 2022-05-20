@@ -44,6 +44,11 @@
       "post": {
         "description": "Creates a new horse. Duplicates are allowed",
         "operationId": "addHorse",
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
         "requestBody": {
           "description": "Horse to add",
           "required": true,
@@ -141,6 +146,11 @@
       "put": {
         "description": "Updates a horse based on a single ID and the provided Data, if the user has access to the horse. Only provide the data you want to update",
         "operationId": "update horse by id",
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -200,6 +210,11 @@
       "delete": {
         "description": "deletes a single horse based on the ID supplied",
         "operationId": "deleteHorse",
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -231,8 +246,13 @@
     },
     "/bookings": {
       "post": {
-        "description": "Creates a new booking. Duplicates are allowed",
+        "description": "Creates a new booking request. Duplicates are allowed",
         "operationId": "addBooking",
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
         "requestBody": {
           "description": "Booking to add",
           "required": true,
@@ -256,7 +276,7 @@
             }
           },
           "400": {
-            "description": "bad request/Wrong data error",
+            "description": "bad request/Wrong data/Already reserved error",
             "content": {
               "application/json": {
                 "schema": {
@@ -287,7 +307,153 @@
           }
         }
       }
-    }
+    },
+    "/bookings/{id}": {
+      "delete": {
+        "description": "Cancels a booking",
+        "operationId": "deleteBooking",
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of booking to cancel",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "booking cancellation accepted"
+          },
+          "404": {
+            "description": "not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bookings/{id}/accept": {
+      "post": {
+        "description": "Accepts a booking request",
+        "operationId": "acceptBooking",
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of horse to fetch",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "booking accepted"
+          },
+          "404": {
+            "description": "not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "description": "Creates a new user. Duplicates are allowed",
+        "operationId": "registerUser",
+        "requestBody": {
+          "description": "User to add",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HorseModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "horse response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HorseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request/Wrong data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/login": {}
   },
   "components": {
     "securitySchemes": {
@@ -393,15 +559,19 @@
               "Fortgeschritten",
               "Profi"
             ]
+          },
+          "profilePicture": {
+            "type": "string",
+            "example": "611d5cd230dd29fc60df7b94"
           }
         }
       },
-      "User": {
+      "BaseUserModel": {
         "type": "object",
         "required": [
+          "email",
           "name",
-          "age",
-          "description"
+          "age"
         ],
         "properties": {
           "_id": {
@@ -409,61 +579,125 @@
             "readOnly": true,
             "example": "611d5cd230dd29fc60df7b94"
           },
-          "name": {
+          "email": {
             "type": "string",
-            "example": "Horst"
+            "example": "horst.müller@pferde-liebhaber.de"
+          },
+          "name": {
+            "type": "object",
+            "properties": {
+              "firstName": {
+                "type": "string",
+                "example": "Horst"
+              },
+              "lastName": {
+                "type": "string",
+                "example": "Müller"
+              }
+            }
           },
           "age": {
             "type": "number",
             "example": 40
-          },
-          "description": {
-            "type": "string",
-            "example": "Das ist ein toller Trainer."
-          },
-          "achievements": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "year": {
-                  "type": "number",
-                  "example": 2012
-                },
-                "name": {
-                  "type": "string",
-                  "example": "Deutscher Meister Senior Reining"
-                }
-              }
-            }
-          },
-          "certificates": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "year": {
-                  "type": "number",
-                  "example": 2012
-                },
-                "name": {
-                  "type": "string",
-                  "example": "Pferdewirtschaftsmeister"
-                }
-              }
-            }
-          },
-          "focus": {
-            "type": "string",
-            "enum": [
-              "Kinder",
-              "Erwachsene",
-              "Turnierreiter",
-              "Anfänger",
-              "Fortgeschrittene"
-            ]
           }
         }
+      },
+      "Trainer": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseUserModel"
+          },
+          {
+            "type": "object",
+            "required": [
+              "description"
+            ],
+            "properties": {
+              "description": {
+                "type": "string",
+                "example": "Das ist ein toller Trainer."
+              },
+              "achievements": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "year": {
+                      "type": "number",
+                      "example": 2012
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Deutscher Meister Senior Reining"
+                    }
+                  }
+                }
+              },
+              "certificates": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "year": {
+                      "type": "number",
+                      "example": 2012
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Pferdewirtschaftsmeister"
+                    }
+                  }
+                }
+              },
+              "focus": {
+                "type": "string",
+                "enum": [
+                  "Kinder",
+                  "Erwachsene",
+                  "Turnierreiter",
+                  "Anfänger",
+                  "Fortgeschrittene"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "User": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseUserModel"
+          },
+          {
+            "type": "object",
+            "required": [
+              "weight",
+              "height",
+              "proficiency"
+            ],
+            "properties": {
+              "weight": {
+                "type": "number",
+                "minimum": 0,
+                "example": "80"
+              },
+              "height": {
+                "type": "integer",
+                "format": "int32",
+                "minimum": 0,
+                "example": "180"
+              },
+              "proficiency": {
+                "type": "string",
+                "enum": [
+                  "Turnierreiter",
+                  "Anfänger",
+                  "Fortgeschrittener"
+                ]
+              }
+            }
+          }
+        ]
       },
       "Stable": {
         "type": "object",
@@ -553,6 +787,7 @@
           },
           "booker": {
             "type": "string",
+            "readOnly": true,
             "example": "Anne"
           },
           "items": {
