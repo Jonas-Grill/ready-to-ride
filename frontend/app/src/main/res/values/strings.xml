@@ -12,4 +12,40 @@
     <string name="menu_lessons">Reitstunden buchen</string>
     <string name="menu_profile">Profil</string>
     <string name="menu_contact">Kontakt</string>
+
+
+    <string name="horsename1">Steve</string>
+    <string name="horsename2">Polly</string>
+    <string name="horsename3">Gin</string>
+    <string name="horsename4">Tonic</string>
+    <string name="horsename5">Flummi</string>
+    <string name="horsename6">Ludwig</string>
+    <string name="horsename7">Nougat</string>
+    <string name="horsename8">Gollum</string>
+    <string name="horsename9">Scarlet</string>
+    <string name="horsename10">Calypso</string>
+
+    <string name="horseheight1">142 cm</string>
+    <string name="horseheight2">147 cm</string>
+    <string name="horseheight3">163 cm</string>
+    <string name="horseheight4">166 cm</string>
+    <string name="horseheight5">141 cm</string>
+    <string name="horseheight6">158 cm</string>
+    <string name="horseheight7">154 cm</string>
+    <string name="horseheight8">167 cm</string>
+    <string name="horseheight9">150 cm</string>
+    <string name="horseheight10">170 cm</string>
+
+    <string name="trainername1">Susanne Martin</string>
+    <string name="trainername2">Tina Martin</string>
+    <string name="trainername3">Alexander von Falkenstein</string>
+    <string name="trainername4">Sophia von Gelenberg</string>
+    <string name="trainername5">Bibi Blocksberg</string>
+
+    <string name="qualification1">Trainer A Westernreiten Leistungssport</string>
+    <string name="qualification2">Trainer C Westernreiten Leistungssport</string>
+    <string name="qualification3">Trainerassistent im Westernreitsport</string>
+    <string name="qualification4">Trainer B Westernreiten Leistungssport</string>
+    <string name="qualification5">Pferdewirtschaftsmeister Spezialreitweisen Westernreiten</string>
+
 </resources>
