@@ -414,7 +414,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/HorseModel"
+                "$ref": "#/components/schemas/UserRegisterModel"
               }
             }
           }
@@ -601,6 +601,33 @@
             "example": 40
           }
         }
+      },
+      "UserRegisterModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseUserModel"
+          },
+          {
+            "type": "object",
+            "required": [
+              "accountRole"
+            ],
+            "properties": {
+              "accountRole": {
+                "type": "string",
+                "enum": [
+                  "User",
+                  "Trainer",
+                  "Admin"
+                ]
+              },
+              "rolePasscode": {
+                "type": "string",
+                "description": "only required if accountrole is Trainer or Admin. Needed to get access to these roles."
+              }
+            }
+          }
+        ]
       },
       "Trainer": {
         "allOf": [
