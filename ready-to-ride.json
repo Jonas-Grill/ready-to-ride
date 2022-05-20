@@ -66,6 +66,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad request/Wrong data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
           "default": {
             "description": "unexpected error",
             "content": {
@@ -128,14 +138,73 @@
           }
         }
       },
-      "delete": {
-        "description": "deletes a single horse based on the ID supplied",
-        "operationId": "deletePet",
+      "put": {
+        "description": "Updates a horse based on a single ID and the provided Data, if the user has access to the horse. Only provide the data you want to update",
+        "operationId": "update horse by id",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of pet to delete",
+            "description": "ID of horse to update",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Updated horse data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExtendedHorseModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "horse response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtendedHorseModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "deletes a single horse based on the ID supplied",
+        "operationId": "deleteHorse",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of horse to delete",
             "required": true,
             "schema": {
               "type": "string",
@@ -145,7 +214,66 @@
         ],
         "responses": {
           "204": {
-            "description": "pet deleted"
+            "description": "horse deleted"
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bookings": {
+      "post": {
+        "description": "Creates a new booking. Duplicates are allowed",
+        "operationId": "addBooking",
+        "requestBody": {
+          "description": "Booking to add",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "booking response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request/Wrong data error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           },
           "default": {
             "description": "unexpected error",
@@ -391,11 +519,12 @@
         }
       },
       "News": {},
-      "Booking": {
+      "BookingModel": {
         "type": "object",
         "required": [
           "timeslot",
-          "customer"
+          "booker",
+          "items"
         ],
         "properties": {
           "_id": {
@@ -428,10 +557,11 @@
           },
           "items": {
             "type": "array",
+            "minItems": 1,
             "items": {
               "type": "object",
               "properties": {
-                "name": {
+                "id": {
                   "type": "string"
                 }
               }
