@@ -11,9 +11,13 @@ import com.readytoride.R
 class HorseItemAdapter(private val context: HorseFragment, private val dataset: List<Horse>) : RecyclerView.Adapter<HorseItemAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val textViewName: TextView = view.findViewById(R.id.item_horsename)
-        val textViewHeight: TextView = view.findViewById(R.id.item_horseheight)
-        val imageView: ImageView = view.findViewById(R.id.item_horseimage)
+        val textViewName: TextView = view.findViewById(R.id.item_horsename_overview)
+        val textViewHeight: TextView = view.findViewById(R.id.item_horseheight_overview)
+        val textViewRace: TextView = view.findViewById(R.id.item_race_overview)
+        val textViewAge: TextView = view.findViewById(R.id.item_horseage_overview)
+        val textViewColour: TextView = view.findViewById(R.id.item_colour_overview)
+        val textViewDifficulty: TextView = view.findViewById(R.id.item_difficulty_overview)
+        val imageView: ImageView = view.findViewById(R.id.item_horseimage_overview)
 
     }
 
@@ -29,6 +33,10 @@ class HorseItemAdapter(private val context: HorseFragment, private val dataset: 
         val item = dataset[position]
         holder.textViewName.text = context.resources.getString(item.nameStringResourceId)
         holder.textViewHeight.text = context.resources.getString(item.heightStringResourceId)
+        holder.textViewRace.text = context.resources.getString(item.raceStringResourceId)
+        holder.textViewAge.text = context.resources.getString(item.ageStringResourceId)
+        holder.textViewColour.text = context.resources.getString(item.colourStringResourceId)
+        holder.textViewDifficulty.text = context.resources.getString(item.difficultyStringResourceId)
         holder.imageView.setImageResource(item.imageResourceId)
     }
 

@@ -48,4 +48,40 @@
     <string name="qualification4">Trainer B Westernreiten Leistungssport</string>
     <string name="qualification5">Pferdewirtschaftsmeister Spezialreitweisen Westernreiten</string>
 
+    <string name="race1">Quaterhorse</string>
+    <string name="race2">Deutsches Reitpony</string>
+    <string name="race3">Friesenpferde</string>
+    <string name="race4">Haflinger</string>
+    <string name="race5">Hannoveraner</string>
+    <string name="race6">Holsteiner Pferd</string>
+    <string name="race7">Islandpferd</string>
+    <string name="race8">Oldenburger</string>
+    <string name="race9">Pura Raza Espanola</string>
+
+    <string name="age1">7 Jahre</string>
+    <string name="age2">12 Jahre</string>
+    <string name="age3">14 Jahre</string>
+    <string name="age4">9 Jahre</string>
+    <string name="age5">17 Jahre</string>
+    <string name="age6">10 Jahre</string>
+    <string name="age7">8 Jahre</string>
+    <string name="age8">11 Jahre</string>
+    <string name="age9">19 Jahre</string>
+    <string name="age10">16 Jahre</string>
+
+    <string name="colour1">Red Roan</string>
+    <string name="colour2">Blue Roan</string>
+    <string name="colour3">Rappe</string>
+    <string name="colour4">Fuchs</string>
+    <string name="colour5">Palomino</string>
+    <string name="colour6">Braun</string>
+    <string name="colour7">Schimmel</string>
+    <string name="colour8">Schecke</string>
+
+    <string name="difficulty1">Anfänger</string>
+    <string name="difficulty2">Amateur</string>
+    <string name="difficulty3">Fortgeschritten</string>
+    <string name="difficulty4">Profi</string>
+
+
 </resources>
