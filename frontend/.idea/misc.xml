@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/i517970/OneDrive - SAP SE/6. Theoriesemester/Mobile Entwicklung/ready-to-ride/frontend/app/src/main/res/drawable/ic_banner_foreground.xml" value="0.222" />
+        <entry key="..\:/Users/i517970/OneDrive - SAP SE/6. Theoriesemester/Mobile Entwicklung/ready-to-ride/frontend/app/src/main/res/layout/activity_main.xml" value="0.17708333333333334" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>
