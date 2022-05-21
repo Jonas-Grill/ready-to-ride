@@ -61,7 +61,7 @@
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "horse response",
             "content": {
               "application/json": {
@@ -265,7 +265,7 @@
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "booking response",
             "content": {
               "application/json": {
@@ -276,7 +276,17 @@
             }
           },
           "400": {
-            "description": "bad request/Wrong data/Already reserved error",
+            "description": "bad request/Wrong data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "already reserved error",
             "content": {
               "application/json": {
                 "schema": {
@@ -404,9 +414,38 @@
         }
       }
     },
-    "/user": {
+    "/users": {
+      "get": {
+        "description": "Returns a list of users with the trainer role.",
+        "operationId": "find user by role",
+        "responses": {
+          "200": {
+            "description": "user response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TrainerModel"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
       "post": {
-        "description": "Creates a new user. Duplicates are allowed",
+        "description": "Creates a new user. Duplicates are allowed. Three different schemas based on the user role.",
         "operationId": "registerUser",
         "requestBody": {
           "description": "User to add",
@@ -414,18 +453,18 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserRegisterModel"
+                "$ref": "#/components/schemas/ExtendedUserModel"
               }
             }
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "horse response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HorseModel"
+                  "$ref": "#/components/schemas/ExtendedUserModel"
                 }
               }
             }
@@ -451,9 +490,242 @@
             }
           }
         }
+      },
+      "put": {
+        "description": "Updates the authorized user based on the provided Data. Only provide the data you want to update",
+        "operationId": "update user by email",
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Updated user data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExtendedUserModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "user response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtendedUserModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request/Wrong data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/user/login": {}
+    "/users/{id}": {
+      "get": {
+        "description": "Returns a user based on a single ID, if the user has access to the user",
+        "operationId": "find user by id",
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of horse to fetch",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtendedUserModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "description": "Authenticate using the credentials of an existing user.",
+        "operationId": "loginUser",
+        "requestBody": {
+          "description": "User to authenticate",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "horst.müller@pferde-liebhaber.de"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "e4wrgergverg"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "horse response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "gerpoimjkvmnoyidmkjv0ifrkvigerkigeorakjv98jdfbmpdskmoi"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No user with these credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stable": {
+      "get": {
+        "description": "Returns all stable infos from the system that the user has access to.\n",
+        "operationId": "findStable",
+        "responses": {
+          "200": {
+            "description": "Stable response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/StableModel"
+                      },
+                      {
+                        "$ref": "#/components/schemas/ExtendedStableModel"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "components": {
     "securitySchemes": {
@@ -571,7 +843,8 @@
         "required": [
           "email",
           "name",
-          "age"
+          "age",
+          "role"
         ],
         "properties": {
           "_id": {
@@ -582,6 +855,11 @@
           "email": {
             "type": "string",
             "example": "horst.müller@pferde-liebhaber.de"
+          },
+          "password": {
+            "type": "string",
+            "writeOnly": true,
+            "example": "fwrvwrvfdsv"
           },
           "name": {
             "type": "object",
@@ -599,10 +877,18 @@
           "age": {
             "type": "number",
             "example": 40
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "trainer",
+              "admin"
+            ]
           }
         }
       },
-      "UserRegisterModel": {
+      "TrainerModel": {
         "allOf": [
           {
             "$ref": "#/components/schemas/BaseUserModel"
@@ -610,34 +896,8 @@
           {
             "type": "object",
             "required": [
-              "accountRole"
-            ],
-            "properties": {
-              "accountRole": {
-                "type": "string",
-                "enum": [
-                  "User",
-                  "Trainer",
-                  "Admin"
-                ]
-              },
-              "rolePasscode": {
-                "type": "string",
-                "description": "only required if accountrole is Trainer or Admin. Needed to get access to these roles."
-              }
-            }
-          }
-        ]
-      },
-      "Trainer": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseUserModel"
-          },
-          {
-            "type": "object",
-            "required": [
-              "description"
+              "description",
+              "rolePasscode"
             ],
             "properties": {
               "description": {
@@ -685,12 +945,17 @@
                   "Anfänger",
                   "Fortgeschrittene"
                 ]
+              },
+              "rolePasscode": {
+                "type": "string",
+                "writeOnly": true,
+                "example": "vjvuivrgesdgs"
               }
             }
           }
         ]
       },
-      "User": {
+      "UserModel": {
         "allOf": [
           {
             "$ref": "#/components/schemas/BaseUserModel"
@@ -726,12 +991,54 @@
           }
         ]
       },
-      "Stable": {
+      "AdminModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseUserModel"
+          },
+          {
+            "type": "object",
+            "required": [
+              "rolePasscode"
+            ],
+            "properties": {
+              "rolePasscode": {
+                "writeOnly": true,
+                "type": "string",
+                "example": "4hz879erah"
+              }
+            }
+          }
+        ]
+      },
+      "ExtendedUserModel": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/UserModel"
+          },
+          {
+            "$ref": "#/components/schemas/AdminModel"
+          },
+          {
+            "$ref": "#/components/schemas/TrainerModel"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "role",
+          "mapping": {
+            "user:": "#/components/schemas/UserModel",
+            "trainer": "#/components/schemas/TrainerModel",
+            "admin": "#/components/schemas/AdminModel"
+          }
+        }
+      },
+      "StableModel": {
         "type": "object",
         "required": [
           "name",
           "description",
-          "arena_count"
+          "arenas",
+          "boxes"
         ],
         "properties": {
           "_id": {
@@ -747,15 +1054,37 @@
             "type": "string",
             "example": "Dies ein toller Stall des."
           },
-          "arena_count": {
-            "type": "integer",
-            "format": "int64",
-            "example": 2
+          "arenas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "name",
+                "size"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Halle 1"
+                },
+                "size": {
+                  "type": "number",
+                  "minimum": 0,
+                  "example": 100
+                }
+              }
+            }
           },
           "boxes": {
             "type": "array",
             "items": {
               "type": "object",
+              "required": [
+                "name",
+                "price",
+                "size",
+                "count"
+              ],
               "properties": {
                 "name": {
                   "type": "string",
@@ -778,6 +1107,28 @@
             }
           }
         }
+      },
+      "ExtendedStableModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/StableModel"
+          },
+          {
+            "type": "object",
+            "required": [
+              "adminPasscode",
+              "trainerPasscode"
+            ],
+            "properties": {
+              "adminPasscode": {
+                "type": "string"
+              },
+              "trainerPasscode": {
+                "type": "string"
+              }
+            }
+          }
+        ]
       },
       "News": {},
       "BookingModel": {
