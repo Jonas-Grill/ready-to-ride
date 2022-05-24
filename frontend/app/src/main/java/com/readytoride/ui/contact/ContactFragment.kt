@@ -29,4 +29,18 @@ class ContactFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
+    /*override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        findViewById(R.id.sentButton).setOnClickListener(this)
+    }
+
+    fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.sentButton -> {
+                // your code logic here
+            }
+        }
+    }*/
 }
