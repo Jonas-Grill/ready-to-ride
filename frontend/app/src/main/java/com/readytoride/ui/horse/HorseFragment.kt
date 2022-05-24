@@ -6,7 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.readytoride.R
 
 class HorseFragment : Fragment() {
@@ -37,6 +41,6 @@ class HorseFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_horse)
         recyclerView.adapter = HorseItemAdapter(this, myDataset)
         recyclerView.setHasFixedSize(true)
-    }
 
+    }
 }

@@ -12,7 +12,7 @@
     <string name="menu_lessons">Reitstunden buchen</string>
     <string name="menu_profile">Profil</string>
     <string name="menu_contact">Kontakt</string>
-
+    <string name="book_lesson">Jetzt Reitstunde buchen</string>
 
     <string name="horsename1">Steve</string>
     <string name="horsename2">Polly</string>
@@ -82,6 +82,7 @@
     <string name="difficulty2">Amateur</string>
     <string name="difficulty3">Fortgeschritten</string>
     <string name="difficulty4">Profi</string>
+    <string name="horse_details">Mehr erfahren</string>
 
 
 </resources>

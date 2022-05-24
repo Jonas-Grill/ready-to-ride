@@ -18,7 +18,7 @@
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_horse.xml" value="0.26666666666666666" />
-        <entry key="app/src/main/res/layout/fragment_horse_detail.xml" value="0.297966954615209" />
+        <entry key="app/src/main/res/layout/fragment_horse_detail.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2028985507246377" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_stable.xml" value="0.2028985507246377" />

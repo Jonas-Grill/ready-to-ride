@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:textAppearance="?attr/textAppearanceHeadline5"
-                tools:text="Pferdname" />
+                tools:text="Trainername" />
 
             <TextView
                 android:id="@+id/item_qualification"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                tools:text="167 cm" />
+                tools:text="Qualification" />
 
         </LinearLayout>
 

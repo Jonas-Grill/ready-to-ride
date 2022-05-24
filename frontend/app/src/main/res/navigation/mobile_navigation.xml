@@ -15,7 +15,11 @@
         android:id="@+id/nav_horses"
         android:name="com.readytoride.ui.horse.HorseFragment"
         android:label="@string/menu_horses"
-        tools:layout="@layout/fragment_horse" />
+        tools:layout="@layout/fragment_horse" >
+        <action
+            android:id="@+id/action_nav_horses_to_nav_horse_detail"
+            app:destination="@id/nav_horse_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_trainer"
@@ -46,4 +50,9 @@
         android:name="com.readytoride.ui.contact.ContactFragment"
         android:label="@string/menu_contact"
         tools:layout="@layout/fragment_contact" />
+
+    <fragment
+        android:id="@+id/nav_horse_detail"
+        android:name="com.readytoride.ui.horsedetail.HorseDetail"
+        tools:layout="@layout/fragment_horse_detail" />
 </navigation>
