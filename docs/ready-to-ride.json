@@ -262,7 +262,7 @@
     "/horses/{id}/calender": {
       "get": {
         "description": "Get all bookings from the horse with the specified id.",
-        "operationId": "find booking by booker and items",
+        "operationId": "find booking by horse",
         "tags": [
           "Horses"
         ],
@@ -768,7 +768,7 @@
     "/users/{id}/calender": {
       "get": {
         "description": "Get all bookings from the user with the specified id.",
-        "operationId": "find booking by booker and items",
+        "operationId": "find booking by user",
         "tags": [
           "Users"
         ],
@@ -991,7 +991,7 @@
     "/stable/arena/{name}/calender": {
       "get": {
         "description": "Get all bookings from the arena with the specified name.",
-        "operationId": "find booking by booker and items",
+        "operationId": "find booking by arena",
         "tags": [
           "Users"
         ],
