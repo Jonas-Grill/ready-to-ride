@@ -15,6 +15,9 @@
       "get": {
         "description": "Returns all horses from the system that the user has access to.\n",
         "operationId": "findHorses",
+        "tags": [
+          "Horses"
+        ],
         "responses": {
           "200": {
             "description": "Horse list response",
@@ -44,6 +47,9 @@
       "post": {
         "description": "Creates a new horse. Duplicates are allowed",
         "operationId": "addHorse",
+        "tags": [
+          "Horses"
+        ],
         "security": [
           {
             "JWTAuth": []
@@ -98,6 +104,9 @@
       "get": {
         "description": "Returns a horse based on a single ID, if the user has access to the horse",
         "operationId": "find horse by id",
+        "tags": [
+          "Horses"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -146,6 +155,9 @@
       "put": {
         "description": "Updates a horse based on a single ID and the provided Data, if the user has access to the horse. Only provide the data you want to update",
         "operationId": "update horse by id",
+        "tags": [
+          "Horses"
+        ],
         "security": [
           {
             "JWTAuth": []
@@ -210,6 +222,9 @@
       "delete": {
         "description": "deletes a single horse based on the ID supplied",
         "operationId": "deleteHorse",
+        "tags": [
+          "Horses"
+        ],
         "security": [
           {
             "JWTAuth": []
@@ -244,26 +259,30 @@
         }
       }
     },
-    "/bookings": {
-      "post": {
-        "description": "Creates a new booking request. Duplicates are allowed",
-        "operationId": "addBooking",
+    "/horses/{id}/calender": {
+      "get": {
+        "description": "Get all bookings from the horse with the specified id.",
+        "operationId": "find booking by booker and items",
+        "tags": [
+          "Horses"
+        ],
         "security": [
           {
             "JWTAuth": []
           }
         ],
-        "requestBody": {
-          "description": "Booking to add",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BookingModel"
-              }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of horse to fetch",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
             }
           }
-        },
+        ],
         "responses": {
           "201": {
             "description": "booking response",
@@ -271,26 +290,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BookingModel"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "bad request/Wrong data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "already reserved error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -318,10 +317,80 @@
         }
       }
     },
+    "/bookings": {
+      "post": {
+        "description": "Creates a new booking request. Duplicates are allowed",
+        "operationId": "addBooking",
+        "tags": [
+          "Bookings"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Booking to add",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExtendedBookingModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "booking response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtendedBookingModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request/Wrong data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "already reserved error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/bookings/{id}": {
       "delete": {
         "description": "Cancels a booking",
         "operationId": "deleteBooking",
+        "tags": [
+          "Bookings"
+        ],
         "security": [
           {
             "JWTAuth": []
@@ -370,6 +439,9 @@
       "post": {
         "description": "Accepts a booking request",
         "operationId": "acceptBooking",
+        "tags": [
+          "Bookings"
+        ],
         "security": [
           {
             "JWTAuth": []
@@ -418,6 +490,9 @@
       "get": {
         "description": "Returns a list of users with the trainer role. The access on other users is restricted.",
         "operationId": "find user by role",
+        "tags": [
+          "Users"
+        ],
         "responses": {
           "200": {
             "description": "user response",
@@ -447,6 +522,9 @@
       "post": {
         "description": "Creates a new user. Duplicates are allowed. Three different schemas based on the user role.",
         "operationId": "registerUser",
+        "tags": [
+          "Users"
+        ],
         "requestBody": {
           "description": "User to add",
           "required": true,
@@ -494,6 +572,9 @@
       "put": {
         "description": "Updates the authorized user based on the provided Data. Only provide the data you want to update",
         "operationId": "update user by email",
+        "tags": [
+          "Users"
+        ],
         "security": [
           {
             "JWTAuth": []
@@ -558,6 +639,9 @@
       "get": {
         "description": "Returns a user based on a single ID, if the user has access to the user",
         "operationId": "find user by id",
+        "tags": [
+          "Users"
+        ],
         "security": [
           {
             "JWTAuth": []
@@ -621,6 +705,9 @@
       "put": {
         "description": "Updates a user. Three different schemas based on the user role. Only Updates provided data.",
         "operationId": "updateUser",
+        "tags": [
+          "Users"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -678,10 +765,71 @@
         }
       }
     },
+    "/users/{id}/calender": {
+      "get": {
+        "description": "Get all bookings from the user with the specified id.",
+        "operationId": "find booking by booker and items",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user to fetch",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "booking response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/login": {
       "post": {
         "description": "Authenticate using the credentials of an existing user.",
         "operationId": "loginUser",
+        "tags": [
+          "Users"
+        ],
         "requestBody": {
           "description": "Credentials of user to authenticate",
           "required": true,
@@ -751,6 +899,9 @@
       "get": {
         "description": "Returns all stable infos from the system that the user has access to.\n",
         "operationId": "findStable",
+        "tags": [
+          "Stable"
+        ],
         "responses": {
           "200": {
             "description": "Stable response",
@@ -785,6 +936,9 @@
       "put": {
         "description": "Updates stable data.\n",
         "operationId": "updateStable",
+        "tags": [
+          "Stable"
+        ],
         "security": [
           {
             "JWTAuth": []
@@ -807,6 +961,175 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ExtendedStableModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request/Wrong data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stable/arena/{name}/calender": {
+      "get": {
+        "description": "Get all bookings from the arena with the specified name.",
+        "operationId": "find booking by booker and items",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Name of arena to fetch",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Arena 1"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "booking response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news": {
+      "get": {
+        "description": "Returns all News from the system that are addressed to the user.\n",
+        "operationId": "findNews",
+        "tags": [
+          "News"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "maximum number of results to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page of result",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "News list response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/News"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Post a new news. Duplicates are allowed",
+        "operationId": "addNews",
+        "tags": [
+          "News"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "News to add",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/News"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "news response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/News"
                 }
               }
             }
@@ -953,7 +1276,8 @@
           "email",
           "name",
           "age",
-          "role"
+          "role",
+          "password"
         ],
         "properties": {
           "_id": {
@@ -972,6 +1296,10 @@
           },
           "name": {
             "type": "object",
+            "required": [
+              "firstName",
+              "lastName"
+            ],
             "properties": {
               "firstName": {
                 "type": "string",
@@ -989,6 +1317,7 @@
           },
           "role": {
             "type": "string",
+            "writeOnly": true,
             "enum": [
               "user",
               "trainer",
@@ -1001,6 +1330,38 @@
         "allOf": [
           {
             "$ref": "#/components/schemas/BaseUserModel"
+          },
+          {
+            "type": "object",
+            "required": [
+              "focus"
+            ],
+            "properties": {
+              "focus": {
+                "type": "string",
+                "enum": [
+                  "Kinder",
+                  "Erwachsene",
+                  "Turnierreiter",
+                  "Anfänger",
+                  "Fortgeschrittene"
+                ]
+              },
+              "profilePicture": {
+                "type": "string",
+                "example": "611d5cd230dd29fc60df7b94"
+              }
+            }
+          }
+        ]
+      },
+      "ExtendedTrainerModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseUserModel"
+          },
+          {
+            "$ref": "#/components/schemas/TrainerModel"
           },
           {
             "type": "object",
@@ -1045,15 +1406,12 @@
                   }
                 }
               },
-              "focus": {
-                "type": "string",
-                "enum": [
-                  "Kinder",
-                  "Erwachsene",
-                  "Turnierreiter",
-                  "Anfänger",
-                  "Fortgeschrittene"
-                ]
+              "pictures": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "example": "611d5cd230dd29fc60df7b94"
+                }
               },
               "rolePasscode": {
                 "type": "string",
@@ -1129,7 +1487,7 @@
             "$ref": "#/components/schemas/AdminModel"
           },
           {
-            "$ref": "#/components/schemas/TrainerModel"
+            "$ref": "#/components/schemas/ExtendedTrainerModel"
           }
         ],
         "discriminator": {
@@ -1243,7 +1601,8 @@
         "type": "object",
         "required": [
           "caption",
-          "text"
+          "text",
+          "addressees"
         ],
         "properties": {
           "_id": {
@@ -1286,14 +1645,17 @@
         "type": "object",
         "required": [
           "timeslot",
-          "booker",
-          "items"
+          "name"
         ],
         "properties": {
           "_id": {
             "type": "string",
             "readOnly": true,
             "example": "611d5cd230dd29fc60df7b94"
+          },
+          "name": {
+            "type": "string",
+            "example": "Reitstunde"
           },
           "timeslot": {
             "type": "object",
@@ -1313,25 +1675,41 @@
                 "example": "2015-10-26T09:46:36.611Z"
               }
             }
+          }
+        }
+      },
+      "ExtendedBookingModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BookingModel"
           },
-          "booker": {
-            "type": "string",
-            "readOnly": true,
-            "example": "Anne"
-          },
-          "items": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
+          {
+            "type": "object",
+            "required": [
+              "booker",
+              "items"
+            ],
+            "properties": {
+              "booker": {
+                "type": "string",
+                "readOnly": true,
+                "example": "Anne"
+              },
+              "items": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
           }
-        }
+        ]
       },
       "Error": {
         "type": "object",
