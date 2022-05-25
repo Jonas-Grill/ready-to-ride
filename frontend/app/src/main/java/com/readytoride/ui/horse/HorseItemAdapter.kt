@@ -17,9 +17,10 @@ import com.readytoride.MainActivity
 import com.readytoride.R
 import com.readytoride.ui.horsedetail.HorseDetailViewModel
 
-class HorseItemAdapter(private val context: HorseFragment, private val dataset: List<Horse>) : RecyclerView.Adapter<HorseItemAdapter.ItemViewHolder>(), View.OnClickListener{
+class HorseItemAdapter(private val context: HorseFragment, private val dataset: List<Horse>) :
+    RecyclerView.Adapter<HorseItemAdapter.ItemViewHolder>(), View.OnClickListener {
 
-    class ItemViewHolder( val view: View) : RecyclerView.ViewHolder(view) {
+    class ItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val textViewName: TextView = view.findViewById(R.id.item_horsename_overview)
         val textViewHeight: TextView = view.findViewById(R.id.item_horseheight_overview)
         val textViewRace: TextView = view.findViewById(R.id.item_race_overview)
@@ -45,7 +46,8 @@ class HorseItemAdapter(private val context: HorseFragment, private val dataset: 
         holder.textViewRace.text = context.resources.getString(item.raceStringResourceId)
         holder.textViewAge.text = context.resources.getString(item.ageStringResourceId)
         holder.textViewColour.text = context.resources.getString(item.colourStringResourceId)
-        holder.textViewDifficulty.text = context.resources.getString(item.difficultyStringResourceId)
+        holder.textViewDifficulty.text =
+            context.resources.getString(item.difficultyStringResourceId)
         holder.imageView.setImageResource(item.imageResourceId[0])
 
         holder.button.tooltipText = context.resources.getString(item.horseId)

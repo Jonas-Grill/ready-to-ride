@@ -47,12 +47,13 @@ class TrainerDetail : Fragment() {
         val textViewTrainername: TextView = view.findViewById(R.id.item_trainername_detail)
         val textViewAge: TextView = view.findViewById(R.id.item_age_trainer_detail)
         val textViewFocus: TextView = view.findViewById(R.id.item_focus_trainer_detail)
-        val textViewQualification: TextView = view.findViewById(R.id.item_qualification_trainer_detail)
+        val textViewQualification: TextView =
+            view.findViewById(R.id.item_qualification_trainer_detail)
         val textViewDescription: TextView = view.findViewById(R.id.item_description_trainer_detail)
 
         val index: Int = trainerId.toInt()
 
-        val trainer = TrainerDatasource().loadTrainer()[index-1]
+        val trainer = TrainerDatasource().loadTrainer()[index - 1]
 
         textViewTrainername.text = getString(trainer.trainerStringResourceId)
         textViewAge.text = getString(trainer.ageStringResourceId)

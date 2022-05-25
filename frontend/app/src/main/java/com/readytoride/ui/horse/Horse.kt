@@ -3,7 +3,8 @@ package com.readytoride.ui.horse
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
-class Horse(@StringRes val horseId : Int,
+class Horse(
+    @StringRes val horseId: Int,
             @StringRes val nameStringResourceId: Int,
             @StringRes val heightStringResourceId: Int,
             @StringRes val raceStringResourceId: Int,

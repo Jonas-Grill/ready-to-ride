@@ -7,14 +7,20 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
 
-class AchievementsItemAdapter (private val context: TrainerDetail, private val dataset: List<List<Int>>) : RecyclerView.Adapter<AchievementsItemAdapter.ItemViewHolder>(){
+class AchievementsItemAdapter(
+    private val context: TrainerDetail,
+    private val dataset: List<List<Int>>
+) : RecyclerView.Adapter<AchievementsItemAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val textViewDate: TextView = view.findViewById(R.id.item_achievement_date)
         val textViewAchievement: TextView = view.findViewById(R.id.item_achievement_name)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AchievementsItemAdapter.ItemViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): AchievementsItemAdapter.ItemViewHolder {
         // create a new view
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_trainer_achievements, parent, false)

@@ -15,7 +15,7 @@
         android:id="@+id/nav_horses"
         android:name="com.readytoride.ui.horse.HorseFragment"
         android:label="@string/menu_horses"
-        tools:layout="@layout/fragment_horse" >
+        tools:layout="@layout/fragment_horse">
         <action
             android:id="@+id/action_nav_horses_to_nav_horse_detail"
             app:destination="@id/nav_horse_detail" />
@@ -25,7 +25,7 @@
         android:id="@+id/nav_trainer"
         android:name="com.readytoride.ui.trainer.TrainerFragment"
         android:label="@string/menu_trainer"
-        tools:layout="@layout/fragment_trainer" >
+        tools:layout="@layout/fragment_trainer">
         <action
             android:id="@+id/action_nav_trainer_to_trainerDetail2"
             app:destination="@id/trainerDetail2" />
@@ -58,7 +58,7 @@
     <fragment
         android:id="@+id/nav_horse_detail"
         android:name="com.readytoride.ui.horsedetail.HorseDetail"
-        tools:layout="@layout/fragment_horse_detail" >
+        tools:layout="@layout/fragment_horse_detail">
         <argument
             android:name="horseId"
             app:argType="string" />
@@ -67,7 +67,7 @@
         android:id="@+id/trainerDetail2"
         android:name="com.readytoride.ui.trainerdetail.TrainerDetail"
         android:label="@string/menu_trainer"
-        tools:layout="@layout/fragment_trainer_detail" >
+        tools:layout="@layout/fragment_trainer_detail">
         <argument
             android:name="trainerId"
             app:argType="string" />

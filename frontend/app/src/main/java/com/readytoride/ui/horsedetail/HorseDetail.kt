@@ -51,7 +51,7 @@ class HorseDetail : Fragment() {
 
         val index: Int = horseId.toInt()
 
-        val horse = HorseDatasource().loadHorses()[index-1]
+        val horse = HorseDatasource().loadHorses()[index - 1]
 
         textViewHorsename.text = getString(horse.nameStringResourceId)
         textViewHeight.text = getString(horse.heightStringResourceId)

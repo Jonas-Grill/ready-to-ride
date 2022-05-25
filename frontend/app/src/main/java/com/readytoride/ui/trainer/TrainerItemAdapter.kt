@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
 import com.readytoride.ui.horse.HorseFragmentDirections
 
-class TrainerItemAdapter(private val context: TrainerFragment, private val dataset: List<Trainer>) : RecyclerView.Adapter<TrainerItemAdapter.ItemViewHolder>(), View.OnClickListener {
+class TrainerItemAdapter(private val context: TrainerFragment, private val dataset: List<Trainer>) :
+    RecyclerView.Adapter<TrainerItemAdapter.ItemViewHolder>(), View.OnClickListener {
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val textViewName: TextView = view.findViewById(R.id.item_trainer)

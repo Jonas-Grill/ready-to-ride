@@ -63,7 +63,7 @@
                                 android:layout_height="wrap_content"
                                 android:paddingStart="8dp"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                tools:text="37 Jahre"/>
+                                tools:text="37 Jahre" />
 
                         </LinearLayout>
 
@@ -87,7 +87,7 @@
                                 android:layout_height="wrap_content"
                                 android:paddingStart="8dp"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                tools:text="Anfänger"/>
+                                tools:text="Anfänger" />
 
                         </LinearLayout>
 
@@ -146,8 +146,8 @@
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         app:iss_auto_cycle="true"
-                        app:iss_period="5000"
-                        app:iss_delay="0"/>
+                        app:iss_delay="0"
+                        app:iss_period="5000" />
 
                 </LinearLayout>
 

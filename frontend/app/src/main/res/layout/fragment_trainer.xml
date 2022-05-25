@@ -10,6 +10,6 @@
         android:id="@+id/recycler_view_trainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="GridLayoutManager"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical"
+        app:layoutManager="GridLayoutManager" />
 </FrameLayout>
