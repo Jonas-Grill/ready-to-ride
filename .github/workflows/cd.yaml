@@ -21,7 +21,7 @@ jobs:
         uses: Legion2/swagger-ui-action@v1
         with:
           output: swagger-ui
-          spec-file: ./docs/ready-to-ride.json
+          spec-file: ready-to-ride.json
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
