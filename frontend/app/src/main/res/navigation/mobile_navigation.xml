@@ -54,5 +54,9 @@
     <fragment
         android:id="@+id/nav_horse_detail"
         android:name="com.readytoride.ui.horsedetail.HorseDetail"
-        tools:layout="@layout/fragment_horse_detail" />
+        tools:layout="@layout/fragment_horse_detail" >
+        <argument
+            android:name="horseId"
+            app:argType="string" />
+    </fragment>
 </navigation>

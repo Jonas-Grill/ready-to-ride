@@ -1,17 +1,21 @@
 package com.readytoride.ui.horse
 
 import android.content.Intent
+import android.graphics.Path
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
+import com.readytoride.MainActivity
 import com.readytoride.R
+import com.readytoride.ui.horsedetail.HorseDetailViewModel
 
 class HorseItemAdapter(private val context: HorseFragment, private val dataset: List<Horse>) : RecyclerView.Adapter<HorseItemAdapter.ItemViewHolder>(), View.OnClickListener{
 
@@ -42,19 +46,19 @@ class HorseItemAdapter(private val context: HorseFragment, private val dataset: 
         holder.textViewAge.text = context.resources.getString(item.ageStringResourceId)
         holder.textViewColour.text = context.resources.getString(item.colourStringResourceId)
         holder.textViewDifficulty.text = context.resources.getString(item.difficultyStringResourceId)
-        holder.imageView.setImageResource(item.imageResourceId)
+        holder.imageView.setImageResource(item.imageResourceId[0])
 
-        holder.button.setOnClickListener {
-            holder.button.setOnClickListener(this);
+        holder.button.tooltipText = context.resources.getString(item.horseId)
 
-        }
-
+        holder.button.setOnClickListener(this)
 
     }
 
     override fun getItemCount() = dataset.size
 
     override fun onClick(view: View) {
-        Navigation.findNavController(view).navigate(R.id.action_nav_horses_to_nav_horse_detail)
+        val horseid: String = view.tooltipText.toString()
+        val action = HorseFragmentDirections.actionNavHorsesToNavHorseDetail(horseid)
+        view.findNavController().navigate(action)
     }
 }
