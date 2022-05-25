@@ -6,7 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
+import com.readytoride.ui.horse.HorseDatasource
+import com.readytoride.ui.horse.HorseItemAdapter
 
 class TrainerFragment : Fragment() {
 
@@ -27,6 +30,14 @@ class TrainerFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(TrainerViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val myDataset = TrainerDatasource().loadTrainer()
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_trainer)
+        recyclerView.adapter = TrainerItemAdapter(this, myDataset)
+        recyclerView.setHasFixedSize(true)
     }
 
 }
