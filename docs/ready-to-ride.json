@@ -416,7 +416,7 @@
     },
     "/users": {
       "get": {
-        "description": "Returns a list of users with the trainer role.",
+        "description": "Returns a list of users with the trainer role. The access on other users is restricted.",
         "operationId": "find user by role",
         "responses": {
           "200": {
@@ -567,7 +567,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of horse to fetch",
+            "description": "ID of user to fetch",
             "required": true,
             "schema": {
               "type": "string",
@@ -617,6 +617,65 @@
             }
           }
         }
+      },
+      "put": {
+        "description": "Updates a user. Three different schemas based on the user role. Only Updates provided data.",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user to update",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "User to update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExtendedUserModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "user response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtendedUserModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request/Wrong data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/users/login": {
@@ -624,7 +683,7 @@
         "description": "Authenticate using the credentials of an existing user.",
         "operationId": "loginUser",
         "requestBody": {
-          "description": "User to authenticate",
+          "description": "Credentials of user to authenticate",
           "required": true,
           "content": {
             "application/json": {
@@ -650,7 +709,7 @@
         },
         "responses": {
           "200": {
-            "description": "horse response",
+            "description": "token response",
             "content": {
               "application/json": {
                 "schema": {
@@ -698,17 +757,66 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "oneOf": [
-                      {
-                        "$ref": "#/components/schemas/StableModel"
-                      },
-                      {
-                        "$ref": "#/components/schemas/ExtendedStableModel"
-                      }
-                    ]
-                  }
+                  "type": "object",
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StableModel"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ExtendedStableModel"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Updates stable data.\n",
+        "operationId": "updateStable",
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Data to Update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExtendedStableModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Stable response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtendedStableModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request/Wrong data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -776,6 +884,7 @@
         ],
         "properties": {
           "_id": {
+            "uniqueItems": false,
             "type": "string",
             "readOnly": true,
             "example": "611d5cd230dd29fc60df7b94"
@@ -1130,7 +1239,49 @@
           }
         ]
       },
-      "News": {},
+      "News": {
+        "type": "object",
+        "required": [
+          "caption",
+          "text"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "readOnly": true,
+            "example": "611d5cd230dd29fc60df7b94"
+          },
+          "caption": {
+            "type": "string",
+            "example": "Pferd hat krassen kram geschafft"
+          },
+          "text": {
+            "type": "string",
+            "example": "Pferd das krass sein tut hat auf krassem Tunier gewonnen mit dem Trainer xyz."
+          },
+          "addressees": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Role of addressees",
+                  "enum": [
+                    "user",
+                    "trainer",
+                    "admin"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "description": "E-Mail of addressee",
+                  "example": "horst.müller@pferde-liebhaber.de"
+                }
+              ]
+            }
+          }
+        }
+      },
       "BookingModel": {
         "type": "object",
         "required": [
