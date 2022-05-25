@@ -1,0 +1,30 @@
+name: CD
+
+on:
+  push:
+    branches: [ openapi-specification ]
+
+permissions:
+  contents: write
+
+jobs:
+  docu-generation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: openapi-specification
+
+      - name: Generate Swagger UI
+        uses: Legion2/swagger-ui-action@v1
+        with:
+          output: swagger-ui
+          spec-file: ./docs/ready-to-ride.json
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: swagger-ui
