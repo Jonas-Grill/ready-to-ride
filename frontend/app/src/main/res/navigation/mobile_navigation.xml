@@ -25,7 +25,11 @@
         android:id="@+id/nav_trainer"
         android:name="com.readytoride.ui.trainer.TrainerFragment"
         android:label="@string/menu_trainer"
-        tools:layout="@layout/fragment_trainer" />
+        tools:layout="@layout/fragment_trainer" >
+        <action
+            android:id="@+id/action_nav_trainer_to_trainerDetail2"
+            app:destination="@id/trainerDetail2" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_stable"
@@ -57,6 +61,15 @@
         tools:layout="@layout/fragment_horse_detail" >
         <argument
             android:name="horseId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/trainerDetail2"
+        android:name="com.readytoride.ui.trainerdetail.TrainerDetail"
+        android:label="@string/menu_trainer"
+        tools:layout="@layout/fragment_trainer_detail" >
+        <argument
+            android:name="trainerId"
             app:argType="string" />
     </fragment>
 </navigation>

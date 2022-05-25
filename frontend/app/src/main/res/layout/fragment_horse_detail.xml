@@ -28,7 +28,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="8dp"
-                    android:text="TextView"
                     android:textAppearance="?attr/textAppearanceHeadline5"
                     tools:text="Pferdename" />
 
@@ -87,7 +86,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingStart="8dp"
-                                android:text="TextView"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                 tools:text="Quaterhorse" />
                         </LinearLayout>
@@ -191,7 +189,7 @@
                     </LinearLayout>
 
                     <com.denzcoskun.imageslider.ImageSlider
-                        android:id="@+id/imageView3"
+                        android:id="@+id/imageSliderTrainer"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         app:iss_auto_cycle="true"

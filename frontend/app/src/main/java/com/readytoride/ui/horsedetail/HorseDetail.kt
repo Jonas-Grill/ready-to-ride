@@ -1,6 +1,5 @@
 package com.readytoride.ui.horsedetail
 
-import android.os.Build.ID
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.navArgs
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
@@ -19,21 +17,12 @@ import com.readytoride.ui.horse.HorseViewModel
 class HorseDetail : Fragment() {
 
     companion object {
-        //var HORSE = "horse"
         fun newInstance() = HorseDetail()
     }
 
-    private lateinit var viewModel: HorseViewModel
+    private lateinit var viewModel: HorseDetailViewModel
     private lateinit var horseId: String
     val args: HorseDetailArgs by navArgs<HorseDetailArgs>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        /*arguments?.let {
-            horseId = it.getString(HORSE).toString()
-        }*/
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +34,7 @@ class HorseDetail : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HorseViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(HorseDetailViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
@@ -78,7 +67,7 @@ class HorseDetail : Fragment() {
             imageList.add(SlideModel(image))
         }
 
-        val imageSlider = view.findViewById<ImageSlider>(R.id.imageView3)
+        val imageSlider = view.findViewById<ImageSlider>(R.id.imageSliderTrainer)
         imageSlider.setImageList(imageList)
 
     }

@@ -8,8 +8,12 @@
         <entry key="app/src/main/res/drawable/ic_baseline_category_24.xml" value="0.21" />
         <entry key="app/src/main/res/drawable/ic_baseline_color_lens_24.xml" value="0.21" />
         <entry key="app/src/main/res/drawable/ic_baseline_description_24.xml" value="0.2755" />
+        <entry key="app/src/main/res/drawable/ic_baseline_fitness_center_24.xml" value="0.3095" />
         <entry key="app/src/main/res/drawable/ic_baseline_height_24.xml" value="0.21" />
+        <entry key="app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2835" />
+        <entry key="app/src/main/res/drawable/ic_baseline_school_24.xml" value="0.2835" />
         <entry key="app/src/main/res/drawable/ic_baseline_speed_24.xml" value="0.21" />
+        <entry key="app/src/main/res/drawable/ic_horse_human.xml" value="0.2835" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.138" />
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.1355" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
@@ -18,14 +22,16 @@
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_horse.xml" value="0.26666666666666666" />
-        <entry key="app/src/main/res/layout/fragment_horse_detail.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/fragment_horse_detail.xml" value="0.30227203369140626" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2028985507246377" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_stable.xml" value="0.2028985507246377" />
         <entry key="app/src/main/res/layout/fragment_trainer.xml" value="0.2028985507246377" />
+        <entry key="app/src/main/res/layout/fragment_trainer_detail.xml" value="0.18251928020565553" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.75" />
-        <entry key="app/src/main/res/layout/list_item_horse.xml" value="0.375" />
-        <entry key="app/src/main/res/layout/list_item_trainer.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/layout/list_item_horse.xml" value="0.4330245971679688" />
+        <entry key="app/src/main/res/layout/list_item_trainer.xml" value="0.25448028673835127" />
+        <entry key="app/src/main/res/layout/list_item_trainer_achievements.xml" value="0.24398625429553264" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/menu/main.xml" value="0.15520833333333334" />

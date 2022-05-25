@@ -68,7 +68,10 @@
     <string name="age7">8 Jahre</string>
     <string name="age8">11 Jahre</string>
     <string name="age9">19 Jahre</string>
-    <string name="age10">16 Jahre</string>
+    <string name="age10">27 Jahre</string>
+    <string name="age11">51 Jahre</string>
+    <string name="age12">36 Jahre</string>
+    <string name="age13">32 Jahre</string>
 
     <string name="colour1">Red Roan</string>
     <string name="colour2">Blue Roan</string>
@@ -89,6 +92,11 @@
     <string name="description3">Dieses Pferd ist sehr gemütlich und bewegt sich nur, wenn es  unbedingt muss.</string>
     <string name="description4">Dieses Pferd hat bereits in Bibi und Tina mitgespielt.</string>
     <string name="description5">Dieses Pferd kann sehr einfach mit Äpfeln bestochen werden.</string>
+    <string name="description6">Das ist ein toller Trainer. Er ist sehr kompetent.</string>
+    <string name="description7">Dieser Trainer ist noch besser. Er hat sehr viel Erfahrung.</string>
+    <string name="description8">Dieser Trainer liebt Ausritte und Pferde streicheln.</string>
+    <string name="description9">Mit diesem Trainer kann man sehr viel Spaß haben.</string>
+    <string name="description10">Dieser Trainer kann dir ganz viel cooles Zeug beibringen.</string>
 
     <string name="id1">1</string>
     <string name="id2">2</string>
@@ -100,6 +108,24 @@
     <string name="id8">8</string>
     <string name="id9">9</string>
     <string name="id10">10</string>
+
+    <string name="focus1">Kinder</string>
+    <string name="focus2">Erwachsene</string>
+    <string name="focus3">Turnierreiter</string>
+    <string name="focus4">Anfänger</string>
+    <string name="focus5">Fortgeschrittene</string>
+    <string name="achievements">Erfolge</string>
+
+    <string name="date1">25.04.2019</string>
+    <string name="date2">21.07.2018</string>
+    <string name="date3">03.05.2016</string>
+    <string name="date4">28.02.2016</string>
+    <string name="date5">13.08.2014</string>
+
+    <string name="achievement1">Deutscher Meister Senior Reining</string>
+    <string name="achievement2">Deutscher Meister Senior Trail</string>
+    <string name="achievement3">Deutscher Meister Senior Horsemanship</string>
+    <string name="achievement4">Deutscher Meister Senior Showmanship</string>
 
 
 </resources>

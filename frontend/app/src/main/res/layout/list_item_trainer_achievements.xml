@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.trainerdetail.TrainerDetail">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/item_achievement_date"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            tools:text="DD.MM.YYYY" />
+
+        <TextView
+            android:id="@+id/item_achievement_name"
+            android:layout_width="300dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:hyphenationFrequency="normal"
+            android:paddingLeft="32dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            tools:text="Deutscher Meister in allem Möglichen" />
+    </LinearLayout>
+
+</FrameLayout>
