@@ -13,7 +13,7 @@ const instanceOfAlgorithm = (algorithm: string): algorithm is Algorithm => {
 const DENO_DIR = Deno.env.get('DENO_DIR') || "/packages";
 const PORT = parseInt(Deno.env.get('SERVER_PORT') || "8008");
 const ENV = Deno.env.get('ENVIRONMENT') || "dev";
-const DB_LINK = (ENV === "dev" ? Deno.env.get('DB_LINK_DEV') : Deno.env.get('DB_LINK_PROD')) || "";
+const DB_LINK = Deno.env.get('DB_LINK') || "";
 
 const tmp = Deno.env.get('SIGN_ALG') || "RS256";
 

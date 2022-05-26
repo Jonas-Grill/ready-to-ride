@@ -5,8 +5,8 @@ import {Proficiency} from "../types/proficiency.ts";
 
 export default interface UserSchema {
     // Base User
-    _id: Bson.ObjectId;
-    eMail: string;
+    _id?: Bson.ObjectId;
+    email: string;
     password: string;
     name: {
         firstName: string;
@@ -30,5 +30,4 @@ export default interface UserSchema {
     weight?: number;
     height?: number;
     proficiency?: Proficiency;
-
 }
