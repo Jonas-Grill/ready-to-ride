@@ -317,6 +317,111 @@
         }
       }
     },
+    "/horses/races": {
+      "get": {
+        "description": "Returns all horse races from the system.",
+        "operationId": "findHorseRaces",
+        "tags": [
+          "Horses"
+        ],
+        "responses": {
+          "200": {
+            "description": "Horse race list response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": "Quarterhorse"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/horses/colours": {
+      "get": {
+        "description": "Returns all horse colours from the system.",
+        "operationId": "findHorseColours",
+        "tags": [
+          "Horses"
+        ],
+        "responses": {
+          "200": {
+            "description": "Horse colour list response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": "Read Roan"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/horses/levels": {
+      "get": {
+        "description": "Returns all horse difficulty levels from the system.",
+        "operationId": "findHorseLevels",
+        "tags": [
+          "Horses"
+        ],
+        "responses": {
+          "200": {
+            "description": "Horse level list response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": "Anfänger"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/bookings": {
       "post": {
         "description": "Creates a new booking request. Duplicates are allowed",
@@ -744,6 +849,111 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/roles": {
+      "get": {
+        "description": "Returns all user roles from the system.",
+        "operationId": "findUserRoles",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "User roles list response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": "Trainer"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/focuses": {
+      "get": {
+        "description": "Returns all trainer focuses from the system.",
+        "operationId": "findUserFocuses",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "User focuses list response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": "Kinder"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/proficiencies": {
+      "get": {
+        "description": "Returns all user proficiencies from the system.",
+        "operationId": "findUserProficiencies",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "User proficiencies list response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": "Turnierreiter"
+                  }
                 }
               }
             }
