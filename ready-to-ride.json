@@ -701,68 +701,6 @@
             }
           }
         }
-      },
-      "put": {
-        "description": "Updates a user. Three different schemas based on the user role. Only Updates provided data.",
-        "operationId": "updateUser",
-        "tags": [
-          "Users"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of user to update",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "611d5cd230dd29fc60df7b94"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "User to update",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExtendedUserModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "user response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExtendedUserModel"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request/Wrong data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/users/{id}/calender": {
@@ -993,7 +931,7 @@
         "description": "Get all bookings from the arena with the specified name.",
         "operationId": "find booking by arena",
         "tags": [
-          "Users"
+          "Stable"
         ],
         "security": [
           {
