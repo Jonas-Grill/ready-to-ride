@@ -489,7 +489,7 @@
     "/users": {
       "get": {
         "description": "Returns a list of users with the trainer role. The access on other users is restricted.",
-        "operationId": "find user by role",
+        "operationId": "findUsers",
         "tags": [
           "Users"
         ],

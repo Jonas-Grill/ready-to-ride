@@ -16,6 +16,7 @@ export const createUser = async (user: User) => {
         //Trainer
         focus: user.focus,
         profilePicture: user.profilePicture,
+        description: user.description,
         achievements: user.achievements,
         certificates: user.certificates,
         pictures: user.pictures,
@@ -49,9 +50,9 @@ export const findUserByEmail = async (email: string) => {
 }
 
 export const findUserByRole = async (role: UserRole) => {
-    return await users.findOne({
+    return await users.find({
         role: role,
-    });
+    }).toArray();
 }
 
 export const updateUser = async (user: User) => {
@@ -73,7 +74,6 @@ export const updateUser = async (user: User) => {
                 email: user.email,
                 name: user.name,
                 age: user.age,
-                role: user.role,
                 //Trainer
                 focus: user.focus,
                 profilePicture: user.profilePicture,
@@ -88,7 +88,7 @@ export const updateUser = async (user: User) => {
         },
     );
 
-    return await getUserById(user._id.toString());
+    return await findUserById(user._id.toString());
 }
 
 export const deleteUser = async (id: string) => {

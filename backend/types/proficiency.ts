@@ -1,11 +1,10 @@
 export enum Proficiency {
     COMPETITIVE = "Turnierreiter",
     BEGINNER = "Anfänger",
-    INTERMEDIATE  = "Fortgeschrittener ",
+    INTERMEDIATE  = "Fortgeschrittener",
+    INTERNAL_ERROR = "500",
 }
 
-export const Proficiencies = [
-    Proficiency.COMPETITIVE,
-    Proficiency.BEGINNER,
-    Proficiency.INTERMEDIATE,
-];
+export const instanceOfProficiency = (object: any): object is Proficiency => {
+    return Object.values(Proficiency).includes(object);
+}

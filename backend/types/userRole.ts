@@ -4,8 +4,6 @@ export enum UserRole {
     TRAINER = "Trainer",
 }
 
-export const UserRoles = [
-    UserRole.ADMIN,
-    UserRole.USER,
-    UserRole.TRAINER,
-];
+export const instanceOfUserRole = (object: any): object is UserRole => {
+    return Object.values(UserRole).includes(object);
+}
