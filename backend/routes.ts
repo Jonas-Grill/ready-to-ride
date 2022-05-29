@@ -1,6 +1,6 @@
 import {Router} from "./deps.ts";
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.ts";
-import {findTrainer, login, registration} from "./controllers/userController.ts";
+import {findTrainer, login, registration, updateUser} from "./controllers/userController.ts";
 import authMiddleware from "./middleware/authMiddleware.ts";
 
 const router = new Router();
@@ -14,6 +14,7 @@ router
     .post("/users", registration)
     .post("/users/login", login)
     .use(authMiddleware)
+    .put("/users", updateUser)
 ;
 
 router.routes();

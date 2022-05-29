@@ -89,6 +89,17 @@ export const registration = async (ctx: Context) => {
     ctx.response.body = await userService.createNewUser(userData);
 }
 
+export const updateUser = async (ctx: Context) => {
+    ctx.assert(ctx.request.hasBody, Status.BadRequest, "Please provide data");
+
+    const user = await ctx.request.body().value;
+
+    ctx.assert(user, Status.BadRequest, "Please provide data");
+
+    ctx.response.status = Status.OK;
+    ctx.response.body = await userService.updateUser(user, ctx.state.currentUser.email);
+};
+
 /* ------------------------------ Util ------------------------------ */
 
 const createToken = async (payload: Payload) => {

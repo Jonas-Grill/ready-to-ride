@@ -38,6 +38,34 @@ export const createNewUser = async (userData: BaseUserSchema) => {
     return await userRepo.findUserById(id);
 }
 
+export const updateUser = async (user: any, email: string) => {
+    const oldUser: UserModel | undefined = await userRepo.findUserByEmail(email);
+
+    if (!(oldUser)) {
+        throw new invalidDataException("A user with this username does not exist");
+    }
+
+    return await userRepo.updateUser({
+        _id: oldUser._id,
+        password: user.password || oldUser.password,
+        email: user.email || oldUser.email,
+        name: user.name || oldUser.name,
+        age: user.age || oldUser.age,
+        role: oldUser.role,
+        //Trainer
+        focus: user.focus || oldUser.focus,
+        profilePicture: user.profilePicture || oldUser.profilePicture,
+        description: user.description || oldUser.description,
+        achievements: user.achievements || oldUser.achievements,
+        certificates: user.certificates || oldUser.certificates,
+        pictures: user.pictures || oldUser.pictures,
+        // User
+        weight: user.weight || oldUser.weight,
+        height: user.height || oldUser.height,
+        proficiency: user.proficiency || oldUser.proficiency,
+    });
+}
+
 /* ------------------------------ Util ------------------------------ */
 
 const userModelToBaseUser = (user: UserModel): BaseUserSchema => {
