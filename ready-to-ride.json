@@ -594,7 +594,7 @@
     "/users": {
       "get": {
         "description": "Returns a list of users with the trainer role. The access on other users is restricted.",
-        "operationId": "find user by role",
+        "operationId": "findUsers",
         "tags": [
           "Users"
         ],
@@ -676,7 +676,7 @@
       },
       "put": {
         "description": "Updates the authorized user based on the provided Data. Only provide the data you want to update",
-        "operationId": "update user by email",
+        "operationId": "updateUser",
         "tags": [
           "Users"
         ],

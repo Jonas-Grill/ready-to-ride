@@ -11,7 +11,7 @@ export {Bson, MongoClient} from "https://deno.land/x/mongo@v0.30.0/mod.ts";
 export {oakCors} from "https://deno.land/x/cors@v1.2.2/mod.ts";
 // Oak
 export {
-    Context, Request, Response,
+    Context, Request, Response, helpers,
     Router, Cookies, Application, isHttpError
 } from "https://deno.land/x/oak@v10.6.0/mod.ts";
 export type {State, RouteParams} from "https://deno.land/x/oak@v10.6.0/mod.ts";
