@@ -14,6 +14,10 @@ export const findUserByEmail = (email: string) => {
     return userRepo.findUserByEmail(email);
 }
 
+export const findUserById = (id: string) => {
+    return userRepo.findUserById(id);
+}
+
 export const isUserDataValid = async (userData: { email: string; password: string }) => {
     const user: UserModel | undefined = await userRepo.findUserByEmail(userData.email);
 
@@ -42,7 +46,7 @@ export const updateUser = async (user: any, email: string) => {
     const oldUser: UserModel | undefined = await userRepo.findUserByEmail(email);
 
     if (!(oldUser)) {
-        throw new invalidDataException("A user with this username does not exist");
+        throw new invalidDataException("A user with this email does not exist");
     }
 
     return await userRepo.updateUser({
@@ -70,6 +74,7 @@ export const updateUser = async (user: any, email: string) => {
 
 const userModelToBaseUser = (user: UserModel): BaseUserSchema => {
     return {
+        _id: user._id,
         password: user.password,
         email: user.email,
         name: user.name,
@@ -83,14 +88,14 @@ function userModelToUser(user: UserModel): UserSchema {
         ...userModelToBaseUser(user),
         weight: user.weight || 0,
         height: user.height || 0,
-        proficiency: user.proficiency || Proficiency.INTERNAL_ERROR,
+        proficiency: user.proficiency || Proficiency.NONE,
     };
 }
 
 function userModelToTrainer(user: UserModel): TrainerSchema {
     return {
         ...userModelToBaseUser(user),
-        focus: user.focus || Focus.INTERNAL_ERROR,
+        focus: user.focus || Focus.NONE,
         profilePicture: user.profilePicture,
         description: user.description || "500",
         achievements: user.achievements,

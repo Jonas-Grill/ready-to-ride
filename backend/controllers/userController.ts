@@ -1,4 +1,4 @@
-import {Context, create, getNumericDate, Header, Payload, Request, Response, State, Status,} from "../deps.ts";
+import {Context, create, getNumericDate, Header, Payload, Request, Response, State, Status, helpers} from "../deps.ts";
 import {KEY, SIGN_ALG} from ".././config/config.ts";
 import * as userService from "../services/userService.ts";
 import {
@@ -9,8 +9,9 @@ import {
     instanceOfUser,
     TrainerSchema
 } from "../types/user.ts";
-import {UserRole} from "../types/userRole.ts";
-import UserModel from "../models/userModel.ts";
+import {USER_ROLES, UserRole} from "../types/userRole.ts";
+import {Focus, FOCUSES} from "../types/focus.ts";
+import {Proficiency, PROFINCIES} from "../types/proficiency.ts";
 
 export const findTrainer = async (ctx: Context) => {
     ctx.response.status = Status.OK;
@@ -25,6 +26,26 @@ export const findTrainer = async (ctx: Context) => {
         }
     });
 }
+
+export const findUserById = async (ctx: Context) => {
+    const id: string = helpers.getQuery(ctx, { mergeParams: true }).id;
+
+    ctx.assert(id, Status.BadRequest, "Please provide an id");
+
+    const user: BaseUserSchema | undefined = await userService.findUserById(id);
+
+    ctx.assert(user, Status.NotFound, `Couldn't find a users with the id ${id}`);
+
+    const {password, role, _id, ...rest} = user;
+
+    ctx.response.status = Status.Created;
+    ctx.response.body = rest;
+};
+
+export const findCurrentUser = async (ctx: Context) => {
+    ctx.response.status = Status.OK;
+    ctx.response.body = ctx.state.currentUser;
+};
 
 export const login = async (ctx: Context) => {
     ctx.assert(ctx.request.hasBody, Status.BadRequest, "Please provide data");
@@ -99,6 +120,24 @@ export const updateUser = async (ctx: Context) => {
     ctx.response.status = Status.OK;
     ctx.response.body = await userService.updateUser(user, ctx.state.currentUser.email);
 };
+
+/* ------------------------------ Enums ------------------------------ */
+
+export const findUserRoles = async (ctx: Context) => {
+    ctx.response.status = Status.OK;
+    ctx.response.body = USER_ROLES;
+};
+
+export const findUserFocuses = async (ctx: Context) => {
+    ctx.response.status = Status.OK;
+    ctx.response.body = FOCUSES;
+};
+
+export const findUserProficiencies = async (ctx: Context) => {
+    ctx.response.status = Status.OK;
+    ctx.response.body = PROFINCIES;
+};
+
 
 /* ------------------------------ Util ------------------------------ */
 
