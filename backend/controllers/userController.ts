@@ -1,17 +1,15 @@
-import {Context, create, getNumericDate, Header, Payload, Request, Response, State, Status, helpers} from "../deps.ts";
+import {Context, create, getNumericDate, Header, Payload, Status, helpers} from "../deps.ts";
 import {KEY, SIGN_ALG} from ".././config/config.ts";
 import * as userService from "../services/userService.ts";
 import {
     BaseUserSchema,
     instanceOfAdmin,
     instanceOfBaseUser, instanceOfRegisterTrainer,
-    instanceOfTrainer,
-    instanceOfUser,
-    TrainerSchema
+    instanceOfUser
 } from "../types/user.ts";
 import {USER_ROLES, UserRole} from "../types/userRole.ts";
-import {Focus, FOCUSES} from "../types/focus.ts";
-import {Proficiency, PROFINCIES} from "../types/proficiency.ts";
+import {FOCUSES} from "../types/focus.ts";
+import {PROFINCIES} from "../types/proficiency.ts";
 
 export const findTrainer = async (ctx: Context) => {
     ctx.response.status = Status.OK;
@@ -36,13 +34,13 @@ export const findUserById = async (ctx: Context) => {
 
     ctx.assert(user, Status.NotFound, `Couldn't find a users with the id ${id}`);
 
-    const {password, role, _id, ...rest} = user;
+    const {_password, _role, _id, ...rest} = user;
 
     ctx.response.status = Status.Created;
     ctx.response.body = rest;
 };
 
-export const findCurrentUser = async (ctx: Context) => {
+export const findCurrentUser = (ctx: Context) => {
     ctx.response.status = Status.OK;
     ctx.response.body = ctx.state.currentUser;
 };
@@ -123,17 +121,17 @@ export const updateUser = async (ctx: Context) => {
 
 /* ------------------------------ Enums ------------------------------ */
 
-export const findUserRoles = async (ctx: Context) => {
+export const findUserRoles = (ctx: Context) => {
     ctx.response.status = Status.OK;
     ctx.response.body = USER_ROLES;
 };
 
-export const findUserFocuses = async (ctx: Context) => {
+export const findUserFocuses = (ctx: Context) => {
     ctx.response.status = Status.OK;
     ctx.response.body = FOCUSES;
 };
 
-export const findUserProficiencies = async (ctx: Context) => {
+export const findUserProficiencies = (ctx: Context) => {
     ctx.response.status = Status.OK;
     ctx.response.body = PROFINCIES;
 };

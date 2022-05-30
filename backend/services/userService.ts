@@ -42,7 +42,7 @@ export const createNewUser = async (userData: BaseUserSchema) => {
     return await userRepo.findUserById(id);
 }
 
-export const updateUser = async (user: any, email: string) => {
+export const updateUser = async (user: Record, email: string) => {
     const oldUser: UserModel | undefined = await userRepo.findUserByEmail(email);
 
     if (!(oldUser)) {
@@ -83,6 +83,7 @@ const userModelToBaseUser = (user: UserModel): BaseUserSchema => {
     };
 }
 
+// deno-lint-ignore no-unused-vars
 function userModelToUser(user: UserModel): UserSchema {
     return {
         ...userModelToBaseUser(user),
@@ -104,6 +105,7 @@ function userModelToTrainer(user: UserModel): TrainerSchema {
     };
 }
 
+// deno-lint-ignore no-unused-vars
 function userModelToAdmin(user: UserModel): BaseUserSchema {
     return {
         ...userModelToBaseUser(user),
