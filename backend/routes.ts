@@ -27,7 +27,6 @@ router
     .get("/users/me", findCurrentUser)
     .get("/users/:id", findUserById)
     .put("/users", updateUser)
-;
 
 router.routes();
 
