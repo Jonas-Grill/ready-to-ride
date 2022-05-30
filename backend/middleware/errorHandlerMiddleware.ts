@@ -2,7 +2,7 @@ import {Context, isHttpError, Status} from "../deps.ts";
 import invalidDataException from "../exceptions/invalidDataException.ts";
 import invalidIdException from "../exceptions/invalidIdException.ts";
 
-const errorHandlerMiddleware = async (ctx: Context, next: Function) => {
+const errorHandlerMiddleware = async (ctx: Context, next: () => void) => {
     try {
         await next();
     } catch (err) {

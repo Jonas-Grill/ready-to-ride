@@ -11,6 +11,6 @@ export const PROFINCIES = [
     Proficiency.INTERMEDIATE,
 ]
 
-export const instanceOfProficiency = (object: any): object is Proficiency => {
+export const instanceOfProficiency = (object: Proficiency): object is Proficiency => {
     return Object.values(Proficiency).includes(object);
 }

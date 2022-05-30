@@ -2,7 +2,7 @@ import {Context, Status, verify} from "../deps.ts";
 import * as userService from "../services/userService.ts";
 import {KEY} from "../config/config.ts";
 
-const authMiddleware = async (ctx: Context, next: Function) => {
+const authMiddleware = async (ctx: Context, next: () => void) => {
     const authHeader = ctx.request.headers.get("authorization");
 
     ctx.assert(!(authHeader === null), Status.Unauthorized, "Please authenticate yourself");

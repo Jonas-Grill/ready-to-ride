@@ -1,4 +1,4 @@
-import {MongoClient, sleep} from "../deps.ts";
+import {MongoClient} from "../deps.ts";
 import {DB_LINK} from "./config.ts"
 
 const client = new MongoClient();

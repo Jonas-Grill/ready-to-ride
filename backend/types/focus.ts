@@ -15,6 +15,6 @@ export const FOCUSES = [
     Focus.ADULTS,
 ]
 
-export const instanceOfFocus = (object: any): object is Focus => {
+export const instanceOfFocus = (object: Focus): object is Focus => {
     return Object.values(Focus).includes(object);
 }
