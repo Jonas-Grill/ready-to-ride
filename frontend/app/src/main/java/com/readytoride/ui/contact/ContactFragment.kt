@@ -32,15 +32,15 @@ class ContactFragment : Fragment() {
 
         //Logik für Auslesen von Contact Formular
 
-        val btn_send = findViewById(R.id.sentButton) as Button
-        btn_send.setOnClickListener {
-            EditText textName = (EditText)findViewById(R.id.inputName);
-            textName.getText();
-            EditText textMail = (EditText)findViewById(R.id.inputMail);
-            textMail.getText();
-            EditText textMail = (EditText)findViewById(R.id.inputMessage);
-            textMessage.getText();
-        }
+       // val btn_send = findViewById(R.id.sentButton) as Button
+       // btn_send.setOnClickListener {
+       //     EditText textName = (EditText)findViewById(R.id.inputName);
+        //    textName.getText();
+        //    EditText textMail = (EditText)findViewById(R.id.inputMail);
+         //   textMail.getText();
+          //  EditText textMail = (EditText)findViewById(R.id.inputMessage);
+           // textMessage.getText();
+       // }
 
     }
 
