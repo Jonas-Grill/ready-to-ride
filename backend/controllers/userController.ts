@@ -34,7 +34,8 @@ export const findUserById = async (ctx: Context) => {
 
     ctx.assert(user, Status.NotFound, `Couldn't find a users with the id ${id}`);
 
-    const {_password, _role, _id, ...rest} = user;
+    // deno-lint-ignore no-unused-vars
+    const {password, role, _id, ...rest} = user;
 
     ctx.response.status = Status.Created;
     ctx.response.body = rest;

@@ -11,6 +11,7 @@ export const USER_ROLES = [
     UserRole.TRAINER,
 ]
 
-export const instanceOfUserRole = (object: UserRole): object is UserRole => {
+// deno-lint-ignore no-explicit-any
+export const instanceOfUserRole = (object: any): object is UserRole => {
     return Object.values(UserRole).includes(object);
 }

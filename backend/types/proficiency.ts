@@ -11,6 +11,7 @@ export const PROFINCIES = [
     Proficiency.INTERMEDIATE,
 ]
 
-export const instanceOfProficiency = (object: Proficiency): object is Proficiency => {
+// deno-lint-ignore no-explicit-any
+export const instanceOfProficiency = (object: any): object is Proficiency => {
     return Object.values(Proficiency).includes(object);
 }

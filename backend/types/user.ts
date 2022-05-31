@@ -1,8 +1,11 @@
+// deno-lint-ignore-file no-explicit-any
+
 import {Bson} from "../deps.ts"
 import {instanceOfUserRole, UserRole} from "./userRole.ts";
 import {isNumber} from "https://deno.land/std@0.63.0/node/util.ts";
 import {instanceOfProficiency, Proficiency} from "./proficiency.ts";
 import {Focus, instanceOfFocus} from "./focus.ts";
+
 
 /* ------------------------------ Name ------------------------------ */
 
@@ -11,7 +14,7 @@ export interface NameSchema {
     lastName: string;
 }
 
-export const instanceOfName = (object: NameSchema): object is NameSchema => {
+export const instanceOfName = (object: any): object is NameSchema => {
     return 'firstName' in object && typeof object.firstName === "string"
         && 'lastName' in object && typeof object.lastName === "string"
 }
@@ -27,7 +30,7 @@ export interface BaseUserSchema {
     role: UserRole;
 }
 
-export const instanceOfBaseUser = (object: BaseUserSchema): object is BaseUserSchema => {
+export const instanceOfBaseUser = (object: any): object is BaseUserSchema => {
     return 'email' in object && typeof object.email === "string"
         && 'password' in object && typeof object.password === "string"
         && 'name' in object && instanceOfName(object.name)
@@ -43,7 +46,7 @@ export interface UserSchema extends BaseUserSchema{
     proficiency: Proficiency;
 }
 
-export const instanceOfUser = (object: UserSchema): object is UserSchema => {
+export const instanceOfUser = (object: any): object is UserSchema => {
     return 'weight' in object && isNumber(object.weight)
         && 'height' in object && isNumber(object.height)
         && 'proficiency' in object && instanceOfProficiency(object.proficiency)
@@ -67,7 +70,7 @@ export interface TrainerSchema extends BaseUserSchema{
     pictures?: string[];
 }
 
-export const instanceOfTrainer = (object: TrainerSchema): object is TrainerSchema => {
+export const instanceOfTrainer = (object: any): object is TrainerSchema => {
     return 'focus' in object && instanceOfFocus(object.focus)
         && 'description' in object && typeof object.description === "string"
         && instanceOfBaseUser(object)
@@ -77,7 +80,7 @@ export interface RegisterTrainerSchema extends TrainerSchema{
     rolePasscode: string;
 }
 
-export const instanceOfRegisterTrainer = (object: RegisterTrainerSchema): object is RegisterTrainerSchema => {
+export const instanceOfRegisterTrainer = (object: any): object is RegisterTrainerSchema => {
     return 'rolePasscode' in object && typeof object.rolePasscode === "string"
         && instanceOfTrainer(object)
 }
@@ -88,7 +91,7 @@ export interface AdminSchema extends BaseUserSchema{
     rolePasscode: string;
 }
 
-export const instanceOfAdmin = (object: AdminSchema): object is AdminSchema => {
+export const instanceOfAdmin = (object: any): object is AdminSchema => {
     return 'rolePasscode' in object && typeof object.rolePasscode === "string"
         && instanceOfBaseUser(object)
 }
