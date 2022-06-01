@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c346c7d-003f-4b4c-8874-8c36983721a6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/userController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/userController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/userService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/userService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/focus.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/focus.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/main.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +35,10 @@
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "D:/Uni Projekte/ready-to-ride/backend",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors",
+    "project.structure.last.edited": "Global Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "ssh.settings",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2019.2.3\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external"
   }
 }]]></component>
@@ -75,7 +74,8 @@
       <option name="presentableId" value="Default" />
       <updated>1653917636560</updated>
       <workItem from="1653917638254" duration="1544000" />
-      <workItem from="1653985820234" duration="3358000" />
+      <workItem from="1653985820234" duration="5891000" />
+      <workItem from="1654072051261" duration="3710000" />
     </task>
     <servers />
   </component>

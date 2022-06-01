@@ -1,6 +1,6 @@
 import {Application, logger, oakCors} from "./deps.ts";
 import router from "./routes.ts";
-import {PORT} from "./config/config.ts";
+import {CERT_PATH, ENV, KEY_PATH, PORT} from "./config/config.ts";
 
 const app = new Application();
 
@@ -29,7 +29,16 @@ app.addEventListener("error", (evt) => {
     console.log(evt.error);
 });
 
-await app.listen({
-    port: PORT,
-    secure: false,
-});
+if (ENV === "dev") {
+    await app.listen({
+        port: PORT,
+        secure: false,
+    });
+} else if (ENV === "prod") {
+    await app.listen({
+        port: PORT,
+        secure: true,
+        certFile: CERT_PATH,
+        keyFile: KEY_PATH,
+    });
+}

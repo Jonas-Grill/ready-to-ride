@@ -16,5 +16,8 @@ services:
     container_name: deno-api
     environment:
       DB_LINK: "mongodb://mongo-db:27017"
+      CERT_PATH: "/etc/letsencrypt/live/ready-to-ride-backend.tk/fullchain.pem"
+      KEY_PATH: "/etc/letsencrypt/live/ready-to-ride-backend.tk/privkey.pem"
     env_file:
       - .env
+    restart: always

@@ -10,10 +10,12 @@ const instanceOfAlgorithm = (algorithm: string): algorithm is Algorithm => {
     return supportedAlgorithms.includes(algorithm);
 }
 
-const DENO_DIR = Deno.env.get('DENO_DIR') || "/packages";
 const PORT = parseInt(Deno.env.get('SERVER_PORT') || "8008");
 const ENV = Deno.env.get('ENVIRONMENT') || "dev";
 const DB_LINK = Deno.env.get('DB_LINK') || "";
+
+const CERT_PATH = Deno.env.get('CERT_PATH');
+const KEY_PATH = Deno.env.get('KEY_PATH');
 
 const tmp = Deno.env.get('SIGN_ALG') || "RS256";
 
@@ -35,10 +37,11 @@ const KEY = (KEY_GEN_ALG && KEY_GEN_CURVE) ?
 ;
 
 export {
-    DENO_DIR,
     PORT,
-    KEY,
-    SIGN_ALG,
     ENV,
-    DB_LINK
+    DB_LINK,
+    CERT_PATH,
+    KEY_PATH,
+    SIGN_ALG,
+    KEY,
 };
