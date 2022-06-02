@@ -14,9 +14,14 @@ services:
       - ${SERVER_PORT}:${SERVER_PORT}
     container_name: deno-api
     environment:
-      DB_LINK: "mongodb://mongo-db:27017"
-      CERT_PATH: "/etc/letsencrypt/live/ready-to-ride-backend.tk/fullchain.pem"
-      KEY_PATH: "/etc/letsencrypt/live/ready-to-ride-backend.tk/privkey.pem"
+      DB_LINK: ${DB_LINK}
+      CERT_PATH: ${CERT_PATH}
+      KEY_PATH: ${KEY_PATH}
+      SERVER_PORT: ${SERVER_PORT}
+      ENVIRONMENT: ${ENVIRONMENT}
+      SIGN_ALG: ${SIGN_ALG}
+      KEY_GEN_ALG: ${KEY_GEN_ALG}
+      KEY_GEN_CURVE: ${KEY_GEN_CURVE}
     env_file:
       - .env
     restart: always
