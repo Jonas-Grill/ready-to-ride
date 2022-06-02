@@ -15,6 +15,13 @@ jobs:
         with:
           ref: setup-docker
 
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo API_ENDPOINT="https://xxx.execute-api.us-west-2.amazonaws.com" >> .env
+          echo ${{ secrets.ENV_FILE }} >> .env
+          cat .env
+
       - name: Start Deployment without copy
         uses: wshihadeh/docker-deployment-action@master
         with:
@@ -25,6 +32,7 @@ jobs:
           copy_stack_file: false
           deploy_path: /deployment-test
           stack_file_name: backend/docker-compose.yaml
-          pull_images_first: true
+          pre_deployment_command_args: build
+          pull_images_first: false
           keep_files: 3
           args: up -d
