@@ -37,8 +37,8 @@ if (ENV === "dev") {
 } else if (ENV === "prod") {
     await app.listen({
         port: PORT,
-        secure: true,
-        certFile: CERT_PATH,
-        keyFile: KEY_PATH,
+        secure: false,
+        // certFile: CERT_PATH,
+        // keyFile: KEY_PATH,
     });
 }
