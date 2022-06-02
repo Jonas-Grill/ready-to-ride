@@ -29,6 +29,9 @@ app.addEventListener("error", (evt) => {
     console.log(evt.error);
 });
 
+console.log(CERT_PATH);
+console.log(KEY_PATH);
+
 if (ENV === "dev") {
     await app.listen({
         port: PORT,
