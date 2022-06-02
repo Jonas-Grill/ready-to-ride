@@ -43,6 +43,6 @@ jobs:
           copy_stack_file: false
           deploy_path: /deployment-test
           stack_file_name: backend/docker-compose.yaml
-          pull_images_first: false
+          pull_images_first: true
           keep_files: 3
           args: up -d --build
