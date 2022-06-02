@@ -17,9 +17,10 @@ jobs:
 
       - name: 'Create env file'
         run: |
-          touch .env
-          echo ${{ secrets.ENV_FILE }} >> .env
-          cat .env
+          touch /backend/.env
+          echo ${{ secrets.ENV_FILE }} >> /backend/.env
+          cat /backend/.env
+          ls
 
       - name: Start Deployment without copy
         uses: wshihadeh/docker-deployment-action@master
