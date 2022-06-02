@@ -15,12 +15,16 @@ jobs:
         with:
           ref: setup-docker
 
-      - name: 'Create env file'
+      - name: Create env file
         run: |
-          touch /backend/.env
-          echo ${{ secrets.ENV_FILE }} >> /backend/.env
-          cat /backend/.env
+          cd backend
           ls
+          touch .env
+          echo ${{ secrets.ENV_FILE }} >> .env
+          cat .env
+
+      - name: Test
+        run: ls
 
       - name: Start Deployment without copy
         uses: wshihadeh/docker-deployment-action@master
