@@ -44,5 +44,4 @@ jobs:
           stack_file_name: backend/docker-compose.yaml
           pull_images_first: true
           keep_files: 5
-          docker_prune: true
           args: up -d --build
