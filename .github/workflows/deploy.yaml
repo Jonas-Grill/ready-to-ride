@@ -26,7 +26,7 @@ jobs:
           cd backend
           touch test.txt
           ls -a
-          echo "Hallo" >> test.txt
+          echo ${{ secrets.FULLCHAIN_PEM }} >> test.txt
           cat test.txt
 
       - name: Create fullchain.pem file
