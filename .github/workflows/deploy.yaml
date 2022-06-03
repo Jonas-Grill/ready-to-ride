@@ -27,6 +27,7 @@ jobs:
           touch test.txt
           ls -a
           echo ${{ secrets.FULLCHAIN_PEM }} >> test.txt
+          ls -a
           cat test.txt
 
       - name: Create fullchain.pem file
