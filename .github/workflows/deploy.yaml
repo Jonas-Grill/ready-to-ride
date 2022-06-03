@@ -27,7 +27,7 @@ jobs:
           CERT_PATH: ${{ secrets.CERT_PATH }}
           KEY_PATH: ${{ secrets.KEY_PATH }}
           SERVER_PORT: ${{ secrets.SERVER_PORT }}
-          ENVIRONMENT: dev
+          ENVIRONMENT: prod
           SIGN_ALG: ${{ secrets.SIGN_ALG }}
           KEY_GEN_ALG: ${{ secrets.KEY_GEN_ALG }}
           KEY_GEN_CURVE: ${{ secrets.KEY_GEN_CURVE }}
