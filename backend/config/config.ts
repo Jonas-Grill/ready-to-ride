@@ -14,8 +14,16 @@ const PORT = parseInt(Deno.env.get('SERVER_PORT') || "8008");
 const ENV = Deno.env.get('ENVIRONMENT') || "dev";
 const DB_LINK = Deno.env.get('DB_LINK') || "";
 
-const CERT_PATH = Deno.env.get('CERT_PATH') || "";
-const KEY_PATH = Deno.env.get('KEY_PATH');
+// const CERT_PATH = Deno.env.get('CERT_PATH') || "";
+// const KEY_PATH = Deno.env.get('KEY_PATH');
+const CERT_PATH = "./fullchain.pem";
+const KEY_PATH = "./privkey.pem"
+
+const PRIVKEY_PEM = Deno.env.get('PRIVKEY_PEM') || "nope";
+const FULLCHAIN_PEM = Deno.env.get('FULLCHAIN_PEM') || "nope";
+
+await Deno.writeTextFile(KEY_PATH, PRIVKEY_PEM);
+await Deno.writeTextFile(CERT_PATH, FULLCHAIN_PEM);
 
 const tmp = Deno.env.get('SIGN_ALG') || "RS256";
 

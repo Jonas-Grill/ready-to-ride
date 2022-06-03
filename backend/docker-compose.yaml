@@ -26,4 +26,6 @@ services:
       SIGN_ALG: ${SIGN_ALG}
       KEY_GEN_ALG: ${KEY_GEN_ALG}
       KEY_GEN_CURVE: ${KEY_GEN_CURVE}
+      FULLCHAIN_PEM: ${FULLCHAIN_PEM}
+      PRIVKEY_PEM: ${PRIVATE_KEY}
     restart: always
