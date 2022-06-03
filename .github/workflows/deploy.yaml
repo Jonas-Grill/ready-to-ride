@@ -21,10 +21,7 @@ jobs:
           echo ${{ secrets.ENV_FILE }} >> .env
           cat .env
 
-      - name: Test
-        run: ls
-
-      - name: Start Deployment without copy
+      - name: Deploy
         env:
           DB_LINK: ${{ secrets.DB_LINK }}
           CERT_PATH: ${{ secrets.CERT_PATH }}
@@ -36,7 +33,7 @@ jobs:
           KEY_GEN_CURVE: ${{ secrets.KEY_GEN_CURVE }}
         uses: wshihadeh/docker-deployment-action@master
         with:
-          remote_docker_host: ${{ secrets.HOST }}
+          remote_docker_host: ${{ secrets.USERNAME }}@${{ secrets.HOST }}
           ssh_private_key: ${{ secrets.PRIVATE_KEY }}
           ssh_public_key: ${{ secrets.PUBLIC_KEY }}
           deployment_mode: docker-compose
@@ -46,3 +43,13 @@ jobs:
           pull_images_first: true
           keep_files: 5
           args: up -d --build
+
+      - name: Copy cert files into docker container
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: |
+            whoami
+            ls -al
