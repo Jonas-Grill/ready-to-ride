@@ -21,6 +21,20 @@ jobs:
           echo ${{ secrets.ENV_FILE }} >> .env
           cat .env
 
+      - name: Create fullchain.pem file
+        run: |
+          cd backend
+          touch fullchain.pem
+          echo ${{ secrets.FULLCHAIN_PEM }} >> fullchain.pem
+          cat fullchain.pem
+
+      - name: Create privkey.pem file
+        run: |
+          cd backend
+          touch privkey.pem
+          echo ${{ secrets.PRIVKEY_PEM }} >> privkey.pem
+          cat privkey.pem
+
       - name: Deploy
         env:
           DB_LINK: ${{ secrets.DB_LINK }}

@@ -32,19 +32,27 @@ app.addEventListener("error", (evt) => {
 console.log(CERT_PATH);
 console.log(KEY_PATH);
 
-// const text = await Deno.readTextFile(CERT_PATH);
-// console.log(text);
+try {
+    const text = await Deno.readTextFile(CERT_PATH);
+    console.log(text);
 
-if (ENV === "dev") {
+    if (ENV === "dev") {
+        await app.listen({
+            port: PORT,
+            secure: false,
+        });
+    } else if (ENV === "prod") {
+        await app.listen({
+            port: PORT,
+            secure: true,
+            certFile: CERT_PATH,
+            keyFile: KEY_PATH,
+        });
+    }
+} catch (e) {
     await app.listen({
         port: PORT,
         secure: false,
     });
-} else if (ENV === "prod") {
-    await app.listen({
-        port: PORT,
-        secure: true,
-        certFile: CERT_PATH,
-        keyFile: KEY_PATH,
-    });
+    console.log(e)
 }
