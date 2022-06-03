@@ -28,4 +28,4 @@ services:
       KEY_GEN_CURVE: ${KEY_GEN_CURVE}
     restart: always
     volumes:
-      - /etc/letsencrypt/live/ready-to-ride-backend.tk:/etc/letsencrypt/live/ready-to-ride-backend.tk
+      - /etc/letsencrypt/live/ready-to-ride-backend.tk:/etc/letsencrypt/live/ready-to-ride-backend-tk

@@ -14,7 +14,7 @@ const PORT = parseInt(Deno.env.get('SERVER_PORT') || "8008");
 const ENV = Deno.env.get('ENVIRONMENT') || "dev";
 const DB_LINK = Deno.env.get('DB_LINK') || "";
 
-const CERT_PATH = Deno.env.get('CERT_PATH');
+const CERT_PATH = Deno.env.get('CERT_PATH') || "";
 const KEY_PATH = Deno.env.get('KEY_PATH');
 
 const tmp = Deno.env.get('SIGN_ALG') || "RS256";

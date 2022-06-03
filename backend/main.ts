@@ -32,6 +32,9 @@ app.addEventListener("error", (evt) => {
 console.log(CERT_PATH);
 console.log(KEY_PATH);
 
+const text = await Deno.readTextFile(CERT_PATH);
+console.log(text);
+
 if (ENV === "dev") {
     await app.listen({
         port: PORT,
