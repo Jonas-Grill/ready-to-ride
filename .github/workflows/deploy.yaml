@@ -18,7 +18,7 @@ jobs:
         run: |
           cd backend
           touch .env
-          echo ${{ secrets.FULLCHAIN_PEM }} >> .env
+          echo ${{ secrets.ENV_FILE }} >> .env
           cat .env
 
       - name: Create test.txt file
