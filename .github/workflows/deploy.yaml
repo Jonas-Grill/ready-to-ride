@@ -26,7 +26,7 @@ jobs:
           cd backend
           touch test.txt
           ls -a
-          echo ${{ secrets.FULLCHAIN_PEM }} >> test.txt
+          echo ${{ secrets.ENV_FILE }} >> test.txt
           ls -a
           cat test.txt
 
