@@ -27,7 +27,7 @@ jobs:
           CERT_PATH: ${{ secrets.CERT_PATH }}
           KEY_PATH: ${{ secrets.KEY_PATH }}
           SERVER_PORT: ${{ secrets.SERVER_PORT }}
-          ENVIRONMENT: dev
+          ENVIRONMENT: prod
           SIGN_ALG: ${{ secrets.SIGN_ALG }}
           KEY_GEN_ALG: ${{ secrets.KEY_GEN_ALG }}
           KEY_GEN_CURVE: ${{ secrets.KEY_GEN_CURVE }}
@@ -43,13 +43,3 @@ jobs:
           pull_images_first: true
           keep_files: 5
           args: up -d --build
-
-      - name: Copy cert files into docker container
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.PRIVATE_KEY }}
-          script: |
-            whoami
-            ls -al
