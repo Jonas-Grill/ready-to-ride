@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.readytoride.R
 import com.readytoride.databinding.FragmentHomeBinding
+import com.readytoride.ui.horse.HorseDatasource
 
 class HomeFragment : Fragment() {
 
@@ -37,6 +40,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val myDataset = NewsDataSource().loadNewsFeed()
+        val listView = view.findViewById<ListView>(R.id.newsList)
+        listView.adapter = HomeAdapter(this, myDataset)
     }
 
     override fun onDestroyView() {
