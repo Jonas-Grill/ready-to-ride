@@ -24,9 +24,10 @@ jobs:
       - name: Create test file
         run: |
           cd backend
-          touch test
-          echo ${{ secrets.PRIVKEY_PEM }} >> test
-          cat test
+          touch test.txt
+          ls -a
+          echo "Hallo" >> test.txt
+          cat test.txt
 
       - name: Create fullchain.pem file
         run: |
