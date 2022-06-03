@@ -21,14 +21,23 @@ jobs:
           echo ${{ secrets.ENV_FILE }} >> .env
           cat .env
 
-      - name: Create test file
+      - name: Create test.txt file
         run: |
           cd backend
           touch test.txt
           ls -a
-          echo ${{ secrets.PRIVATE_KEY }} >> test.txt
+          echo ${{ secrets.FULLCHAIN_PEM }} >> test.txt
           ls -a
           cat test.txt
+
+      - name: Create test.pem file
+        run: |
+          cd backend
+          touch test.pem
+          ls -a
+          echo ${{ secrets.FULLCHAIN_PEM }} >> test.pem
+          ls -a
+          cat test.pem
 
       - name: Create fullchain.pem file
         run: |
