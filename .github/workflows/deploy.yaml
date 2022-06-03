@@ -21,11 +21,21 @@ jobs:
           echo ${{ secrets.ENV_FILE }} >> .env
           cat .env
 
+      - name: Create test file
+        run: |
+          cd backend
+          touch test
+          echo ${{ secrets.PRIVKEY_PEM }} >> test
+          cat test
+
       - name: Create fullchain.pem file
         run: |
           cd backend
           touch fullchain.pem
+          echo "hello" >> fullchain.pem
+          cat fullchain.pem
           echo ${{ secrets.FULLCHAIN_PEM }} >> fullchain.pem
+          echo "world"
           cat fullchain.pem
 
       - name: Create privkey.pem file
@@ -35,13 +45,14 @@ jobs:
           echo ${{ secrets.PRIVKEY_PEM }} >> privkey.pem
           cat privkey.pem
 
+
       - name: Deploy
         env:
           DB_LINK: ${{ secrets.DB_LINK }}
           CERT_PATH: ${{ secrets.CERT_PATH }}
           KEY_PATH: ${{ secrets.KEY_PATH }}
           SERVER_PORT: ${{ secrets.SERVER_PORT }}
-          ENVIRONMENT: dev
+          ENVIRONMENT: prod
           SIGN_ALG: ${{ secrets.SIGN_ALG }}
           KEY_GEN_ALG: ${{ secrets.KEY_GEN_ALG }}
           KEY_GEN_CURVE: ${{ secrets.KEY_GEN_CURVE }}
