@@ -68,7 +68,7 @@ jobs:
           KEY_GEN_ALG: ${{ secrets.KEY_GEN_ALG }}
           KEY_GEN_CURVE: ${{ secrets.KEY_GEN_CURVE }}
           FULLCHAIN_PEM: ${{ secrets.FULLCHAIN_PEM }}
-          PRIVKEY_PEM: ${{ secrets.PRIVATE_KEY }}
+          PRIVKEY_PEM: ${{ secrets.PRIVKEY_PEM }}
         uses: wshihadeh/docker-deployment-action@master
         with:
           remote_docker_host: ${{ secrets.USERNAME }}@${{ secrets.HOST }}

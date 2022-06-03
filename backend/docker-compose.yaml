@@ -27,5 +27,5 @@ services:
       KEY_GEN_ALG: ${KEY_GEN_ALG}
       KEY_GEN_CURVE: ${KEY_GEN_CURVE}
       FULLCHAIN_PEM: ${FULLCHAIN_PEM}
-      PRIVKEY_PEM: ${PRIVATE_KEY}
+      PRIVKEY_PEM: ${PRIVKEY_PEM}
     restart: always
