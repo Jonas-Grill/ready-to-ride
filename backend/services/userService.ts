@@ -42,7 +42,8 @@ export const createNewUser = async (userData: BaseUserSchema) => {
     return await userRepo.findUserById(id);
 }
 
-export const updateUser = async (user: Record, email: string) => {
+// deno-lint-ignore no-explicit-any
+export const updateUser = async (user: any, email: string) => {
     const oldUser: UserModel | undefined = await userRepo.findUserByEmail(email);
 
     if (!(oldUser)) {
