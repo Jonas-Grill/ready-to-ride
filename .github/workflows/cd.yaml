@@ -31,9 +31,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: setup-docker
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Create env file
         run: |
