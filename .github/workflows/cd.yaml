@@ -26,3 +26,43 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: swagger-ui
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: setup-docker
+
+      - name: Create env file
+        run: |
+          cd backend
+          touch .env
+          echo ${{ secrets.ENV_FILE }} >> .env
+          cat .env
+
+      - name: Deploy
+        env:
+          DB_LINK: ${{ secrets.DB_LINK }}
+          CERT_PATH: ${{ secrets.CERT_PATH }}
+          KEY_PATH: ${{ secrets.KEY_PATH }}
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+          ENVIRONMENT: prod
+          SIGN_ALG: ${{ secrets.SIGN_ALG }}
+          KEY_GEN_ALG: ${{ secrets.KEY_GEN_ALG }}
+          KEY_GEN_CURVE: ${{ secrets.KEY_GEN_CURVE }}
+          FULLCHAIN_PEM: ${{ secrets.FULLCHAIN_PEM }}
+          PRIVKEY_PEM: ${{ secrets.PRIVKEY_PEM }}
+        uses: wshihadeh/docker-deployment-action@master
+        with:
+          remote_docker_host: ${{ secrets.USERNAME }}@${{ secrets.HOST }}
+          ssh_private_key: ${{ secrets.PRIVATE_KEY }}
+          ssh_public_key: ${{ secrets.PUBLIC_KEY }}
+          deployment_mode: docker-compose
+          copy_stack_file: false
+          deploy_path: /deployment-test
+          stack_file_name: backend/docker-compose.yaml
+          pull_images_first: true
+          keep_files: 5
+          args: up -d --build
