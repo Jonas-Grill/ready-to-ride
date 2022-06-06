@@ -38,8 +38,8 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_login, container, false)
         view.findViewById<Button>(R.id.btn_register).setOnClickListener {
-        var navRegister = activity as FragmentNavigation
-        navRegister.navigateFrag(RegisterFragment(), false)
+            var navRegister = activity as FragmentNavigation
+            navRegister.navigateFrag(RegisterFragment(), false)
         }
         return view
     }

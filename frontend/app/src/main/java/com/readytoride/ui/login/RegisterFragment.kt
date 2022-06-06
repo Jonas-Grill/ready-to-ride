@@ -70,25 +70,17 @@ class RegisterFragment : Fragment() {
         }
 
 
-
-        if (item == "Trainer") {
-            println(item)
-            view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
-                var navRegister = activity as FragmentNavigation
+        view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
+            var navRegister = activity as FragmentNavigation
+            if (item == "Trainer") {
                 navRegister.navigateFrag(TrainerRegisterFragment(), false)
-            }
-            println("end of")
-        } else if (item == "Nutzer") {
-            view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
-                var navRegister = activity as FragmentNavigation
+            } else if (item == "Nutzer") {
                 navRegister.navigateFrag(UserRegisterFragment(), false)
-            }
-        } else if (item == "Admin") {
-            view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
-                var navRegister = activity as FragmentNavigation
+            } else if (item == "Admin") {
                 navRegister.navigateFrag(AdminRegisterFragment(), false)
             }
         }
+
         return view
     }
 

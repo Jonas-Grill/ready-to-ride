@@ -39,7 +39,7 @@ class TrainerRegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_register, container, false)
+        var view = inflater.inflate(R.layout.fragment_trainer_register, container, false)
         view.findViewById<Button>(R.id.btn_finish).setOnClickListener {
             var navRegister = activity as FragmentNavigation
             navRegister.navigateFrag(HomeFragment(), false)
