@@ -1,12 +1,13 @@
 package com.readytoride.ui.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.*
+import androidx.fragment.app.Fragment
 import com.readytoride.R
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +23,8 @@ class RegisterFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    lateinit var option : Spinner
+    lateinit var result : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,29 +39,46 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_register, container, false)
 
 
-        var view = inflater.inflate(R.layout.fragment_register, container, false)
-        //if (Dropdown = Trainer){
-        view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
-            var navRegister = activity as FragmentNavigation
-            navRegister.navigateFrag(TrainerRegisterFragment(), false)
+        //Spinner
+        var item: String
+        item = ""
+        val spinner = view.findViewById<Spinner>(R.id.dropdown_register)
+        spinner?.adapter = activity?.let { ArrayAdapter.createFromResource(it, R.array.roles, android.R.layout.simple_spinner_item) } as SpinnerAdapter
+        spinner?.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                item = parent?.getItemAtPosition(position).toString()
+
+            }
         }
-      /*  else if(){
+
+
+
+        if (item == "Trainer") {
+            println(item)
+            view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
+                var navRegister = activity as FragmentNavigation
+                navRegister.navigateFrag(TrainerRegisterFragment(), false)
+            }
+            println("end of")
+        }
+      else if(item == "Nutzer"){
             view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
             var navRegister = activity as FragmentNavigation
-            navRegister.navigateFrag( //ToDo xy RegisterFragment(), false)
+            navRegister.navigateFrag(UserRegisterFragment(), false)
+            }
         }
-        }
-
-        else if(){
+        else if(item == "Admin"){
         view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
             var navRegister = activity as FragmentNavigation
-            navRegister.navigateFrag( //ToDo xy RegisterFragment(), false)
+            navRegister.navigateFrag(AdminRegisterFragment(), false)
+            }
         }
-        }
-        */
-
         return view
     }
 

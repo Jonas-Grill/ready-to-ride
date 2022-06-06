@@ -138,9 +138,9 @@
 
 
     <string-array name="roles">
-        <item>Stall</item>
-        <item>Trainer</item>
         <item>Nutzer</item>
+        <item>Admin</item>
+        <item>Trainer</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
