@@ -20,7 +20,7 @@
         android:adjustViewBounds="true"
         android:layout_marginTop="90dp"
         android:src="@drawable/ic_logo"
-        ></ImageView>
+        />
 
     <TextView
     android:layout_width="match_parent"
@@ -66,7 +66,22 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp">
 
+        <com.google.android.material.button.MaterialButton
+         android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+            android:text="Login"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="40dp"/>
 
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:id="@+id/btn_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registrieren"
+            android:layout_toLeftOf="@+id/btn_login"
+            android:layout_marginEnd="40dp"/>
 
     </RelativeLayout>
 
