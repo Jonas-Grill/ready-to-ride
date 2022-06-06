@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.readytoride.databinding.ActivityMainBinding
 import com.readytoride.ui.horse.HorseViewModel
+import com.readytoride.ui.login.LoginFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,6 +51,11 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        //Alex Einbindung Login
+        supportFragmentManager.beginTransaction()
+            .add(R.id.drawer_layout,LoginFragment())
+            .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
