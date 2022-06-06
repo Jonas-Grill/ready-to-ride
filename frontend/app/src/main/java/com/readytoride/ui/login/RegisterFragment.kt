@@ -23,8 +23,8 @@ class RegisterFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    lateinit var option : Spinner
-    lateinit var result : TextView
+    lateinit var option: Spinner
+    lateinit var result: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,12 +46,24 @@ class RegisterFragment : Fragment() {
         var item: String
         item = ""
         val spinner = view.findViewById<Spinner>(R.id.dropdown_register)
-        spinner?.adapter = activity?.let { ArrayAdapter.createFromResource(it, R.array.roles, android.R.layout.simple_spinner_item) } as SpinnerAdapter
-        spinner?.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
+        spinner?.adapter = activity?.let {
+            ArrayAdapter.createFromResource(
+                it,
+                R.array.roles,
+                android.R.layout.simple_spinner_item
+            )
+        } as SpinnerAdapter
+        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 item = parent?.getItemAtPosition(position).toString()
 
             }
@@ -66,17 +78,15 @@ class RegisterFragment : Fragment() {
                 navRegister.navigateFrag(TrainerRegisterFragment(), false)
             }
             println("end of")
-        }
-      else if(item == "Nutzer"){
+        } else if (item == "Nutzer") {
             view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
-            var navRegister = activity as FragmentNavigation
-            navRegister.navigateFrag(UserRegisterFragment(), false)
+                var navRegister = activity as FragmentNavigation
+                navRegister.navigateFrag(UserRegisterFragment(), false)
             }
-        }
-        else if(item == "Admin"){
-        view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
-            var navRegister = activity as FragmentNavigation
-            navRegister.navigateFrag(AdminRegisterFragment(), false)
+        } else if (item == "Admin") {
+            view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
+                var navRegister = activity as FragmentNavigation
+                navRegister.navigateFrag(AdminRegisterFragment(), false)
             }
         }
         return view
