@@ -34,7 +34,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nutzername"
+        android:hint="E-Mail"
         app:boxBackgroundColor="#F8E9FD"
         android:layout_marginTop="50dp"
         android:layout_marginStart="40dp"
