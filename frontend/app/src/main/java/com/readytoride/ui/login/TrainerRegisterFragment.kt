@@ -42,7 +42,7 @@ class TrainerRegisterFragment : Fragment() {
         var view = inflater.inflate(R.layout.fragment_trainer_register, container, false)
         view.findViewById<Button>(R.id.btn_finish).setOnClickListener {
             var navRegister = activity as FragmentNavigation
-            navRegister.navigateFrag(HomeFragment(), false)
+            navRegister.navigateFrag(HomeFragment(), true)
         }
     return view
     }

@@ -73,11 +73,11 @@ class RegisterFragment : Fragment() {
         view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
             var navRegister = activity as FragmentNavigation
             if (item == "Trainer") {
-                navRegister.navigateFrag(TrainerRegisterFragment(), false)
+                navRegister.navigateFrag(TrainerRegisterFragment(), true)
             } else if (item == "Nutzer") {
-                navRegister.navigateFrag(UserRegisterFragment(), false)
+                navRegister.navigateFrag(UserRegisterFragment(), true)
             } else if (item == "Admin") {
-                navRegister.navigateFrag(AdminRegisterFragment(), false)
+                navRegister.navigateFrag(AdminRegisterFragment(), true)
             }
         }
 
