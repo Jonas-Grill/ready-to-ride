@@ -1,11 +1,15 @@
 package com.readytoride.ui.login
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.readytoride.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -19,17 +23,9 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class LoginFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var mail: EditText
+    private lateinit var password: EditText
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,11 +33,39 @@ class LoginFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_login, container, false)
+
+        mail = view.findViewById(R.id.login_mail)
+        password = view.findViewById(R.id.login_pwd)
+
+
         view.findViewById<Button>(R.id.btn_register).setOnClickListener {
             var navRegister = activity as FragmentNavigation
             navRegister.navigateFrag(RegisterFragment(), false)
         }
+
+        view.findViewById<Button>(R.id.btn_login).setOnClickListener {
+            validateInput()
+        }
+
         return view
+    }
+
+    fun validateInput() {
+        when {
+            TextUtils.isEmpty(mail.text.toString().trim()) -> {
+                mail.setError("Bitte E-Mail eintragen")
+            }
+            TextUtils.isEmpty(password.text.toString().trim()) -> {
+                password.setError("Bitte Passwort eintragen")
+            }
+            mail.text.toString().isNotEmpty() && password.toString().isNotEmpty() -> {
+                if (mail.text.toString().matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\\\.+[a-z]+"))) {
+
+                } else {
+                    mail.setError("Bitte gültige E-Mail eintragen")
+                }
+            }
+        }
     }
 
     companion object {

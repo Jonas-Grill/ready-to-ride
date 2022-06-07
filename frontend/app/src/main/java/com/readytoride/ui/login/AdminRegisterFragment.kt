@@ -1,11 +1,14 @@
 package com.readytoride.ui.login
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import com.readytoride.R
 import com.readytoride.ui.home.HomeFragment
 
@@ -20,17 +23,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class AdminRegisterFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+lateinit var admin_age: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,13 +31,35 @@ class AdminRegisterFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_admin_register, container, false)
+
+        admin_age = view.findViewById(R.id.admin_age)
+
         view.findViewById<Button>(R.id.btn_finish).setOnClickListener {
             var navRegister = activity as FragmentNavigation
             navRegister.navigateFrag(HomeFragment(), true)
         }
+
+        view.findViewById<Button>(R.id.btn_finish_admin).setOnClickListener {
+            validateInput()
+        }
         return view
     }
 
+
+    fun validateInput() {
+        when {
+            TextUtils.isEmpty(admin_age.text.toString().trim()) -> {
+                admin_age.setError("Bitte Alter eintragen")
+            }
+            admin_age.toString().isNotEmpty() -> {
+                if (admin_age.text.toString().matches(Regex("[0-9]"))) {
+                    Toast.makeText(context,"Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
+                } else {
+                    admin_age.setError("Bitte gültige Zahl eintragen")
+                }
+            }
+        }
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of

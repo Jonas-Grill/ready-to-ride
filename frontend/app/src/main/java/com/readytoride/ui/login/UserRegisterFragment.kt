@@ -1,11 +1,14 @@
 package com.readytoride.ui.login
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import com.readytoride.R
 import com.readytoride.ui.home.HomeFragment
 
@@ -20,17 +23,10 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class UserRegisterFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var user_height: EditText
+    private lateinit var user_weight: EditText
+    private lateinit var user_age: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,11 +34,45 @@ class UserRegisterFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_user_register, container, false)
+
+        user_height = view.findViewById(R.id.user_height)
+        user_age = view.findViewById(R.id.user_age)
+        user_weight = view.findViewById(R.id.user_weight)
+
         view.findViewById<Button>(R.id.btn_finish).setOnClickListener {
             var navRegister = activity as FragmentNavigation
             navRegister.navigateFrag(HomeFragment(), true)
         }
+
+        view.findViewById<Button>(R.id.btn_finish_user).setOnClickListener {
+            validateInput()
+        }
         return view
+    }
+
+    fun validateInput() {
+        when {
+            TextUtils.isEmpty(user_height.text.toString().trim()) -> {
+                user_height.setError("Bitte Alter eintragen")
+            }
+            user_height.toString().isNotEmpty()&&user_weight.toString().isNotEmpty()&&user_age.toString().isNotEmpty() -> {
+                if (user_height.text.toString().matches(Regex("[0-9]"))) {
+                    Toast.makeText(context,"Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
+                } else {
+                    user_height.setError("Bitte gültige Zahl eintragen")
+                }
+                if (user_weight.text.toString().matches(Regex("[0-9]"))) {
+                    Toast.makeText(context,"Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
+                } else {
+                    user_weight.setError("Bitte gültige Zahl eintragen")
+                }
+                if (user_age.text.toString().matches(Regex("[0-9]"))) {
+                    Toast.makeText(context,"Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
+                } else {
+                    user_age.setError("Bitte gültige Zahl eintragen")
+                }
+            }
+        }
     }
 
     companion object {

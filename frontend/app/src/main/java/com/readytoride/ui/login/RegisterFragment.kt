@@ -1,6 +1,7 @@
 package com.readytoride.ui.login
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,12 @@ class RegisterFragment : Fragment() {
     lateinit var option: Spinner
     lateinit var result: TextView
 
+    private lateinit var reg_name: EditText //Vorname
+    private lateinit var reg_name2: EditText //Nachname
+    private lateinit var reg_mail: EditText
+    private lateinit var reg_pwd1: EditText
+    private lateinit var reg_pwd2: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -41,6 +48,11 @@ class RegisterFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_register, container, false)
 
+        reg_name = view.findViewById(R.id.reg_name)
+        reg_name2 = view.findViewById(R.id.reg_name2)
+        reg_mail = view.findViewById(R.id.reg_mail)
+        reg_pwd1 = view.findViewById(R.id.reg_pwd1)
+        reg_pwd2 = view.findViewById(R.id.reg_pwd2)
 
         //Spinner
         var item: String
@@ -81,7 +93,44 @@ class RegisterFragment : Fragment() {
             }
         }
 
+        view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
+            validateInput()
+        }
+
         return view
+    }
+
+    fun validateInput() {
+        when {
+            TextUtils.isEmpty(reg_mail.text.toString().trim()) -> {
+                reg_mail.setError("Bitte E-Mail eintragen")
+            }
+            TextUtils.isEmpty(reg_pwd1.text.toString().trim()) -> {
+                reg_pwd1.setError("Bitte Passwort eintragen")
+            }
+            TextUtils.isEmpty(reg_pwd2.text.toString().trim()) -> {
+                reg_pwd2.setError("Bitte Passwort eintragen")
+            }
+            TextUtils.isEmpty(reg_name.text.toString().trim()) -> {
+                reg_name.setError("Bitte Vornamen eintragen")
+            }
+            TextUtils.isEmpty(reg_name2.text.toString().trim()) -> {
+                reg_name2.setError("Bitte Nachnamen eintragen")
+            }
+            reg_mail.text.toString().isNotEmpty() && reg_pwd1.toString()
+                .isNotEmpty() && reg_pwd2.toString().isNotEmpty() -> {
+                if (reg_mail.text.toString().matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\\\.+[a-z]+"))) {
+                    if (reg_pwd1.text.toString() == reg_pwd2.text.toString()) {
+                        //Passwörter stimmen überein
+                    } else {
+                        reg_pwd1.setError("Die Passwörter stimmen nicht überein")
+                        reg_pwd2.setError("Die Passwörter stimmen nicht überein")
+                    }
+                } else {
+                    reg_mail.setError("Bitte gültige E-Mail eintragen")
+                }
+            }
+        }
     }
 
     companion object {

@@ -44,6 +44,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
+                android:id="@+id/reg_name"
                 android:layout_height="wrap_content"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -59,6 +60,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
+                android:id="@+id/reg_name2"
                 android:layout_height="wrap_content"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -74,6 +76,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
+                android:id="@+id/reg_mail"
                 android:layout_height="wrap_content"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -81,6 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Passwort"
+            app:passwordToggleEnabled="true"
             app:boxBackgroundColor="#F8E9FD"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
@@ -88,6 +92,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
+                android:id="@+id/reg_pwd1"
                 android:layout_height="wrap_content"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -95,6 +100,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Passwort bestätigen"
+
+            app:passwordToggleEnabled="true"
             app:boxBackgroundColor="#F8E9FD"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
@@ -102,6 +109,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
+                android:id="@+id/reg_pwd2"
                 android:layout_height="wrap_content"/>
 
         </com.google.android.material.textfield.TextInputLayout>
