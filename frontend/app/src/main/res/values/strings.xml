@@ -127,5 +127,28 @@
     <string name="achievement3">Deutscher Meister Senior Horsemanship</string>
     <string name="achievement4">Deutscher Meister Senior Showmanship</string>
 
+    <string name="day1">Montag</string>
+    <string name="day2">Dienstag</string>
+    <string name="day3">Mittwoch</string>
+    <string name="day4">Donnerstag</string>
+    <string name="day5">Freitag</string>
+    <string name="day6">Samstag</string>
+    <string name="day7">Sonntag</string>
+
+    <string name="time1">13:00 Uhr - 14:00 Uhr</string>
+    <string name="time2">14:00 Uhr - 15:00 Uhr</string>
+    <string name="time3">15:00 Uhr - 16:00 Uhr</string>
+    <string name="time4">16:00 Uhr - 17:00 Uhr</string>
+    <string name="time5">17:00 Uhr - 18:00 Uhr</string>
+    <string name="time6">18:00 Uhr - 19:00 Uhr</string>
+    <string name="time7">19:00 Uhr - 20:00 Uhr</string>
+
+    <string name="location1">Trainingshalle 1</string>
+    <string name="location2">Trainingshalle 2</string>
+    <string name="location3">Roundpen</string>
+    <string name="location4">Reitplatz</string>
+
+
+
 
 </resources>
