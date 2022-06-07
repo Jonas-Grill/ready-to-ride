@@ -41,6 +41,48 @@ class NewsDataSource() {
                 R.string.newsTitle3,
                 R.string.newsDesc3,
                 R.drawable.trainer3
+            ),
+            NewsEntry(
+                R.string.id3,
+                R.string.newsTitle3,
+                R.string.newsDesc3,
+                R.drawable.trainer3
+            ),
+            NewsEntry(
+                R.string.id3,
+                R.string.newsTitle3,
+                R.string.newsDesc3,
+                R.drawable.trainer3
+            ),
+            NewsEntry(
+                R.string.id3,
+                R.string.newsTitle3,
+                R.string.newsDesc3,
+                R.drawable.trainer3
+            ),
+            NewsEntry(
+                R.string.id3,
+                R.string.newsTitle3,
+                R.string.newsDesc3,
+                R.drawable.trainer3
+            ),
+            NewsEntry(
+                R.string.id3,
+                R.string.newsTitle3,
+                R.string.newsDesc3,
+                R.drawable.trainer3
+            ),
+            NewsEntry(
+                R.string.id3,
+                R.string.newsTitle3,
+                R.string.newsDesc3,
+                R.drawable.trainer3
+            ),
+            NewsEntry(
+                R.string.id2,
+                R.string.newsTitle2,
+                R.string.newsDesc2,
+                R.drawable.trainer2
             )
         )
     }

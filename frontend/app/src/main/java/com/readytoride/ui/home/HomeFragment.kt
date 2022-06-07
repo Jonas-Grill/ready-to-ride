@@ -43,6 +43,18 @@ class HomeFragment : Fragment() {
         val myDataset = NewsDataSource().loadNewsFeed()
         val listView = view.findViewById<ListView>(R.id.newsList)
         listView.adapter = HomeAdapter(this, myDataset)
+        if (listView.adapter != null) {
+            var totalHeight: Int = 0;
+            for (i in 0..(listView.adapter.count - 1)) {
+                val listItem = listView.adapter.getView(i, null, listView);
+                listItem.measure(0, 0);
+                totalHeight += listItem.measuredHeight;
+            }
+            val params: ViewGroup.LayoutParams = listView.layoutParams
+            params.height = totalHeight + (listView.dividerHeight * (listView.adapter.count - 1));
+            listView.layoutParams = params
+            listView.requestLayout();
+        }
     }
 
     override fun onDestroyView() {
