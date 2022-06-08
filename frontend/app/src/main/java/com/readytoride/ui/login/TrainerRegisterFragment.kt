@@ -39,13 +39,12 @@ class TrainerRegisterFragment : Fragment() {
 
 
         view.findViewById<Button>(R.id.btn_finish).setOnClickListener {
+            validateInput()
             var navRegister = activity as FragmentNavigation
             navRegister.navigateFrag(HomeFragment(), true)
         }
 
-        view.findViewById<Button>(R.id.btn_finish).setOnClickListener {
-            validateInput()
-        }
+
         return view
     }
 

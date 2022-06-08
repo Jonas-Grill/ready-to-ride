@@ -12,16 +12,10 @@ import android.widget.Toast
 import com.readytoride.R
 import com.readytoride.ui.home.HomeFragment
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [UserRegisterFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class UserRegisterFragment : Fragment() {
 
     private lateinit var user_height: EditText
@@ -39,14 +33,12 @@ class UserRegisterFragment : Fragment() {
         user_age = view.findViewById(R.id.user_age)
         user_weight = view.findViewById(R.id.user_weight)
 
-        view.findViewById<Button>(R.id.btn_finish).setOnClickListener {
+        view.findViewById<Button>(R.id.btn_finish_user).setOnClickListener {
+            validateInput()
             var navRegister = activity as FragmentNavigation
             navRegister.navigateFrag(HomeFragment(), true)
         }
 
-        view.findViewById<Button>(R.id.btn_finish_user).setOnClickListener {
-            validateInput()
-        }
         return view
     }
 

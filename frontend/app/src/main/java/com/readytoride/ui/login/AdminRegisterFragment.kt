@@ -12,18 +12,11 @@ import android.widget.Toast
 import com.readytoride.R
 import com.readytoride.ui.home.HomeFragment
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AdminRegisterFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AdminRegisterFragment : Fragment() {
-lateinit var admin_age: EditText
+    lateinit var admin_age: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,14 +27,13 @@ lateinit var admin_age: EditText
 
         admin_age = view.findViewById(R.id.admin_age)
 
-        view.findViewById<Button>(R.id.btn_finish).setOnClickListener {
+        view.findViewById<Button>(R.id.btn_finish_admin).setOnClickListener {
+            validateInput()
             var navRegister = activity as FragmentNavigation
             navRegister.navigateFrag(HomeFragment(), true)
         }
 
-        view.findViewById<Button>(R.id.btn_finish_admin).setOnClickListener {
-            validateInput()
-        }
+
         return view
     }
 
@@ -53,13 +45,16 @@ lateinit var admin_age: EditText
             }
             admin_age.toString().isNotEmpty() -> {
                 if (admin_age.text.toString().matches(Regex("[0-9]"))) {
-                    Toast.makeText(context,"Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
                 } else {
                     admin_age.setError("Bitte gültige Zahl eintragen")
                 }
             }
         }
+
     }
+
+
     companion object {
         /**
          * Use this factory method to create a new instance of

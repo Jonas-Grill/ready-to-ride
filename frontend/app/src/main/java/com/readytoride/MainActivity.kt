@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
     }
 
     //Alex: Logik für Registrierung
-    //Von Login zu Registrierung
     override fun navigateFrag(fragment: Fragment, addtoStack: Boolean) {
         val transaction = supportFragmentManager
             .beginTransaction()
@@ -83,16 +82,5 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
         }
         transaction.commit()
     }
-    /*//Von erster Registrierung zu zweiter Seite
-    override fun navigateFrag2(fragment: Fragment, addtoStack: Boolean) {
-        val transaction = supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.register_view,fragment)
-
-        if (addtoStack){
-            transaction.addToBackStack(null)
-        }
-        transaction.commit()
-    }*/
 
 }
