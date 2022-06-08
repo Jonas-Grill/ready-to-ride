@@ -32,8 +32,6 @@ class AdminRegisterFragment : Fragment() {
             var navRegister = activity as FragmentNavigation
             navRegister.navigateFrag(HomeFragment(), true)
         }
-
-
         return view
     }
 
