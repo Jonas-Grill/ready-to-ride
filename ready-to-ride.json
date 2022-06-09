@@ -259,64 +259,6 @@
         }
       }
     },
-    "/horses/{id}/calender": {
-      "get": {
-        "description": "Get all bookings from the horse with the specified id.",
-        "operationId": "find booking by horse",
-        "tags": [
-          "Horses"
-        ],
-        "security": [
-          {
-            "JWTAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of horse to fetch",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "611d5cd230dd29fc60df7b94"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "booking response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookingModel"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "not found error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/horses/races": {
       "get": {
         "description": "Returns all horse races from the system.",
@@ -422,12 +364,88 @@
         }
       }
     },
-    "/bookings": {
-      "post": {
-        "description": "Creates a new booking request. Duplicates are allowed",
-        "operationId": "addBooking",
+    "/ridinglessons": {
+      "get": {
+        "description": "Returns all riding lessons for one week. Deafult is the current week.\n",
+        "operationId": "findRidingLessons",
         "tags": [
-          "Bookings"
+          "Riding Lesson"
+        ],
+        "parameters": [
+          {
+            "name": "trainer",
+            "in": "query",
+            "description": "ID of trainer of riding lesson to fetch",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
+            }
+          },
+          {
+            "name": "horse",
+            "in": "query",
+            "description": "ID of horse of riding lesson to fetch",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
+            }
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "Date from which riding lesson should be fetched. If no toDate is defined the system will return the lessons for one week.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2015-10-26"
+            }
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "Date to which riding lesson should be fetched. If no fromDate is defined the system will return the lessons for one week.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2015-10-28"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Riding lessons list response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExtendedRidingLessonModel"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Creates a single new riding lesson. Duplicates are allowed",
+        "operationId": "addRidingLesson",
+        "tags": [
+          "Riding Lesson"
         ],
         "security": [
           {
@@ -435,23 +453,23 @@
           }
         ],
         "requestBody": {
-          "description": "Booking to add",
+          "description": "Riding Lesson to add",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExtendedBookingModel"
+                "$ref": "#/components/schemas/BaseRidingLessonModel"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "booking response",
+            "description": "lesson response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExtendedBookingModel"
+                  "$ref": "#/components/schemas/BaseRidingLessonModel"
                 }
               }
             }
@@ -466,8 +484,8 @@
               }
             }
           },
-          "409": {
-            "description": "already reserved error",
+          "401": {
+            "description": "please login to access this function.",
             "content": {
               "application/json": {
                 "schema": {
@@ -489,12 +507,79 @@
         }
       }
     },
-    "/bookings/{id}": {
-      "delete": {
-        "description": "Cancels a booking",
-        "operationId": "deleteBooking",
+    "/ridinglessons/multiple": {
+      "post": {
+        "description": "Creates a single new riding lesson. Duplicates are allowed",
+        "operationId": "addRidingLesson",
         "tags": [
-          "Bookings"
+          "Riding Lesson"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Riding Lesson to add",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMultipleRidingLessonModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "lesson response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseRidingLessonModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request/Wrong data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "please login to access this function.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ridinglessons/{id}": {
+      "delete": {
+        "description": "Cancels a riding lesson",
+        "operationId": "deleteRidingLesson",
+        "tags": [
+          "Riding Lesson"
         ],
         "security": [
           {
@@ -505,7 +590,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of booking to cancel",
+            "description": "ID of riding lesson to cancel",
             "required": true,
             "schema": {
               "type": "string",
@@ -515,7 +600,7 @@
         ],
         "responses": {
           "204": {
-            "description": "booking cancellation accepted"
+            "description": "riding lesson cancellation accepted"
           },
           "404": {
             "description": "not found error",
@@ -540,12 +625,12 @@
         }
       }
     },
-    "/bookings/{id}/accept": {
+    "/ridinglessons/{id}/book": {
       "post": {
         "description": "Accepts a booking request",
         "operationId": "acceptBooking",
         "tags": [
-          "Bookings"
+          "Riding Lesson"
         ],
         "security": [
           {
@@ -556,7 +641,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of horse to fetch",
+            "description": "ID of riding lessin",
             "required": true,
             "schema": {
               "type": "string",
@@ -564,8 +649,24 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "horseId": {
+                    "type": "string",
+                    "example": "urfnf87387fjv87rv7"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
-          "200": {
+          "202": {
             "description": "booking accepted"
           },
           "404": {
@@ -838,7 +939,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BookingModel"
+                  "$ref": "#/components/schemas/ExtendedRidingLessonModel"
                 }
               }
             }
@@ -1212,7 +1313,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BookingModel"
+                  "$ref": "#/components/schemas/ExtendedRidingLessonModel"
                 }
               }
             }
@@ -1835,11 +1936,13 @@
           }
         }
       },
-      "BookingModel": {
+      "BaseRidingLessonModel": {
         "type": "object",
         "required": [
           "timeslot",
-          "name"
+          "arena",
+          "day",
+          "hour"
         ],
         "properties": {
           "_id": {
@@ -1847,57 +1950,74 @@
             "readOnly": true,
             "example": "611d5cd230dd29fc60df7b94"
           },
-          "name": {
+          "trainer": {
             "type": "string",
-            "example": "Reitstunde"
+            "readOnly": true,
+            "example": "Horst Müller"
           },
-          "timeslot": {
-            "type": "object",
-            "required": [
-              "start_time",
-              "end_time"
-            ],
-            "properties": {
-              "start_time": {
-                "type": "string",
-                "format": "date-time",
-                "example": "2015-10-26T07:46:36.611Z"
-              },
-              "end_time": {
-                "type": "string",
-                "format": "date-time",
-                "example": "2015-10-26T09:46:36.611Z"
-              }
-            }
+          "booked": {
+            "type": "boolean",
+            "readOnly": true,
+            "example": true
+          },
+          "arena": {
+            "type": "string",
+            "example": "Halle 1"
+          },
+          "day": {
+            "type": "string",
+            "format": "date",
+            "example": "2015-10-26"
+          },
+          "startHour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 24
           }
         }
       },
-      "ExtendedBookingModel": {
+      "CreateMultipleRidingLessonModel": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/BookingModel"
+            "$ref": "#/components/schemas/BaseRidingLessonModel"
           },
           {
             "type": "object",
             "required": [
-              "booker",
-              "items"
+              "endHour"
             ],
             "properties": {
-              "booker": {
-                "type": "string",
+              "endHour": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 24
+              }
+            }
+          }
+        ]
+      },
+      "ExtendedRidingLessonModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseRidingLessonModel"
+          },
+          {
+            "type": "object",
+            "required": [
+              "horse"
+            ],
+            "properties": {
+              "horse": {
+                "type": "object",
                 "readOnly": true,
-                "example": "Anne"
-              },
-              "items": {
-                "type": "array",
-                "minItems": 1,
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    }
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Silva"
+                  },
+                  "id": {
+                    "type": "string",
+                    "example": "vnijniomvmi48483jffjc87"
                   }
                 }
               }
