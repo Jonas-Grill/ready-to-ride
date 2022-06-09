@@ -75,6 +75,7 @@ class RegisterFragment : Fragment() {
 
 
         view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
+            validateInput()
             var navRegister = activity as FragmentNavigation
             if (item == "Trainer") {
                 navRegister.navigateFrag(TrainerRegisterFragment(), true)
@@ -84,11 +85,6 @@ class RegisterFragment : Fragment() {
                 navRegister.navigateFrag(AdminRegisterFragment(), true)
             }
         }
-
-        view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
-            validateInput()
-        }
-
         return view
     }
 
@@ -134,7 +130,6 @@ class RegisterFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment RegisterFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             RegisterFragment().apply {

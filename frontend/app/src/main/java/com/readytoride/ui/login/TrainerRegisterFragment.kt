@@ -14,7 +14,6 @@ import com.readytoride.MainActivity
 import com.readytoride.R
 import com.readytoride.ui.home.HomeFragment
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -34,17 +33,13 @@ class TrainerRegisterFragment : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_trainer_register, container, false)
 
-
         trainer_age = view.findViewById(R.id.trainer_age)
-
 
         view.findViewById<Button>(R.id.btn_finish).setOnClickListener {
             validateInput()
             var navRegister = activity as FragmentNavigation
             navRegister.navigateFrag(HomeFragment(), true)
         }
-
-
         return view
     }
 
@@ -72,7 +67,6 @@ class TrainerRegisterFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment TrainerRegisterFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             TrainerRegisterFragment().apply {
