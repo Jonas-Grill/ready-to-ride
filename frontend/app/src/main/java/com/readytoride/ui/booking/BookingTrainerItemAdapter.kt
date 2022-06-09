@@ -11,7 +11,8 @@ import com.readytoride.ui.trainer.Trainer
 
 class BookingTrainerItemAdapter(
     private val context: BookingFragment,
-    private val dataset: List<Trainer>
+    private val dataset: List<Trainer>,
+    private val trainerId: String,
 ) :
     RecyclerView.Adapter<BookingTrainerItemAdapter.ItemViewHolder>() {
 
@@ -44,6 +45,10 @@ class BookingTrainerItemAdapter(
             }
         }
 
+        if (holder.checkbox.tooltipText == trainerId){
+            holder.checkbox.isChecked = true
+            viewModel.addTrainer(trainerId)
+        }
     }
 
     override fun getItemCount() = dataset.size

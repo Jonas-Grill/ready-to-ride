@@ -10,6 +10,9 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.navigation.NavArgs
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.navArgument
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
 import com.readytoride.ui.horse.HorseDatasource
@@ -19,8 +22,11 @@ class BookingFragment : Fragment() {
 
     companion object {
         fun newInstance() = BookingFragment()
-        var expand = true
     }
+
+    var horseId = ""
+    var trainerId = ""
+    val args: BookingFragmentArgs by navArgs<BookingFragmentArgs>()
 
     private lateinit var viewModel: BookingViewModel
 
@@ -28,6 +34,8 @@ class BookingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        trainerId = args.trainerid.toString()
+        horseId = args.horseid.toString()
         return inflater.inflate(R.layout.fragment_booking, container, false)
     }
 
@@ -41,13 +49,13 @@ class BookingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val myDatasetHorse = HorseDatasource().loadHorses()
         val recyclerViewHorse = view.findViewById<RecyclerView>(R.id.recycler_view_selection_horse)
-        recyclerViewHorse.adapter = BookingHorseItemAdapter(this, myDatasetHorse)
+        recyclerViewHorse.adapter = BookingHorseItemAdapter(this, myDatasetHorse, horseId)
         recyclerViewHorse.setHasFixedSize(true)
 
         val myDatasetTrainer = TrainerDatasource().loadTrainer()
         val recyclerViewTrainer =
             view.findViewById<RecyclerView>(R.id.recycler_view_selection_trainer)
-        recyclerViewTrainer.adapter = BookingTrainerItemAdapter(this, myDatasetTrainer)
+        recyclerViewTrainer.adapter = BookingTrainerItemAdapter(this, myDatasetTrainer, trainerId)
         recyclerViewTrainer.setHasFixedSize(true)
 
         val myDatasetMondayBookings =

@@ -11,7 +11,9 @@ import com.readytoride.ui.horse.Horse
 
 class BookingHorseItemAdapter(
     private val context: BookingFragment,
-    private val dataset: List<Horse>
+    private val dataset: List<Horse>,
+    private val horseId: String,
+
 ) :
     RecyclerView.Adapter<BookingHorseItemAdapter.ItemViewHolder>() {
 
@@ -42,6 +44,11 @@ class BookingHorseItemAdapter(
             } else {
                 viewModel.addHorse(horseid)
             }
+        }
+
+        if (holder.checkbox.tooltipText == horseId){
+            holder.checkbox.isChecked = true
+            viewModel.addHorse(horseId)
         }
 
     }
