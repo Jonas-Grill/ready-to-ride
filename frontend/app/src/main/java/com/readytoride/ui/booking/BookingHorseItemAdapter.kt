@@ -14,7 +14,7 @@ class BookingHorseItemAdapter(
     private val dataset: List<Horse>,
     private val horseId: String,
 
-) :
+    ) :
     RecyclerView.Adapter<BookingHorseItemAdapter.ItemViewHolder>() {
 
     private lateinit var viewModel: BookingViewModel
@@ -46,7 +46,7 @@ class BookingHorseItemAdapter(
             }
         }
 
-        if (holder.checkbox.tooltipText == horseId){
+        if (holder.checkbox.tooltipText == horseId) {
             holder.checkbox.isChecked = true
             viewModel.addHorse(horseId)
         }

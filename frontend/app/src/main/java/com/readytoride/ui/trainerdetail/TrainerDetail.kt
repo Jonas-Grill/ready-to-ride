@@ -75,7 +75,7 @@ class TrainerDetail : Fragment() {
         recyclerView.setHasFixedSize(true)
 
         val bookingButton: Button = view.findViewById(R.id.button_book_trainer)
-        bookingButton.setOnClickListener{
+        bookingButton.setOnClickListener {
             val action = TrainerDetailDirections.actionTrainerDetail2ToNavLessons(trainerId, null)
             view.findNavController().navigate(action)
         }

@@ -74,7 +74,7 @@ class HorseDetail : Fragment() {
         imageSlider.setImageList(imageList)
 
         val bookingButton: Button = view.findViewById(R.id.button)
-        bookingButton.setOnClickListener{
+        bookingButton.setOnClickListener {
             val action = HorseDetailDirections.actionNavHorseDetailToNavLessons(null, horseId)
             view.findNavController().navigate(action)
         }

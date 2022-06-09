@@ -40,7 +40,7 @@ class BookingSlotItemAdapter(
         holder.timeframe.text = context.resources.getString(item.bookingTime)
         holder.location.text = context.resources.getString(item.bookingLocation)
 
-        holder.button.setOnClickListener{
+        holder.button.setOnClickListener {
             //hier wird ein PopUp erzeugt mit Einverständniserklärung, ggf. Infos und Buchungsbestätigung
             var dialog = BookingDialog()
             dialog.show(context.childFragmentManager, "BookingDialog")

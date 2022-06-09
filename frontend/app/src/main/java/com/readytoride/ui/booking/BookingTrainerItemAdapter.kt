@@ -45,7 +45,7 @@ class BookingTrainerItemAdapter(
             }
         }
 
-        if (holder.checkbox.tooltipText == trainerId){
+        if (holder.checkbox.tooltipText == trainerId) {
             holder.checkbox.isChecked = true
             viewModel.addTrainer(trainerId)
         }

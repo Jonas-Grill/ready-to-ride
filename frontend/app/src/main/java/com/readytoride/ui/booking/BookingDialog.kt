@@ -11,7 +11,7 @@ import androidx.fragment.app.DialogFragment
 import com.readytoride.R
 
 
-class BookingDialog: DialogFragment() {
+class BookingDialog : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,7 +27,7 @@ class BookingDialog: DialogFragment() {
         val secondMessage: LinearLayout = view.findViewById(R.id.layout_success_message)
         val submitButton: Button = view.findViewById(R.id.booking_button)
 
-        firstMessage.setOnClickListener{
+        firstMessage.setOnClickListener {
             submitButton.isClickable = !submitButton.isClickable
         }
 
