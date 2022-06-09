@@ -10,5 +10,4 @@ class Bookings(
     @StringRes val bookingDay: Int,
     @StringRes val bookingTime: Int,
     @StringRes val bookingLocation: Int
-) {
-}
+) {}

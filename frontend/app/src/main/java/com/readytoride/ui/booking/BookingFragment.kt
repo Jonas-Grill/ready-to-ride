@@ -8,11 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.core.view.isVisible
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navArgument
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
 import com.readytoride.ui.horse.HorseDatasource

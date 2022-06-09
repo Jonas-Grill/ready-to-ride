@@ -10,7 +10,6 @@ import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
 import com.readytoride.R
 
-
 class BookingDialog : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +40,5 @@ class BookingDialog : DialogFragment() {
 
         secondMessage.visibility = View.GONE
         submitButton.isClickable = false
-
     }
 }

@@ -18,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="4dp"
-            android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             tools:text="Trainer XY, Pferd Z" />
 
@@ -26,7 +25,6 @@
             android:id="@+id/booking_timeframe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             tools:text="16:00 Uhr bis 17:00 Uhr" />
 
@@ -34,7 +32,6 @@
             android:id="@+id/booking_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             tools:text="Reithalle 1" />
 
@@ -42,7 +39,7 @@
             android:id="@+id/button5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Jetzt Buchen" />
+            android:text="@string/book_now" />
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

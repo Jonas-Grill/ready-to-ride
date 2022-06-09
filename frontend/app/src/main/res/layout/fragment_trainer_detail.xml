@@ -64,7 +64,6 @@
                                 android:paddingStart="8dp"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                 tools:text="37 Jahre" />
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -88,7 +87,6 @@
                                 android:paddingStart="8dp"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                 tools:text="Anfänger" />
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -112,7 +110,6 @@
                                 android:paddingStart="8dp"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                 tools:text="Ich habe ganz viele Qualifikationen" />
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -136,9 +133,7 @@
                                 android:paddingStart="8dp"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                 tools:text="Ich bin ein sehr toller Trainer. Ich kann sehr gut reiten." />
-
                         </LinearLayout>
-
                     </LinearLayout>
 
                     <com.denzcoskun.imageslider.ImageSlider
@@ -148,11 +143,8 @@
                         app:iss_auto_cycle="true"
                         app:iss_delay="0"
                         app:iss_period="5000" />
-
                 </LinearLayout>
-
             </LinearLayout>
-
         </LinearLayout>
 
         <TextView
@@ -179,5 +171,4 @@
             android:layout_height="wrap_content"
             android:text="@string/book_lesson" />
     </LinearLayout>
-
 </FrameLayout>

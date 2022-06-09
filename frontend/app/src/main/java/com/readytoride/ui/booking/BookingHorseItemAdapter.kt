@@ -13,7 +13,6 @@ class BookingHorseItemAdapter(
     private val context: BookingFragment,
     private val dataset: List<Horse>,
     private val horseId: String,
-
     ) :
     RecyclerView.Adapter<BookingHorseItemAdapter.ItemViewHolder>() {
 
@@ -50,7 +49,6 @@ class BookingHorseItemAdapter(
             holder.checkbox.isChecked = true
             viewModel.addHorse(horseId)
         }
-
     }
 
     override fun getItemCount() = dataset.size

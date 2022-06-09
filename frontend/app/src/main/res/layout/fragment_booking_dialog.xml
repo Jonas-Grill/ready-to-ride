@@ -15,7 +15,7 @@
         android:elevation="10dp"
         android:paddingVertical="4dp"
         android:paddingLeft="4dp"
-        android:text="Reitstunde buchen"
+        android:text="@string/book_lesson"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/white" />
 

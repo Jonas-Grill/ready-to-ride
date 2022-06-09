@@ -37,7 +37,6 @@ class TrainerDetail : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(TrainerDetailViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -79,7 +78,5 @@ class TrainerDetail : Fragment() {
             val action = TrainerDetailDirections.actionTrainerDetail2ToNavLessons(trainerId, null)
             view.findNavController().navigate(action)
         }
-
     }
-
 }

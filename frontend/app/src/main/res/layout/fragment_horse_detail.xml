@@ -156,7 +156,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingStart="8dp"
-                                android:text="TextView"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                 tools:text="Anfänger" />
                         </LinearLayout>
@@ -181,11 +180,9 @@
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:paddingStart="8dp"
-                                android:text="TextView"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                 tools:text="Das ist ein tolles Pferd. Man kann es sehr gut reiten. Es mag am liebsten Möhren und Pommes." />
                         </LinearLayout>
-
                     </LinearLayout>
 
                     <com.denzcoskun.imageslider.ImageSlider
@@ -197,9 +194,7 @@
                         app:iss_delay="0"/>
 
                 </LinearLayout>
-
             </LinearLayout>
-
         </LinearLayout>
 
         <Button
@@ -209,5 +204,4 @@
             android:text="@string/book_lesson" />
 
     </LinearLayout>
-
 </FrameLayout>

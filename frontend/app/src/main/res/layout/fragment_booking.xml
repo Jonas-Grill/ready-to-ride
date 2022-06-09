@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -42,7 +41,7 @@
                     android:background="@color/orange_500"
                     android:gravity="center"
                     android:paddingVertical="12dp"
-                    android:text="Suchkriterien"
+                    android:text="@string/filtercriteria"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textColor="@color/white" />
 
@@ -71,7 +70,7 @@
                     android:elevation="5dp"
                     android:paddingVertical="4dp"
                     android:paddingStart="4dp"
-                    android:text="Trainer auswählen"
+                    android:text="@string/choose_trainer"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textColor="@color/black" />
 
@@ -92,7 +91,7 @@
                     android:elevation="5dp"
                     android:paddingVertical="4dp"
                     android:paddingStart="4dp"
-                    android:text="Pferd auswählen"
+                    android:text="@string/choose_horse"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textColor="@color/black" />
 
@@ -112,8 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="4dp"
-                    android:text="Auswahl bestätigen" />
-
+                    android:text="@string/submit_choice" />
             </LinearLayout>
 
             <LinearLayout
@@ -144,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="13.06.2022 - 19.06.2022 "
+                    android:text="@string/dates"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textColor="@color/white" />
 
@@ -296,5 +294,4 @@
 
         </LinearLayout>
     </ScrollView>
-
 </FrameLayout>

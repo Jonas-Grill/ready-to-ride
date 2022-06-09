@@ -1,8 +1,6 @@
 package com.readytoride.ui.booking
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.readytoride.ui.trainer.Trainer
 
 class BookingViewModel : ViewModel() {
     private val trainers: MutableList<String> = mutableListOf()
@@ -39,5 +37,4 @@ class BookingViewModel : ViewModel() {
     fun isInHorses(horse: String): Boolean {
         return horses.contains(horse)
     }
-
 }

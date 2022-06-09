@@ -16,6 +16,5 @@ class BookingsDatasource {
             Bookings(R.string.id4, R.string.id9, R.string.trainername4, R.string.horsename9, R.string.day5, R.string.time2, R.string.location1),
             Bookings(R.string.id5, R.string.id10, R.string.trainername5, R.string.horsename10, R.string.day7, R.string.time3, R.string.location2)
         )
-
     }
 }

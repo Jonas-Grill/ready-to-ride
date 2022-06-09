@@ -149,6 +149,12 @@
     <string name="location4">Reitplatz</string>
     <string name="booking_info">Ich erkläre mich damit einverstanden, dass meine persönlichen Daten an den ausgewählten Trainer weitergegeben werden.</string>
     <string name="success_message">Deine gewählte Reitstunde wurde erfolgreich reserviert. Sie kann in deinem Profil eingesehen werden. Sobald der Trainer die Anfrage bestätigt oder abgelehnt hat, erhältst du eine Nachricht.</string>
+    <string name="filtercriteria">Suchkriterien</string>
+    <string name="choose_trainer">Trainer auswählen</string>
+    <string name="choose_horse">Pferd auswählen</string>
+    <string name="submit_choice">Auswahl bestätigen</string>
+    <string name="dates">13.06.2022 - 19.06.2022</string>
+    <string name="book_now">Jetzt Buchen</string>
 
 
 </resources>

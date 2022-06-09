@@ -14,8 +14,6 @@ import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
 import com.readytoride.R
 import com.readytoride.ui.horse.HorseDatasource
-import com.readytoride.ui.horse.HorseViewModel
-import com.readytoride.ui.trainerdetail.TrainerDetailDirections
 
 class HorseDetail : Fragment() {
 
@@ -78,7 +76,5 @@ class HorseDetail : Fragment() {
             val action = HorseDetailDirections.actionNavHorseDetailToNavLessons(null, horseId)
             view.findNavController().navigate(action)
         }
-
     }
-
 }
