@@ -127,7 +127,28 @@
     <string name="achievement2">Deutscher Meister Senior Trail</string>
     <string name="achievement3">Deutscher Meister Senior Horsemanship</string>
     <string name="achievement4">Deutscher Meister Senior Showmanship</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">E-Mail</string>
+    <string name="prompt_password">Passwort</string>
+    <string name="invalid_username">Kein gültiger Nutzername</string>
+    <string name="login_failed">"Login fehlgeschlagen"</string>
 
+    <string-array name="roles">
+        <item>Nutzer</item>
+        <item>Admin</item>
+        <item>Trainer</item>
+    </string-array>
+
+    <string name="rb1">Kinder</string>
+    <string name="rb2">Erwachsene</string>
+    <string name="rb3">Tunierreiter</string>
+    <string name="rb4">Anfänger</string>
+    <string name="rb5">Fortgeschrittene</string>
+    <string name="focus">Fokus auf:</string>
+    <string name="erfahrung">Erfahrung:</string>
+    <string name="rb_user1">Tunierreiter</string>
+    <string name="rb_user2">Anfänger</string>
+    <string name="rb_user3">Fortgeschrittener</string>
 
     <string name="contact_header">Impressum</string>
     <string name="contact_header2">Kontakt zu uns</string>

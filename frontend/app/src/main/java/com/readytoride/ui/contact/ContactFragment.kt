@@ -22,7 +22,11 @@ class ContactFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_contact, container, false)
+        var view =  inflater.inflate(R.layout.fragment_contact, container, false)
+        //view.findViewById<Button>(R.id.sentButton).setOnClickListener{}
+
+
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
