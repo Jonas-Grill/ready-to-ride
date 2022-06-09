@@ -29,16 +29,24 @@ app.addEventListener("error", (evt) => {
     console.log(evt.error);
 });
 
-if (ENV === "dev") {
+try {
+    if (ENV === "dev") {
+        await app.listen({
+            port: PORT,
+            secure: false,
+        });
+    } else if (ENV === "prod") {
+        await app.listen({
+            port: PORT,
+            secure: true,
+            certFile: CERT_PATH,
+            keyFile: KEY_PATH,
+        });
+    }
+} catch (e) {
     await app.listen({
         port: PORT,
         secure: false,
     });
-} else if (ENV === "prod") {
-    await app.listen({
-        port: PORT,
-        secure: false,
-        // certFile: CERT_PATH,
-        // keyFile: KEY_PATH,
-    });
+    console.log(e)
 }
