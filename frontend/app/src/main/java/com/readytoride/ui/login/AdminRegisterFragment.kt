@@ -35,7 +35,6 @@ class AdminRegisterFragment : Fragment() {
         return view
     }
 
-
     fun validateInput() {
         when {
             TextUtils.isEmpty(admin_age.text.toString().trim()) -> {
@@ -51,7 +50,6 @@ class AdminRegisterFragment : Fragment() {
         }
 
     }
-
 
     companion object {
         /**

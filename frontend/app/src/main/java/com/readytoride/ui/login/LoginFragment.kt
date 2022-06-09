@@ -21,7 +21,6 @@ class LoginFragment : Fragment() {
     private lateinit var mail: EditText
     private lateinit var password: EditText
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

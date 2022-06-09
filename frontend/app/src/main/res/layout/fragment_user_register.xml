@@ -15,7 +15,6 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -28,7 +27,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="11dp"
             android:gravity="center_horizontal"
-            android:text="Ready to Ride"
+            android:text="@string/app_name"
             android:textColor="#000"
             android:textSize="15sp" />
 
@@ -98,25 +97,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Erfahrung" />
+                    android:text="@string/erfahrung" />
 
                 <RadioButton
                     android:id="@+id/radioButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Anfänger" />
+                    android:text="rb_user1" />
 
                 <RadioButton
                     android:id="@+id/radioButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fortgeschrittener" />
+                    android:text="rb_user2" />
 
                 <RadioButton
                     android:id="@+id/radioButton3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tunierreiter" />
+                    android:text="rb_user3" />
 
             </RadioGroup>
 

@@ -73,7 +73,6 @@ class RegisterFragment : Fragment() {
             }
         }
 
-
         view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
             validateInput()
             var navRegister = activity as FragmentNavigation
