@@ -147,8 +147,8 @@
     <string name="location2">Trainingshalle 2</string>
     <string name="location3">Roundpen</string>
     <string name="location4">Reitplatz</string>
-
-
+    <string name="booking_info">Ich erkläre mich damit einverstanden, dass meine persönlichen Daten an den ausgewählten Trainer weitergegeben werden.</string>
+    <string name="success_message">Deine gewählte Reitstunde wurde erfolgreich reserviert. Sie kann in deinem Profil eingesehen werden. Sobald der Trainer die Anfrage bestätigt oder abgelehnt hat, erhältst du eine Nachricht.</string>
 
 
 </resources>

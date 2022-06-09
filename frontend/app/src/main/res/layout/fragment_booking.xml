@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -79,6 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#4AE8E8E8"
+                    android:overScrollMode="never"
                     android:paddingStart="4dp"
                     app:layoutManager="StaggeredGridLayoutManager" />
 
@@ -99,6 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#4AE8E8E8"
+                    android:overScrollMode="never"
                     android:paddingStart="4dp"
                     app:layoutManager="StaggeredGridLayoutManager">
 
@@ -119,7 +122,8 @@
                 android:background="@color/orange_500"
                 android:elevation="10dp"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:overScrollMode="never">
 
                 <Button
                     android:id="@+id/button2"
@@ -172,6 +176,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#4AE8E8E8"
+                android:overScrollMode="never"
                 android:scrollbars="none"
                 app:layoutManager="StaggeredGridLayoutManager" />
 
@@ -191,6 +196,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#4AE8E8E8"
+                android:overScrollMode="never"
                 app:layoutManager="StaggeredGridLayoutManager" />
 
             <TextView
@@ -209,6 +215,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#4AE8E8E8"
+                android:overScrollMode="never"
                 app:layoutManager="StaggeredGridLayoutManager" />
 
             <TextView
@@ -227,6 +234,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#4AE8E8E8"
+                android:overScrollMode="never"
                 app:layoutManager="StaggeredGridLayoutManager" />
 
             <TextView
@@ -245,6 +253,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#4AE8E8E8"
+                android:overScrollMode="never"
                 app:layoutManager="StaggeredGridLayoutManager" />
 
             <TextView
@@ -263,6 +272,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#4AE8E8E8"
+                android:overScrollMode="never"
                 app:layoutManager="StaggeredGridLayoutManager" />
 
             <TextView
@@ -281,6 +291,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#4AE8E8E8"
+                android:overScrollMode="never"
                 app:layoutManager="StaggeredGridLayoutManager" />
 
         </LinearLayout>
