@@ -67,7 +67,7 @@ export const updateHorse = async (ctx: Context) => {
 
     ctx.assert(horseData, Status.BadRequest, "Please provide data");
 
-    const horse: ExtendedHorseSchema | undefined = await horseService.updateHorse(horse, id);
+    const horse: ExtendedHorseSchema | undefined = await horseService.updateHorse(horseData, id);
 
     ctx.assert(horse, Status.NotFound, `Couldn't find a users with the id ${id}`);
 
