@@ -1,3 +1,5 @@
+[![CI](https://github.com/Jonas-Grill/ready-to-ride/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/Jonas-Grill/ready-to-ride/actions/workflows/ci.yaml)    [![CodeQL](https://github.com/Jonas-Grill/ready-to-ride/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/Jonas-Grill/ready-to-ride/actions/workflows/codeql-analysis.yml)    [![CD](https://github.com/Jonas-Grill/ready-to-ride/actions/workflows/cd.yaml/badge.svg?branch=main)](https://github.com/Jonas-Grill/ready-to-ride/actions/workflows/cd.yaml)
+
 # Ready to Ride:
 
 <img src="/documentation/LOGO.PNG" width="300" height="300" />
