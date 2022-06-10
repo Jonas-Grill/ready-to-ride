@@ -8,12 +8,14 @@ const horses = db.collection<Horse>("horses");
 export const createHorse = async (horse: Horse) => {
     const id = await horses.insertOne({
         name: horse.name,
+        height: horse.height,
+        race: horse.race,
         age: horse.age,
         colour: horse.colour,
         difficultyLevel: horse.difficultyLevel,
         profilePicture: horse.profilePicture,
         description: horse.description,
-        pictures: horse.pictures,
+        pictures: horse.pictures
     });
 
     return id.toString();

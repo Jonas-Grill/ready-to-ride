@@ -2,7 +2,7 @@ export enum Race {
     NONE
 }
 
-export const Races = [
+export const RACES = [
     "Quarterhorse",
     "Deutsches Reitpony",
     "Friesenpferde, Haflinger",
@@ -15,5 +15,5 @@ export const Races = [
 
 // deno-lint-ignore no-explicit-any
 export const instanceOfRace = (object: any): object is Race => {
-    return Races.includes(object);
+    return RACES.includes(object);
 }

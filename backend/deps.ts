@@ -25,7 +25,7 @@ export * as bcrypt from "https://deno.land/x/bcrypt@v0.3.0/mod.ts";
 
 // Deno standard libary
 export {Status} from "https://deno.land/std@0.140.0/http/http_status.ts";
-import {isNumber} from "https://deno.land/std@0.63.0/node/util.ts";
+export {isNumber} from "https://deno.land/std@0.63.0/node/util.ts";
 
 // Sleep
 export {sleep} from "https://deno.land/x/sleep@v1.2.1/mod.ts";

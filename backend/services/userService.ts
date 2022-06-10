@@ -26,7 +26,7 @@ export const isUserDataValid = async (userData: { email: string; password: strin
     } else return userData.password === user.password;
 }
 
-export const createNewUser = async (userData: BaseUserSchema) => {
+export const addNewUser = async (userData: BaseUserSchema) => {
     if ((await userRepo.findUserByEmail(userData.email))) {
         throw new invalidDataException("This email is already in use");
     }

@@ -1,6 +1,6 @@
 import {Bson, isNumber} from "../deps.ts";
 import {instanceOfRace, Race} from "./race.ts";
-import {Colour, instanceOfColour} from "./colour.ts";
+import {COLOURS, instanceOfColour} from "./colour.ts";
 import {instanceOfProficiency, Proficiency} from "./proficiency.ts";
 
 /* ------------------------------ Horse ------------------------------ */
@@ -11,7 +11,7 @@ export interface HorseSchema {
     height: number;
     race: Race;
     age: number;
-    colour: Colour;
+    colour: COLOURS;
     difficultyLevel: Proficiency;
     profilePicture?: string;
 }
@@ -27,7 +27,7 @@ export const instanceOfHorse = (object: any): object is HorseSchema => {
 
 /* ------------------------------ Extended Horse ------------------------------ */
 
-export interface ExtendedHorseSchema {
+export interface ExtendedHorseSchema extends HorseSchema{
     description: string;
     pictures?: string[];
 }

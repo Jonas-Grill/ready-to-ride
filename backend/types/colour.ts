@@ -2,7 +2,7 @@ export enum Colour {
     NONE
 }
 
-export const Colour = [
+export const COLOURS = [
     "Red Roan",
     "Blue Roan",
     "Rappe",
@@ -15,5 +15,5 @@ export const Colour = [
 
 // deno-lint-ignore no-explicit-any
 export const instanceOfColour = (object: any): object is Colour => {
-    return Colour.includes(object);
+    return COLOURS.includes(object);
 }
