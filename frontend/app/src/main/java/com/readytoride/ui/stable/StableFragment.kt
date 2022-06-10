@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.readytoride.R
 
-class StableFragment : Fragment(){
+class StableFragment : Fragment() {
 
     companion object {
         fun newInstance() = StableFragment()
