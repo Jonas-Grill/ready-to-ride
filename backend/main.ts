@@ -9,6 +9,7 @@ app.use(
         origin: [
             "http://localhost:5000",
             "http://localhost:4200",
+            "https://jonas-grill.github.io/ready-to-ride/#/",
         ],
         credentials: true,
     })
