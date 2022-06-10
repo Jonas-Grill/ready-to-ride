@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import com.readytoride.R
 
 class ContactFragment : Fragment() {
@@ -32,6 +33,35 @@ class ContactFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
         // TODO: Use the ViewModel
+
+        //Logik für Auslesen von Contact Formular
+
+       // val btn_send = findViewById(R.id.sentButton) as Button
+       // btn_send.setOnClickListener {
+       //     EditText textName = (EditText)findViewById(R.id.inputName);
+        //    textName.getText();
+        //    EditText textMail = (EditText)findViewById(R.id.inputMail);
+         //   textMail.getText();
+          //  EditText textMail = (EditText)findViewById(R.id.inputMessage);
+           // textMessage.getText();
+       // }
+
     }
 
+
+
+    /*override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        findViewById(R.id.sentButton).setOnClickListener(this)
+    }
+
+    fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.sentButton -> {
+                // your code logic here
+            }
+        }
+    }*/
 }
