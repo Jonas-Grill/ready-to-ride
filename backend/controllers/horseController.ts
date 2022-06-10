@@ -1,9 +1,10 @@
-import {Context, Status, helpers} from "../deps.ts";
+import {Context, helpers, Status} from "../deps.ts";
 import * as horseService from "../services/horseService.ts";
 import {PROFINCIES} from "../types/proficiency.ts";
 import {ExtendedHorseSchema, HorseSchema, instanceOfHorse} from "../types/horse.ts";
 import {RACES} from "../types/race.ts";
 import {COLOURS} from "../types/colour.ts";
+import {UserRole} from "../types/userRole.ts";
 
 export const findHorse = async (ctx: Context) => {
     ctx.response.status = Status.OK;
@@ -35,6 +36,8 @@ export const findHorseById = async (ctx: Context) => {
 };
 
 export const addHorse = async (ctx: Context) => {
+    ctx.assert(ctx.state.currentUser.role === UserRole.ADMIN, Status.Unauthorized)
+
     ctx.assert(ctx.request.hasBody, Status.BadRequest, "Please provide data");
 
     const horseData = await ctx.request.body().value;
@@ -58,6 +61,8 @@ export const addHorse = async (ctx: Context) => {
 }
 
 export const updateHorse = async (ctx: Context) => {
+    ctx.assert(ctx.state.currentUser.role === UserRole.ADMIN, Status.Unauthorized)
+
     const id: string = helpers.getQuery(ctx, { mergeParams: true }).id;
 
     ctx.assert(id, Status.BadRequest, "Please provide an id");
@@ -76,6 +81,8 @@ export const updateHorse = async (ctx: Context) => {
 };
 
 export const deleteHorse = async (ctx: Context) => {
+    ctx.assert(ctx.state.currentUser.role === UserRole.ADMIN, Status.Unauthorized)
+
     const id: string = helpers.getQuery(ctx, { mergeParams: true }).id;
 
     ctx.assert(id, Status.BadRequest, "Please provide an id");
