@@ -1,16 +1,18 @@
 package com.readytoride.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.readytoride.R
 import com.readytoride.databinding.FragmentHomeBinding
-import com.readytoride.ui.horse.HorseDatasource
+import com.readytoride.ui.homedetail.HomeDetail
 
 class HomeFragment : Fragment() {
 
@@ -55,6 +57,15 @@ class HomeFragment : Fragment() {
             listView.layoutParams = params
             listView.requestLayout();
         }
+        listView.isClickable = true
+        /*listView.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
+                val element = listView.getItemAtPosition(position) // The item that was clicked
+                val action =
+                val intent = Intent(this, )
+                    Intent(this, HomeDetail::class.java)
+                startActivity(intent)
+            }*/
     }
 
     override fun onDestroyView() {
