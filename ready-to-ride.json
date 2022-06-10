@@ -1550,7 +1550,7 @@
             ],
             "example": "Blue Roan"
           },
-          "difficulty_level": {
+          "difficultyLevel": {
             "type": "string",
             "enum": [
               "Anfänger",
