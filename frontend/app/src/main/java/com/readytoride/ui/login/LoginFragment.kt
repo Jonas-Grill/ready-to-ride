@@ -11,6 +11,7 @@ import android.widget.EditText
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.readytoride.R
+import com.readytoride.ui.home.HomeFragment
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -38,7 +39,10 @@ class LoginFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.btn_login).setOnClickListener {
-            validateInput()
+            //validateInput()
+            //Weiterleitung nach Login
+            var navRegister = activity as FragmentNavigation
+            navRegister.navigateFrag(HomeFragment(), true)
         }
 
         return view
@@ -53,11 +57,13 @@ class LoginFragment : Fragment() {
                 password.setError("Bitte Passwort eintragen")
             }
             mail.text.toString().isNotEmpty() && password.toString().isNotEmpty() -> {
-                if (mail.text.toString().matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\\\.+[a-z]+"))) {
-
-                } else {
-                    mail.setError("Bitte gültige E-Mail eintragen")
-                }
+            //ToDo
+            //if (mail.text.toString().matches(Regex("(?:[a-z0-9!#\$%&'+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\$%&'+/=?^_`{|}~-]+)|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])\")@(?:(?:[a-z0-9](?:[a-z0-9-][a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-][a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"))) {
+            //direkter Mail Check: android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+            //Wenn Mail korrekt, do nothing
+              //  } else {
+             //       mail.setError("Bitte gültige E-Mail eintragen")
+               // }
             }
         }
     }
