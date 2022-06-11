@@ -1,6 +1,6 @@
 import {Bson} from "../deps.ts"
 import {Proficiency} from "../types/proficiency.ts";
-import {Colour, COLOURS} from "../types/colour.ts";
+import {Colour} from "../types/colour.ts";
 import {Race} from "../types/race.ts";
 
 export default interface HorseModel {

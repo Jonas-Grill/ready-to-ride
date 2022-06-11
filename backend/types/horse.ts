@@ -1,6 +1,8 @@
+// deno-lint-ignore-file no-explicit-any
+
 import {Bson, isNumber} from "../deps.ts";
 import {instanceOfRace, Race} from "./race.ts";
-import {Colour, COLOURS, instanceOfColour} from "./colour.ts";
+import {Colour, instanceOfColour} from "./colour.ts";
 import {instanceOfProficiency, Proficiency} from "./proficiency.ts";
 
 /* ------------------------------ Horse ------------------------------ */
