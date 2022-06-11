@@ -1,4 +1,4 @@
-import {Context, create, getNumericDate, Header, Payload, Status, helpers} from "../deps.ts";
+import {Context, create, getNumericDate, Header, Payload, Status, helpers, HttpError} from "../deps.ts";
 import {KEY, SIGN_ALG} from ".././config/config.ts";
 import * as userService from "../services/userService.ts";
 import {
@@ -10,6 +10,8 @@ import {
 import {USER_ROLES, UserRole} from "../types/userRole.ts";
 import {FOCUSES} from "../types/focus.ts";
 import {PROFINCIES} from "../types/proficiency.ts";
+import de from "https://jspm.dev/npm:@jspm/core@2.0.0-beta.15/nodelibs/crypto";
+import {isUserPasscodeValid} from "../services/userService.ts";
 
 export const findTrainer = async (ctx: Context) => {
     ctx.response.status = Status.OK;
@@ -99,10 +101,14 @@ export const registration = async (ctx: Context) => {
             break;
         case UserRole.TRAINER:
             ctx.assert(instanceOfRegisterTrainer(userData), Status.BadRequest, "Please provide Data in a valid format.");
+            ctx.assert(await isUserPasscodeValid(userData.rolePasscode, userData.role), Status.BadRequest, "Invalid passcode");
             break;
         case UserRole.ADMIN:
             ctx.assert(instanceOfAdmin(userData), Status.BadRequest, "Please provide Data in a valid format.");
+            ctx.assert(await isUserPasscodeValid(userData.rolePasscode, userData.role), Status.BadRequest, "Invalid passcode");
             break;
+        default:
+            throw new HttpError("Invalid user role");
     }
 
     ctx.response.status = Status.Created;
