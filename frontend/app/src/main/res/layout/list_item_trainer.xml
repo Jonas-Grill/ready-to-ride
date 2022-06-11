@@ -123,9 +123,6 @@
                 android:text="@string/horse_details"
                 android:textSize="14sp"
                 tools:text="mehr erfahren" />
-
         </LinearLayout>
-
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>
