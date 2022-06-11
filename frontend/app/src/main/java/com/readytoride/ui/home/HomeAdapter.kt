@@ -22,8 +22,9 @@ class HomeAdapter(private val context: HomeFragment, private val dataset: List<N
     }
 
     override fun getItem(position: Int): Any {
-        return "Test String"
+        return dataset[position]
     }
+
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
@@ -35,10 +36,26 @@ class HomeAdapter(private val context: HomeFragment, private val dataset: List<N
         convertView = LayoutInflater.from(parent!!.context).inflate(R.layout.news_list_row, parent, false)
         title = convertView.findViewById(R.id.news_name)
         description = convertView.findViewById(R.id.desc)
-        image = convertView.findViewById(R.id.image)
         title.text = context.resources.getString(item.titleStringResourceId)
         description.text = context.resources.getString(item.descriptionStringResourceId)
-        image.setImageResource(item.imageResourceId)
         return convertView
+    }
+
+    fun getTitle(position: Int, convertView: View?, parent: ViewGroup?): CharSequence {
+        val item = dataset[position]
+        var convertView = convertView
+        convertView = LayoutInflater.from(parent!!.context).inflate(R.layout.news_list_row, parent, false)
+        title = convertView.findViewById(R.id.news_name)
+        title.text = context.resources.getString(item.titleStringResourceId)
+        return title.text
+    }
+
+    fun getDesc(position: Int, convertView: View?, parent: ViewGroup?): CharSequence {
+        val item = dataset[position]
+        var convertView = convertView
+        convertView = LayoutInflater.from(parent!!.context).inflate(R.layout.news_list_row, parent, false)
+        description = convertView.findViewById(R.id.desc)
+        description.text = context.resources.getString(item.descriptionStringResourceId)
+        return description.text
     }
 }
