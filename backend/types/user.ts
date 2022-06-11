@@ -2,10 +2,9 @@
 
 import {Bson} from "../deps.ts"
 import {instanceOfUserRole, UserRole} from "./userRole.ts";
-import {isNumber} from "https://deno.land/std@0.63.0/node/util.ts";
+import {isNumber} from "../deps.ts";
 import {instanceOfProficiency, Proficiency} from "./proficiency.ts";
 import {Focus, instanceOfFocus} from "./focus.ts";
-
 
 /* ------------------------------ Name ------------------------------ */
 
