@@ -7,4 +7,6 @@ export default interface StableSchema {
     description: string;
     arenas: ArenaSchema[];
     boxes: BoxSchema[];
+    adminPasscode: string;
+    trainerPasscode: string;
 }

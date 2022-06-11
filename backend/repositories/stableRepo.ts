@@ -11,6 +11,8 @@ export const createStable = async (stable: Stable) => {
         description: stable.description,
         arenas: stable.arenas,
         boxes: stable.boxes,
+        adminPasscode: stable.adminPasscode,
+        trainerPasscode: stable.trainerPasscode,
 
     });
 
@@ -50,6 +52,8 @@ export const updateStable = async (stable: Stable) => {
                 description: stable.description,
                 arenas: stable.arenas,
                 boxes: stable.boxes,
+                adminPasscode: stable.adminPasscode,
+                trainerPasscode: stable.trainerPasscode,
             }
         },
     );

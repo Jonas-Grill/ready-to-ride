@@ -53,3 +53,28 @@ export const instanceOfStable = (object: any): object is StableSchema => {
             return previousValue && instanceOfBox(currentValue);
         }, true)
 }
+
+/* ------------------------------ Extended Stable ------------------------------ */
+
+export interface ExtendedStableSchema {
+    _id?: Bson.ObjectId;
+    name: string;
+    description: string;
+    arenas: ArenaSchema[];
+    boxes: BoxSchema[];
+    adminPasscode: string;
+    trainerPasscode: string;
+}
+
+export const instanceOfExtendedStable = (object: any): object is ExtendedStableSchema => {
+    return 'name' in object && typeof object.name === "string"
+        && 'description' in object && typeof object.description === "string"
+        && 'arenas' in object && object.arenas.reduce((previousValue: any, currentValue: any) => {
+            return previousValue && instanceOfArena(currentValue);
+        }, true)
+        && 'boxes' in object && object.boxes.reduce((previousValue: any, currentValue: any) => {
+            return previousValue && instanceOfBox(currentValue);
+        }, true)
+        && 'adminPasscode' in object && typeof object.adminPasscode === "string"
+        && 'trainerPasscode' in object && typeof object.trainerPasscode === "string"
+}
