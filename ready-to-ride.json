@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://ready-to-ride.tk"
+      "url": "https://ready-to-ride-backend.tk"
     }
   ],
   "paths": {
@@ -1550,7 +1550,7 @@
             ],
             "example": "Blue Roan"
           },
-          "difficulty_level": {
+          "difficultyLevel": {
             "type": "string",
             "enum": [
               "Anfänger",
