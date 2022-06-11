@@ -6,13 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
 import com.readytoride.R
 import com.readytoride.ui.horse.HorseDatasource
-import com.readytoride.ui.horse.HorseViewModel
 
 class HorseDetail : Fragment() {
 
@@ -70,6 +71,10 @@ class HorseDetail : Fragment() {
         val imageSlider = view.findViewById<ImageSlider>(R.id.imageSliderTrainer)
         imageSlider.setImageList(imageList)
 
+        val bookingButton: Button = view.findViewById(R.id.button)
+        bookingButton.setOnClickListener {
+            val action = HorseDetailDirections.actionNavHorseDetailToNavLessons(null, horseId)
+            view.findNavController().navigate(action)
+        }
     }
-
 }

@@ -31,5 +31,4 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             tools:text="Deutscher Meister in allem Möglichen" />
     </LinearLayout>
-
 </FrameLayout>
