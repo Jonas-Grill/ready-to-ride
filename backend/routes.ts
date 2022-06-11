@@ -34,10 +34,10 @@ router
     .post("/users/login", login)
     // Horse
     .get("/horses", findHorse)
-    .get("/horses/:id", findHorseById)
     .get("/horses/races", findHorseRaces)
     .get("/horses/colours", findHorseColours)
     .get("/horses/levels", findHorseLevels)
+    .get("/horses/:id", findHorseById)
     // Auth required
     .use(authMiddleware)
     // User

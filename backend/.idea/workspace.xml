@@ -4,6 +4,10 @@
     <list default="true" id="1c346c7d-003f-4b4c-8874-8c36983721a6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/horseController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/horseController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/errorHandlerMiddleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/errorHandlerMiddleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repositories/horseRepo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/horseRepo.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/horseService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/horseService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +124,7 @@
       <workItem from="1654775146106" duration="14000" />
       <workItem from="1654845915755" duration="671000" />
       <workItem from="1654846600379" duration="10467000" />
+      <workItem from="1654937578129" duration="5106000" />
     </task>
     <servers />
   </component>

@@ -7,17 +7,14 @@ const errorHandlerMiddleware = async (ctx: Context, next: () => void) => {
         await next();
     } catch (err) {
         console.log(err.stack);
+        console.log(err.message)
 
         if (isHttpError(err)) {
-            ctx.response.status = err.status;
-            ctx.response.body = {msg: err.message};
-
             switch (err.status) {
-                case Status.NotFound:
-                    // handle NotFound
-                    break;
                 default:
-                // handle other statuses
+                    ctx.response.status = err.status;
+                    ctx.response.body = {msg: err.message};
+
             }
         } else if (err instanceof invalidIdException) {
             ctx.response.status = Status.BadRequest;

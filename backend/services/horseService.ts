@@ -64,6 +64,7 @@ export const updateHorse = async (horse: any, id: string) => {
 
 const horseModelToExtendedHorse = (horse: HorseModel): ExtendedHorseSchema => {
     return {
+        _id: horse._id,
         name: horse.name,
         height: horse.height,
         race: horse.race,
@@ -71,8 +72,8 @@ const horseModelToExtendedHorse = (horse: HorseModel): ExtendedHorseSchema => {
         colour: horse.colour,
         difficultyLevel: horse.difficultyLevel,
         profilePicture: horse.profilePicture,
-        description: horse.description || "Error",
-        pictures: horse.pictures || ["Error"]
+        description: horse.description || "So much empty",
+        pictures: horse.pictures || ["So much empty"]
     };
 }
 

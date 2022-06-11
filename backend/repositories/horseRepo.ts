@@ -57,12 +57,14 @@ export const updateHorse = async (horse: Horse) => {
         {
             $set: {
                 name: horse.name,
+                height: horse.height,
+                race: horse.race,
                 age: horse.age,
                 colour: horse.colour,
                 difficultyLevel: horse.difficultyLevel,
                 profilePicture: horse.profilePicture,
                 description: horse.description,
-                pictures: horse.pictures,
+                pictures: horse.pictures
             }
         },
     );
