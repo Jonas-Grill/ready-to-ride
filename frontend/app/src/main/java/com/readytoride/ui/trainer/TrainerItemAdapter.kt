@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
-import com.readytoride.ui.horse.HorseFragmentDirections
 
 class TrainerItemAdapter(private val context: TrainerFragment, private val dataset: List<Trainer>) :
     RecyclerView.Adapter<TrainerItemAdapter.ItemViewHolder>(), View.OnClickListener {
@@ -21,7 +20,6 @@ class TrainerItemAdapter(private val context: TrainerFragment, private val datas
         val textViewFocus: TextView = view.findViewById(R.id.item_focus)
         val imageView: ImageView = view.findViewById(R.id.item_trainerimage)
         val button: Button = view.findViewById(R.id.button_trainer_details)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -39,9 +37,7 @@ class TrainerItemAdapter(private val context: TrainerFragment, private val datas
         holder.textViewAge.text = context.resources.getString(item.ageStringResourceId)
         holder.textViewFocus.text = context.resources.getString(item.focusStringResourceId)
         holder.imageView.setImageResource(item.trainerimageResourceId[0])
-
         holder.button.tooltipText = context.resources.getString(item.trainerId)
-
         holder.button.setOnClickListener(this)
     }
 

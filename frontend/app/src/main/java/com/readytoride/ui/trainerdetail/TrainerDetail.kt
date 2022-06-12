@@ -6,16 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
 import com.readytoride.R
-import com.readytoride.ui.horse.HorseDatasource
-import com.readytoride.ui.horsedetail.HorseDetailArgs
 import com.readytoride.ui.trainer.TrainerDatasource
-import com.readytoride.ui.trainer.TrainerItemAdapter
 
 class TrainerDetail : Fragment() {
 
@@ -38,7 +37,6 @@ class TrainerDetail : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(TrainerDetailViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,6 +73,10 @@ class TrainerDetail : Fragment() {
         recyclerView.adapter = AchievementsItemAdapter(this, myDataset)
         recyclerView.setHasFixedSize(true)
 
+        val bookingButton: Button = view.findViewById(R.id.button_book_trainer)
+        bookingButton.setOnClickListener {
+            val action = TrainerDetailDirections.actionTrainerDetail2ToNavLessons(trainerId, null)
+            view.findNavController().navigate(action)
+        }
     }
-
 }

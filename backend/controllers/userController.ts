@@ -106,7 +106,7 @@ export const registration = async (ctx: Context) => {
     }
 
     ctx.response.status = Status.Created;
-    ctx.response.body = await userService.createNewUser(userData);
+    ctx.response.body = await userService.addNewUser(userData);
 }
 
 export const updateUser = async (ctx: Context) => {
