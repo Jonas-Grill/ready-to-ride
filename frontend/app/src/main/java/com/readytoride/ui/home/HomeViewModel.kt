@@ -4,19 +4,43 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.readytoride.network.HorseApi
-import com.readytoride.ui.horse.Horse
+import com.readytoride.network.HorseApi.HorseApi
+import com.readytoride.network.HorseApi.HorseEntity
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class HomeViewModel : ViewModel() {
 
-    private val _status = MutableLiveData<String>()
-    val status: LiveData<String> = _status
+    private val _horses = MutableLiveData<List<HorseEntity>>()
+    private val _races = MutableLiveData<List<String>>()
+    private val _text = MutableLiveData<String>()
+    val text: LiveData<String> = _text
+    val horses: LiveData<List<HorseEntity>> = _horses
+    val races: LiveData<List<String>> = _races
+
+    init {
+        getAllRaces()
+    }
 
     private fun getAllHorses() {
         viewModelScope.launch {
-            val listResult = HorseApi.retrofitService.getHorses()
-            _status.value = listResult
+            try {
+                val listResult = HorseApi.retrofitService.getHorses()
+                _horses.value = listResult
+            } catch (e: Exception){
+                _text.value = "Failure: ${e.message}"
+            }
+        }
+    }
+
+    private fun getAllRaces() {
+        viewModelScope.launch {
+            try {
+                val listResult = HorseApi.retrofitService.getHorseRaces()
+                _races.value = listResult
+            }catch (e: Exception) {
+                _text.value = "Failure: ${e.message}"
+            }
         }
     }
 }
