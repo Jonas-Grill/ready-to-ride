@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import com.readytoride.R
 
 class StableFragment : Fragment(){
@@ -20,13 +21,22 @@ class StableFragment : Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_stable, container, false)
+        var view = inflater.inflate(R.layout.fragment_stable, container, false)
+
+        //ToDo: Rollencheck macht Button sichtbar
+       // if (rolle == Admin){//ToDo: Rollencheck
+            view.findViewById<Button>(R.id.btn_edit_stable).visibility = View.VISIBLE
+      //  }
+        view.findViewById<Button>(R.id.btn_edit_stable).setOnClickListener{
+            //ToDo: Felder bearbeitbar machen
+        }
+
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(StableViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }
