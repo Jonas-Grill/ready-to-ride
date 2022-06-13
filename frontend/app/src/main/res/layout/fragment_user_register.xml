@@ -37,8 +37,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="Größe"
-            app:boxBackgroundColor="#F8E9FD">
+            android:hint="Größe">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -53,8 +52,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:hint="Gewicht"
-            app:boxBackgroundColor="#F8E9FD">
+            android:hint="Gewicht">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -69,8 +67,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:hint="Alter"
-            app:boxBackgroundColor="#F8E9FD">
+            android:hint="Alter">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
