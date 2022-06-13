@@ -9,7 +9,6 @@
     tools:context=".ui.contact.ContactFragment">
 
 
-
     <TextView
         android:id="@+id/header_contact"
         android:layout_width="0dp"
