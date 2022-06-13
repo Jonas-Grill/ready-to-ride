@@ -74,7 +74,7 @@ class LoginFragment : Fragment() {
                 // }
             }
         }
-        return false
+        return true
     }
 
     companion object {

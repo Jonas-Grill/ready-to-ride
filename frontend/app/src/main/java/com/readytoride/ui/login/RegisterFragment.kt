@@ -74,50 +74,63 @@ class RegisterFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
-            validateInput()
-            var navRegister = activity as FragmentNavigation
-            if (item == "Trainer") {
-                navRegister.navigateFrag(TrainerRegisterFragment(), true)
-            } else if (item == "Nutzer") {
-                navRegister.navigateFrag(UserRegisterFragment(), true)
-            } else if (item == "Admin") {
-                navRegister.navigateFrag(AdminRegisterFragment(), true)
+            if (validateInput()) {
+                var navRegister = activity as FragmentNavigation
+                if (item == "Trainer") {
+                    navRegister.navigateFrag(TrainerRegisterFragment(), true)
+                } else if (item == "Nutzer") {
+                    navRegister.navigateFrag(UserRegisterFragment(), true)
+                } else if (item == "Admin") {
+                    navRegister.navigateFrag(AdminRegisterFragment(), true)
+                }
+            } else {
             }
         }
         return view
     }
 
-    fun validateInput() {
+
+    fun validateInput(): Boolean {
         when {
             TextUtils.isEmpty(reg_mail.text.toString().trim()) -> {
                 reg_mail.setError("Bitte E-Mail eintragen")
+                return false
             }
             TextUtils.isEmpty(reg_pwd1.text.toString().trim()) -> {
                 reg_pwd1.setError("Bitte Passwort eintragen")
+                return false
             }
             TextUtils.isEmpty(reg_pwd2.text.toString().trim()) -> {
                 reg_pwd2.setError("Bitte Passwort eintragen")
+                return false
             }
             TextUtils.isEmpty(reg_name.text.toString().trim()) -> {
                 reg_name.setError("Bitte Vornamen eintragen")
+                return false
             }
             TextUtils.isEmpty(reg_name2.text.toString().trim()) -> {
                 reg_name2.setError("Bitte Nachnamen eintragen")
+                return false
             }
             reg_mail.text.toString().isNotEmpty() && reg_pwd1.toString()
                 .isNotEmpty() && reg_pwd2.toString().isNotEmpty() -> {
-                if (reg_mail.text.toString().matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\\\.+[a-z]+"))) {
+                if (reg_mail.text.toString()
+                        .matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\\\.+[a-z]+"))
+                ) {
                     if (reg_pwd1.text.toString() == reg_pwd2.text.toString()) {
                         //Passwörter stimmen überein
                     } else {
                         reg_pwd1.setError("Die Passwörter stimmen nicht überein")
                         reg_pwd2.setError("Die Passwörter stimmen nicht überein")
+                        return false
                     }
                 } else {
                     reg_mail.setError("Bitte gültige E-Mail eintragen")
+                    return false
                 }
             }
         }
+        return true
     }
 
     companion object {

@@ -15,6 +15,7 @@ import com.readytoride.ui.home.HomeFragment
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
 class AdminRegisterFragment : Fragment() {
     lateinit var admin_age: EditText
 
@@ -28,26 +29,32 @@ class AdminRegisterFragment : Fragment() {
         admin_age = view.findViewById(R.id.admin_age)
 
         view.findViewById<Button>(R.id.btn_finish_admin).setOnClickListener {
-            validateInput()
-            var navRegister = activity as FragmentNavigation
-            navRegister.navigateFrag(HomeFragment(), true)
+            if (validateInput()) {
+                var navRegister = activity as FragmentNavigation
+                navRegister.navigateFrag(HomeFragment(), true)
+            } else {
+                //Do nothing
+            }
         }
         return view
     }
 
-    fun validateInput() {
+    fun validateInput(): Boolean {
         when {
             TextUtils.isEmpty(admin_age.text.toString().trim()) -> {
                 admin_age.setError("Bitte Alter eintragen")
+                return false
             }
             admin_age.toString().isNotEmpty() -> {
                 if (admin_age.text.toString().matches(Regex("[0-9]"))) {
                     Toast.makeText(context, "Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
                 } else {
                     admin_age.setError("Bitte gültige Zahl eintragen")
+                    return false
                 }
             }
         }
+        return true
 
     }
 
