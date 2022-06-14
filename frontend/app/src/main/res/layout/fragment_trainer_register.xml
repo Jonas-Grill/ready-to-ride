@@ -38,8 +38,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="Trainer Passcode"
-            app:boxBackgroundColor="#F8E9FD">
+            android:hint="Trainer Passcode">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -53,8 +52,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:hint="Alter"
-            app:boxBackgroundColor="#F8E9FD">
+            android:hint="Alter">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/trainer_age"
@@ -69,8 +67,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:hint="Kurzbeschreibung der Tätigkeit"
-            app:boxBackgroundColor="#F8E9FD">
+            android:hint="Kurzbeschreibung der Tätigkeit">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
