@@ -39,9 +39,6 @@ class TrainerRegisterFragment : Fragment() {
         view.findViewById<Button>(R.id.btn_finish).setOnClickListener {
             if (validateInput()) {
                 view.findNavController().navigate(R.id.nav_home)
-                //var navRegister = activity as FragmentNavigation
-                //navRegister.navigateFrag(HomeFragment(), true)
-            } else {
             }
         }
         return view

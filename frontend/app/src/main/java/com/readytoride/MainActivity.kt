@@ -52,11 +52,6 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        //Alex: Einbindung Loginscreen
-        /*supportFragmentManager.beginTransaction()
-            .add(R.id.drawer_layout,LoginFragment())
-            .commit()*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -69,17 +64,5 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
-    //Alex: Logik für Registrierung
-    /*override fun navigateFrag(fragment: Fragment, addtoStack: Boolean) {
-        val transaction = supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.drawer_layout,fragment)
-
-        if (addtoStack){
-            transaction.addToBackStack(null)
-        }
-        transaction.commit()
-    }*/
 
 }

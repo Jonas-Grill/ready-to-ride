@@ -37,8 +37,6 @@ class UserRegisterFragment : Fragment() {
         view.findViewById<Button>(R.id.btn_finish_user).setOnClickListener {
             if (validateInput()) {
                 view.findNavController().navigate(R.id.nav_home)
-                //var navRegister = activity as FragmentNavigation
-                //navRegister.navigateFrag(HomeFragment(), true)
             }
         }
 

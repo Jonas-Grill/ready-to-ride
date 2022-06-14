@@ -43,9 +43,6 @@ class LoginFragment : Fragment() {
             //if(validateInput()){//ToDo: Später wieder aktivieren, nur für Testzwecke ausgeschaltet
             //Weiterleitung nach Login
             view.findNavController().navigate(R.id.nav_home)
-            //}else{
-            //Nichts, weil Error über validateInput() gsetzt wird
-            //}
             //ToDo: Loginanbindung an Backend
         }
 

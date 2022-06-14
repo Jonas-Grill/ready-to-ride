@@ -32,10 +32,6 @@ class AdminRegisterFragment : Fragment() {
         view.findViewById<Button>(R.id.btn_finish_admin).setOnClickListener {
             if (validateInput()) {
                 view.findNavController().navigate(R.id.nav_home)
-                //var navRegister = activity as FragmentNavigation
-                //navRegister.navigateFrag(HomeFragment(), true)
-            } else {
-                //Do nothing
             }
         }
         return view
