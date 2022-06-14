@@ -73,7 +73,7 @@ class HorseDetail : Fragment() {
 
         val bookingButton: Button = view.findViewById(R.id.button)
         bookingButton.setOnClickListener {
-            val action = HorseDetailDirections.actionNavHorseDetailToNavLessons(null, horseId)
+            val action = HorseDetailDirections.actionNavHorseDetailToNavLessons("", horseId)
             view.findNavController().navigate(action)
         }
     }

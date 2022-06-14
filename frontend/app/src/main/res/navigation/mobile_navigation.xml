@@ -52,11 +52,13 @@
         <argument
             android:name="trainerid"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue='""' />
         <argument
             android:name="horseid"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue='""' />
     </fragment>
 
     <fragment
@@ -81,7 +83,12 @@
             app:argType="string" />
         <action
             android:id="@+id/action_nav_horse_detail_to_nav_lessons"
-            app:destination="@id/nav_lessons" />
+            app:destination="@id/nav_lessons" >
+            <argument
+                android:name="trainerid" />
+            <argument
+                android:name="horseid" />
+        </action>
     </fragment>
 
     <fragment
@@ -94,7 +101,12 @@
             app:argType="string" />
         <action
             android:id="@+id/action_trainerDetail2_to_nav_lessons"
-            app:destination="@id/nav_lessons" />
+            app:destination="@id/nav_lessons" >
+            <argument
+                android:name="trainerid" />
+            <argument
+                android:name="horseid" />
+        </action>
     </fragment>
 
     <fragment
@@ -108,6 +120,7 @@
         android:name="com.readytoride.ui.editboxes.EditBoxesFragment"
         android:label="Boxen bearbeiten"
         tools:layout="@layout/fragment_edit_boxes" />
+
     <fragment
         android:id="@+id/nav_login"
         android:name="com.readytoride.ui.login.LoginFragment"

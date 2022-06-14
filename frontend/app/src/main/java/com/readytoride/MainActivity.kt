@@ -2,7 +2,6 @@ package com.readytoride
 
 import android.os.Bundle
 import android.view.Menu
-import androidx.activity.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -12,10 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.readytoride.databinding.ActivityMainBinding
-import com.readytoride.ui.horse.HorseViewModel
-import com.readytoride.ui.login.LoginFragment
 
 class MainActivity : AppCompatActivity() {
 

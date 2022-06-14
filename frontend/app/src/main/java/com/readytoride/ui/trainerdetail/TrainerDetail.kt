@@ -75,7 +75,7 @@ class TrainerDetail : Fragment() {
 
         val bookingButton: Button = view.findViewById(R.id.button_book_trainer)
         bookingButton.setOnClickListener {
-            val action = TrainerDetailDirections.actionTrainerDetail2ToNavLessons(trainerId, null)
+            val action = TrainerDetailDirections.actionTrainerDetail2ToNavLessons(trainerId, "")
             view.findNavController().navigate(action)
         }
     }
