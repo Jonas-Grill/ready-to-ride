@@ -7,10 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
-import com.readytoride.ui.horse.HorseDatasource
-import com.readytoride.ui.horse.HorseItemAdapter
 
 class StableFragment : Fragment(){
 
@@ -45,6 +44,20 @@ class StableFragment : Fragment(){
 
         recyclerViewArena.adapter = ArenaItemAdapter(this, myDatasetArena)
         recyclerViewArena.setHasFixedSize(true)
+
+        val buttonEditBoxes = view.findViewById<Button>(R.id.button8)
+        val buttonEditArenas = view.findViewById<Button>(R.id.button9)
+
+        buttonEditBoxes.setOnClickListener{
+            val action = StableFragmentDirections.actionNavStableToEditBoxesFragment()
+            view.findNavController().navigate(action)
+        }
+
+        buttonEditArenas.setOnClickListener{
+            val action = StableFragmentDirections.actionNavStableToEditArenasFragment()
+            view.findNavController().navigate(action)
+        }
+
     }
 
 }

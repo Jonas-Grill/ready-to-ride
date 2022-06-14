@@ -35,13 +35,20 @@
         android:id="@+id/nav_stable"
         android:name="com.readytoride.ui.stable.StableFragment"
         android:label="@string/menu_stable"
-        tools:layout="@layout/fragment_stable" />
+        tools:layout="@layout/fragment_stable">
+        <action
+            android:id="@+id/action_nav_stable_to_editBoxesFragment"
+            app:destination="@id/editBoxesFragment" />
+        <action
+            android:id="@+id/action_nav_stable_to_editArenasFragment"
+            app:destination="@id/editArenasFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_lessons"
         android:name="com.readytoride.ui.booking.BookingFragment"
         android:label="@string/menu_lessons"
-        tools:layout="@layout/fragment_booking" >
+        tools:layout="@layout/fragment_booking">
         <argument
             android:name="trainerid"
             app:argType="string"
@@ -67,6 +74,7 @@
     <fragment
         android:id="@+id/nav_horse_detail"
         android:name="com.readytoride.ui.horsedetail.HorseDetail"
+        android:label="@string/menu_horses"
         tools:layout="@layout/fragment_horse_detail">
         <argument
             android:name="horseId"
@@ -75,6 +83,7 @@
             android:id="@+id/action_nav_horse_detail_to_nav_lessons"
             app:destination="@id/nav_lessons" />
     </fragment>
+
     <fragment
         android:id="@+id/trainerDetail2"
         android:name="com.readytoride.ui.trainerdetail.TrainerDetail"
@@ -87,4 +96,16 @@
             android:id="@+id/action_trainerDetail2_to_nav_lessons"
             app:destination="@id/nav_lessons" />
     </fragment>
+
+    <fragment
+        android:id="@+id/editArenasFragment"
+        android:name="com.readytoride.ui.editarenas.EditArenasFragment"
+        android:label="Anlagen bearbeiten"
+        tools:layout="@layout/fragment_edit_arenas" />
+
+    <fragment
+        android:id="@+id/editBoxesFragment"
+        android:name="com.readytoride.ui.editboxes.EditBoxesFragment"
+        android:label="Boxen bearbeiten"
+        tools:layout="@layout/fragment_edit_boxes" />
 </navigation>

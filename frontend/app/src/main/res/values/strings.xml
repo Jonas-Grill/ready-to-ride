@@ -226,4 +226,16 @@ Urheberrecht\nDie auf unserer Webseite veröffentlichen Inhalte und Werke unterl
     <string name="arenasize4">100m x 100m</string>
     <string name="arenasize5">15m x 15m</string>
 
+    <string-array name="actionsbox">
+        <item>Box bearbeiten</item>
+        <item>Box erstellen</item>
+        <item>Box löschen</item>
+    </string-array>
+
+    <string-array name="actionsarena">
+        <item>Anlage bearbeiten</item>
+        <item>Anlage erstellen</item>
+        <item>Anlage löschen</item>
+    </string-array>
+
 </resources>
