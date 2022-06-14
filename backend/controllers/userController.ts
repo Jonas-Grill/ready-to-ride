@@ -10,7 +10,6 @@ import {
 import {USER_ROLES, UserRole} from "../types/userRole.ts";
 import {FOCUSES} from "../types/focus.ts";
 import {PROFINCIES} from "../types/proficiency.ts";
-import de from "https://jspm.dev/npm:@jspm/core@2.0.0-beta.15/nodelibs/crypto";
 import {isUserPasscodeValid} from "../services/userService.ts";
 
 export const findTrainer = async (ctx: Context) => {

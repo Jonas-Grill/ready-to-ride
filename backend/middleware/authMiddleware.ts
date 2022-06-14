@@ -46,9 +46,7 @@ export const preAuthMiddleware = async (ctx: Context, next: () => void) => {
                 ctx.state.currentUser = await userService.findUserByEmail(email);
             }
 
-        }catch (e) {
-
-        }
+        }catch (_e) { /* It is expected that the above function throws an error in a lot of cases. If it does, it is not needed. */ }
     }
     await next();
 }
