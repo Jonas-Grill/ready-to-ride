@@ -8,7 +8,7 @@ import {
     registration,
     updateUser
 } from "./controllers/userController.ts";
-import authMiddleware from "./middleware/authMiddleware.ts";
+import {preAuthMiddleware, authMiddleware} from "./middleware/authMiddleware.ts";
 import {
     addHorse,
     deleteHorse,
@@ -17,11 +17,13 @@ import {
     findHorseRaces,
     updateHorse
 } from "./controllers/horseController.ts";
+import {findStable, updateStable} from "./controllers/stableController.ts";
 
 const router = new Router();
 
 router
     .use(errorHandlerMiddleware)
+    .use(preAuthMiddleware)
     .get("/", (ctx) => {
         ctx.response.body = "Welcome";
     })
@@ -38,6 +40,8 @@ router
     .get("/horses/colours", findHorseColours)
     .get("/horses/levels", findHorseLevels)
     .get("/horses/:id", findHorseById)
+    // Stable
+    .get("/stable", findStable)
     // Auth required
     .use(authMiddleware)
     // User
@@ -48,6 +52,8 @@ router
     .post("/horses", addHorse)
     .put("/horses/:id", updateHorse)
     .delete("/horses/:id", deleteHorse)
+    // Stable
+    .put("/stable", updateStable)
 
 router.routes();
 
