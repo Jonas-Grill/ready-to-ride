@@ -12,6 +12,8 @@
     <string name="menu_lessons">Reitstunden buchen</string>
     <string name="menu_profile">Profil</string>
     <string name="menu_contact">Kontakt</string>
+    <string name="menu_login">Login</string>
+    <string name="menu_register">Registrieren</string>
 
     <string name="book_lesson">Jetzt Reitstunde buchen</string>
     <string name="horse_details">Mehr erfahren</string>

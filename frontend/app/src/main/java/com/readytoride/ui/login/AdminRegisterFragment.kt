@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.navigation.findNavController
 import com.readytoride.R
 import com.readytoride.ui.home.HomeFragment
 
@@ -30,10 +31,7 @@ class AdminRegisterFragment : Fragment() {
 
         view.findViewById<Button>(R.id.btn_finish_admin).setOnClickListener {
             if (validateInput()) {
-                var navRegister = activity as FragmentNavigation
-                navRegister.navigateFrag(HomeFragment(), true)
-            } else {
-                //Do nothing
+                view.findNavController().navigate(R.id.nav_home)
             }
         }
         return view
