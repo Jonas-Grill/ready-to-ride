@@ -31,7 +31,7 @@ export const findHorseById = async (ctx: Context) => {
 
     ctx.assert(horse, Status.NotFound, `Couldn't find a horse with the id ${id}`);
 
-    ctx.response.status = Status.Created;
+    ctx.response.status = Status.OK;
     ctx.response.body = horse;
 };
 
@@ -76,7 +76,7 @@ export const updateHorse = async (ctx: Context) => {
 
     ctx.assert(horse, Status.NotFound, `Couldn't find a users with the id ${id}`);
 
-    ctx.response.status = Status.Created;
+    ctx.response.status = Status.OK;
     ctx.response.body = horse;
 };
 
