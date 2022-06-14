@@ -36,26 +36,31 @@ class TrainerRegisterFragment : Fragment() {
         trainer_age = view.findViewById(R.id.trainer_age)
 
         view.findViewById<Button>(R.id.btn_finish).setOnClickListener {
-            validateInput()
-            var navRegister = activity as FragmentNavigation
-            navRegister.navigateFrag(HomeFragment(), true)
+            if (validateInput()) {
+                var navRegister = activity as FragmentNavigation
+                navRegister.navigateFrag(HomeFragment(), true)
+            } else {
+            }
         }
         return view
     }
 
-    fun validateInput() {
+    fun validateInput(): Boolean {
         when {
             TextUtils.isEmpty(trainer_age.text.toString().trim()) -> {
                 trainer_age.setError("Bitte Alter eintragen")
+                return false
             }
             trainer_age.toString().isNotEmpty() -> {
                 if (trainer_age.text.toString().matches(Regex("[0-9]"))) {
                     Toast.makeText(context, "Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
                 } else {
                     trainer_age.setError("Bitte gültige Zahl eintragen")
+                    return false
                 }
             }
         }
+        return true
     }
 
     companion object {
