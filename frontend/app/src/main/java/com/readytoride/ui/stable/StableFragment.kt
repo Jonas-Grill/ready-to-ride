@@ -58,6 +58,8 @@ class StableFragment : Fragment(){
             view.findNavController().navigate(action)
         }
 
+        //TODO: Buttons only visible for Trainers
+
     }
 
 }
