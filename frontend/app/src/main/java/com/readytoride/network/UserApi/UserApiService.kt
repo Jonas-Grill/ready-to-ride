@@ -5,10 +5,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 private const val BASE_URL =
     "https://ready-to-ride-backend.tk/"
@@ -23,11 +20,10 @@ interface UserApiService {
     suspend fun getUsers(): List<UserEntity>
 
     @GET("users/{id}")
-    suspend fun getUserById(@Path("id") userId: String): UserEntity
+    suspend fun getUserById(@Header("Authorization") token: String, @Path("id") userId: String): UserEntity
 
-    //TODO --> muss hier eine CalendarEntity erstellt werden?
     @GET("users/{id}/calendar")
-    suspend fun getUserCalendar(): String
+    suspend fun getUserCalendar(@Header("Authorization") token: String): CalendarEntity
 
     @GET("users/roles")
     suspend fun getRoles(@Path("id") userId: String): List<String>
@@ -39,10 +35,13 @@ interface UserApiService {
     suspend fun getProficiencies(): List<String>
 
     @GET("users/me")
-    suspend fun getMyUser(): UserEntity
+    suspend fun getMyUser(@Header("Authorization") token: String): UserEntity
+
+    @PUT("users")
+    suspend fun updateUser(@Header("Authorization") token: String, @Body requestBody: UserEntity): UserEntity
 
     @POST("users")
-    suspend fun postNewUser(@Body requestBody: UserEntity): HorseEntity
+    suspend fun postNewUser(@Header("Authorization") token: String, @Body requestBody: UserEntity): HorseEntity
 
     @POST("users/login")
     suspend fun login(@Body requestBody: LoginEntity): TokenEntity

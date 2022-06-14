@@ -8,5 +8,7 @@ data class HorseEntity(
     val age: Int,
     val colour: String,
     val difficultyLevel: String,
-    val profilePictuce: String
+    val profilePicture: String,
+    val description: String = "Test",
+    val pictures: List<String> = listOf()
 )

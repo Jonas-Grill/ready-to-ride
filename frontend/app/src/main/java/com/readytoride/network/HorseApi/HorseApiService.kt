@@ -2,6 +2,7 @@ package com.readytoride.network.HorseApi
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -32,13 +33,13 @@ interface HorseApiService {
     suspend fun getHorseLevels(): List<String>
 
     @POST("horses")
-    suspend fun postNewHorse(@Body requestBody: HorseEntity): HorseEntity
+    suspend fun postNewHorse(@Header("Authorization") token: String, @Body requestBody: HorseEntity): HorseEntity
 
     @PUT("horses/{id}")
-    suspend fun updateHorse(@Path("id") horseId: String): HorseEntity
+    suspend fun updateHorse(@Header("Authorization") token: String, @Path("id") horseId: String): HorseEntity
 
     @DELETE("horses/{id}")
-    suspend fun deleteHorse(@Path("id") horseId: String): String
+    suspend fun deleteHorse(@Header("Authorization") token: String, @Path("id") horseId: String): String
 }
 
 object HorseApi {
