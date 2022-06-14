@@ -14,13 +14,13 @@ class HorseItemAdapter(private val context: HorseFragment, private val dataset: 
     RecyclerView.Adapter<HorseItemAdapter.ItemViewHolder>(), View.OnClickListener {
 
     class ItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val textViewName: TextView = view.findViewById(R.id.item_horsename_overview)
-        val textViewHeight: TextView = view.findViewById(R.id.item_horseheight_overview)
+        val textViewName: TextView = view.findViewById(R.id.item_horse_name)
+        val textViewHeight: TextView = view.findViewById(R.id.item_horse_height)
         val textViewRace: TextView = view.findViewById(R.id.item_race_overview)
         val textViewAge: TextView = view.findViewById(R.id.item_horseage_overview)
         val textViewColour: TextView = view.findViewById(R.id.item_colour_overview)
         val textViewDifficulty: TextView = view.findViewById(R.id.item_difficulty_overview)
-        val imageView: ImageView = view.findViewById(R.id.item_horseimage_overview)
+        val imageView: ImageView = view.findViewById(R.id.item_horse_image)
         val button: Button = view.findViewById(R.id.button_horse_details)
     }
 
