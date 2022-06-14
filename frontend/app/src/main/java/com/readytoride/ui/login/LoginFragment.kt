@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.navigation.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.readytoride.R
@@ -41,8 +42,7 @@ class LoginFragment : Fragment() {
         view.findViewById<Button>(R.id.btn_login).setOnClickListener {
             //if(validateInput()){//ToDo: Später wieder aktivieren, nur für Testzwecke ausgeschaltet
             //Weiterleitung nach Login
-            var navRegister = activity as FragmentNavigation
-            navRegister.navigateFrag(HomeFragment(), true)
+            view.findNavController().navigate(R.id.nav_home)
             //}else{
             //Nichts, weil Error über validateInput() gsetzt wird
             //}

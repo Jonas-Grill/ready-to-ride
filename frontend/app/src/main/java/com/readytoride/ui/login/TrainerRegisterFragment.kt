@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
 import com.readytoride.MainActivity
 import com.readytoride.R
 import com.readytoride.ui.home.HomeFragment
@@ -37,8 +38,9 @@ class TrainerRegisterFragment : Fragment() {
 
         view.findViewById<Button>(R.id.btn_finish).setOnClickListener {
             if (validateInput()) {
-                var navRegister = activity as FragmentNavigation
-                navRegister.navigateFrag(HomeFragment(), true)
+                view.findNavController().navigate(R.id.nav_home)
+                //var navRegister = activity as FragmentNavigation
+                //navRegister.navigateFrag(HomeFragment(), true)
             } else {
             }
         }

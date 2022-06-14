@@ -15,10 +15,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.readytoride.databinding.ActivityMainBinding
 import com.readytoride.ui.horse.HorseViewModel
-import com.readytoride.ui.login.FragmentNavigation
 import com.readytoride.ui.login.LoginFragment
 
-class MainActivity : AppCompatActivity(), FragmentNavigation {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -55,9 +54,9 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
         navView.setupWithNavController(navController)
 
         //Alex: Einbindung Loginscreen
-        supportFragmentManager.beginTransaction()
+        /*supportFragmentManager.beginTransaction()
             .add(R.id.drawer_layout,LoginFragment())
-            .commit()
+            .commit()*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -72,7 +71,7 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
     }
 
     //Alex: Logik für Registrierung
-    override fun navigateFrag(fragment: Fragment, addtoStack: Boolean) {
+    /*override fun navigateFrag(fragment: Fragment, addtoStack: Boolean) {
         val transaction = supportFragmentManager
             .beginTransaction()
             .replace(R.id.drawer_layout,fragment)
@@ -81,6 +80,6 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
             transaction.addToBackStack(null)
         }
         transaction.commit()
-    }
+    }*/
 
 }
