@@ -6,9 +6,6 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
-import com.readytoride.ui.editarenas.ArenaSelectionItemAdapter
-import com.readytoride.ui.editarenas.EditArenasFragment
-import com.readytoride.ui.stable.Arena
 import com.readytoride.ui.stable.Box
 
 class BoxesSelectionItemAdapter(

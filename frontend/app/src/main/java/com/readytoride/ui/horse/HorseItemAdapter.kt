@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
+import com.readytoride.network.HorseApi.HorseEntity
 
-class HorseItemAdapter(private val context: HorseFragment, private val dataset: List<Horse>) :
+class HorseItemAdapter(private val context: HorseFragment, private val dataset: List<HorseEntity>) :
     RecyclerView.Adapter<HorseItemAdapter.ItemViewHolder>(), View.OnClickListener {
 
     class ItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -34,14 +36,14 @@ class HorseItemAdapter(private val context: HorseFragment, private val dataset: 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = dataset[position]
-        holder.textViewName.text = context.resources.getString(item.nameStringResourceId)
-        holder.textViewHeight.text = context.resources.getString(item.heightStringResourceId)
-        holder.textViewRace.text = context.resources.getString(item.raceStringResourceId)
-        holder.textViewAge.text = context.resources.getString(item.ageStringResourceId)
-        holder.textViewColour.text = context.resources.getString(item.colourStringResourceId)
-        holder.textViewDifficulty.text = context.resources.getString(item.difficultyStringResourceId)
-        holder.imageView.setImageResource(item.imageResourceId[0])
-        holder.button.tooltipText = context.resources.getString(item.horseId)
+        holder.textViewName.text = item.name
+        holder.textViewHeight.text = context.resources.getString(item.height)
+        holder.textViewRace.text = item.race
+        holder.textViewAge.text = context.resources.getString(item.age)
+        holder.textViewColour.text = item.colour
+        holder.textViewDifficulty.text = item.difficultyLevel
+        holder.imageView.setImageURI(item.profilePicture.toUri())
+        holder.button.tooltipText = item._id
         holder.button.setOnClickListener(this)
     }
 

@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
+import com.readytoride.network.HorseApi.HorseApi
+import com.readytoride.network.HorseApi.HorseEntity
 
 class HorseFragment : Fragment() {
 
@@ -16,6 +18,7 @@ class HorseFragment : Fragment() {
     }
 
     private lateinit var viewModel: HorseViewModel
+    private lateinit var horseList: List<HorseEntity>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,13 +30,15 @@ class HorseFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HorseViewModel::class.java)
+        viewModel.getHorseList()
+        horseList = viewModel.horses
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val myDataset = HorseDatasource().loadHorses()
+        //val myDataset = HorseDatasource().loadHorses()
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_horse)
-        recyclerView.adapter = HorseItemAdapter(this, myDataset)
+        recyclerView.adapter = HorseItemAdapter(this, this.horseList)
         recyclerView.setHasFixedSize(true)
     }
 }

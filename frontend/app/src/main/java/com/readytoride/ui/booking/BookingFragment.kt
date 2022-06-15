@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
 import com.readytoride.ui.horse.HorseDatasource
+import com.readytoride.ui.horse.HorseFragmentDirections
 import com.readytoride.ui.trainer.TrainerDatasource
 
 class BookingFragment : Fragment() {
@@ -124,6 +126,9 @@ class BookingFragment : Fragment() {
             //Auslesen der Checkboxen
             val trainers = viewModel.getTrainers()
             val horses = viewModel.getHorses()
+
+            val action = BookingFragmentDirections.actionNavLessonsToCreateLesson()
+            view.findNavController().navigate(action)
             // Hier passieren Daten an Backend senden Kram und Filterergebnisse laden
         }
 

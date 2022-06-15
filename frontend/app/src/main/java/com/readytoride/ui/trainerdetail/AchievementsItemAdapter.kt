@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
+import com.readytoride.network.UserApi.Accomplishment
 
 class AchievementsItemAdapter(
     private val context: TrainerDetail,
-    private val dataset: List<List<Int>>
+    private val dataset: List<Accomplishment>
 ) : RecyclerView.Adapter<AchievementsItemAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
@@ -30,8 +31,8 @@ class AchievementsItemAdapter(
 
     override fun onBindViewHolder(holder: AchievementsItemAdapter.ItemViewHolder, position: Int) {
         val item = dataset[position]
-        holder.textViewDate.text = context.resources.getString(item[0])
-        holder.textViewAchievement.text = context.resources.getString(item[1])
+        holder.textViewDate.text = context.resources.getString(item.year)
+        holder.textViewAchievement.text = item.name
     }
 
     override fun getItemCount() = dataset.size
