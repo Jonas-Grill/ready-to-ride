@@ -24,7 +24,10 @@ class BookingDialog : DialogFragment() {
 
         val firstMessage: CheckBox = view.findViewById(R.id.layout_agreement)
         val secondMessage: LinearLayout = view.findViewById(R.id.layout_success_message)
+        val failMessage: LinearLayout = view.findViewById(R.id.linear_layout_fail)
         val submitButton: Button = view.findViewById(R.id.booking_button)
+
+        //TODO: Fail Message ohne Button anzeigen, wenn kein User angemeldet
 
         firstMessage.setOnClickListener {
             submitButton.isClickable = !submitButton.isClickable

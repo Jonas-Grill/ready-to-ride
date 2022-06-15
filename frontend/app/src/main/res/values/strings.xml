@@ -189,6 +189,7 @@ Urheberrecht\nDie auf unserer Webseite veröffentlichen Inhalte und Werke unterl
     <string name="location4">Reitplatz</string>
     <string name="booking_info">Ich erkläre mich damit einverstanden, dass meine persönlichen Daten an den ausgewählten Trainer weitergegeben werden.</string>
     <string name="success_message">Deine gewählte Reitstunde wurde erfolgreich reserviert. Sie kann in deinem Profil eingesehen werden. Sobald der Trainer die Anfrage bestätigt oder abgelehnt hat, erhältst du eine Nachricht.</string>
+    <string name="alert_no_user">Reitstunden buchen ist nur möglich, wenn du mit einem Benutzerkonto angemeldet bist.</string>
     <string name="filtercriteria">Suchkriterien</string>
     <string name="choose_trainer">Trainer auswählen</string>
     <string name="choose_horse">Pferd auswählen</string>
