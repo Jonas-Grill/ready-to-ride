@@ -100,11 +100,11 @@ export const registration = async (ctx: Context) => {
             break;
         case UserRole.TRAINER:
             ctx.assert(instanceOfRegisterTrainer(userData), Status.BadRequest, "Please provide Data in a valid format.");
-            ctx.assert(await isUserPasscodeValid(userData.rolePasscode, userData.role), Status.BadRequest, "Invalid passcode");
+            // ctx.assert(await isUserPasscodeValid(userData.rolePasscode, userData.role), Status.BadRequest, "Invalid passcode");
             break;
         case UserRole.ADMIN:
             ctx.assert(instanceOfAdmin(userData), Status.BadRequest, "Please provide Data in a valid format.");
-            ctx.assert(await isUserPasscodeValid(userData.rolePasscode, userData.role), Status.BadRequest, "Invalid passcode");
+            // ctx.assert(await isUserPasscodeValid(userData.rolePasscode, userData.role), Status.BadRequest, "Invalid passcode");
             break;
         default:
             throw new HttpError("Invalid user role");
