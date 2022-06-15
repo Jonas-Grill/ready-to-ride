@@ -10,7 +10,6 @@ import {
 import {USER_ROLES, UserRole} from "../types/userRole.ts";
 import {FOCUSES} from "../types/focus.ts";
 import {PROFINCIES} from "../types/proficiency.ts";
-import {isUserPasscodeValid} from "../services/userService.ts";
 
 export const findTrainer = async (ctx: Context) => {
     ctx.response.status = Status.OK;
@@ -79,10 +78,6 @@ export const login = async (ctx: Context) => {
         };
     } else {
         ctx.throw(Status.InternalServerError)
-        // ctx.response.status = Status.InternalServerError;
-        // ctx.response.body = {
-        //     msg: "Internal server error",
-        // };
     }
 }
 
