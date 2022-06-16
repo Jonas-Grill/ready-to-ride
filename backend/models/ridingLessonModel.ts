@@ -2,9 +2,10 @@ import {Bson} from "../deps.ts";
 
 export default interface RidingLessonModel {
     _id?: Bson.ObjectId;
-    trainer: string;
+    trainerId: string;
+    trainerName: string;
     booked: boolean;
-    booker: string;
+    bookerEmail: string;
     arena: string;
     day: Date;
     startHour: number;
