@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c346c7d-003f-4b4c-8874-8c36983721a6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,11 +77,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Uni Projekte\ready-to-ride\backend" />
       <recent name="D:\Uni Projekte\ready-to-ride\backend\repositories" />
       <recent name="D:\Uni Projekte\ready-to-ride\backend\controllers" />
       <recent name="D:\Uni Projekte\ready-to-ride\backend\models" />
       <recent name="C:\Users\i518027\OneDrive - SAP SE\Diversity VT\Repo\ready-to-ride\backend\types" />
-      <recent name="D:\Uni Projekte\ready-to-ride\backend" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Uni Projekte\ready-to-ride\backend" />
@@ -126,7 +127,8 @@
       <workItem from="1654951044708" duration="2071000" />
       <workItem from="1654962961474" duration="3437000" />
       <workItem from="1655230803714" duration="681000" />
-      <workItem from="1655324257700" duration="1649000" />
+      <workItem from="1655324257700" duration="2276000" />
+      <workItem from="1655369681383" duration="6744000" />
     </task>
     <servers />
   </component>

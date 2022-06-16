@@ -6,6 +6,7 @@ export const findStable = async () => {
     const stable: StableModel | undefined = (await stableRepo.findStable()).pop();
 
     if (!stable) {
+        await initializeStable()
         throw new Error("Error in findStable Method in stableService.");
     }
 
