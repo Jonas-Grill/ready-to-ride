@@ -7,13 +7,13 @@ const ridingLessons = db.collection<RidingLesson>("ridingLessons");
 
 export const createRidingLesson = async (ridingLesson: RidingLesson) => {
     const id = await ridingLessons.insertOne({
-        arena: "",
-        booked: false,
-        bookerEmail: "",
-        day: undefined,
-        startHour: 0,
-        trainerId: "",
-        trainerName: "",
+        trainerId: ridingLesson.trainerId,
+        trainerName: ridingLesson.trainerName,
+        booked: ridingLesson.booked,
+        bookerEmail: ridingLesson.bookerEmail,
+        arena: ridingLesson.arena,
+        day: ridingLesson.day,
+        startHour: ridingLesson.startHour,
 
     });
 
@@ -34,9 +34,15 @@ export const findRidingLessonById = async (id: string) => {
     });
 }
 
-export const findRidingLessonByName = async (name: string) => {
+export const findRidingLessonByTrainerId = async (trainerId: string) => {
     return await ridingLessons.findOne({
-        name: name,
+        trainerId: trainerId,
+    });
+}
+
+export const findRidingLessonByBookerEmail = async (bookerEmail: string) => {
+    return await ridingLessons.findOne({
+        bookerEmail: bookerEmail,
     });
 }
 
@@ -55,15 +61,13 @@ export const updateRidingLesson = async (ridingLesson: RidingLesson) => {
         },
         {
             $set: {
-                name: ridingLesson.name,
-                height: ridingLesson.height,
-                race: ridingLesson.race,
-                age: ridingLesson.age,
-                colour: ridingLesson.colour,
-                difficultyLevel: ridingLesson.difficultyLevel,
-                profilePicture: ridingLesson.profilePicture,
-                description: ridingLesson.description,
-                pictures: ridingLesson.pictures
+                trainerId: ridingLesson.trainerId,
+                trainerName: ridingLesson.trainerName,
+                booked: ridingLesson.booked,
+                bookerEmail: ridingLesson.bookerEmail,
+                arena: ridingLesson.arena,
+                day: ridingLesson.day,
+                startHour: ridingLesson.startHour,
             }
         },
     );
