@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c346c7d-003f-4b4c-8874-8c36983721a6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/models/ridingLessonModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/models/ridingLessonModel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repositories/ridingLessonRepo.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +144,7 @@
       <workItem from="1655230803714" duration="681000" />
       <workItem from="1655324257700" duration="2276000" />
       <workItem from="1655369681383" duration="7330000" />
-      <workItem from="1655389268341" duration="2207000" />
+      <workItem from="1655389268341" duration="2524000" />
     </task>
     <servers />
   </component>
