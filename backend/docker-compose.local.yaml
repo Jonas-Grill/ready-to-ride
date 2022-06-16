@@ -11,6 +11,5 @@ services:
   deno-api:
     depends_on:
       - mongo-db
-    entrypoint: "./wait-for-it.sh mongodb://mongo-db:27017"
     environment:
       DB_LINK: mongodb://mongo-db:27017
