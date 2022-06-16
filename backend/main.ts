@@ -20,8 +20,8 @@ app.use(logger.responseTime)
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.addEventListener("listen", ({hostname, port, secure}) => {
-    initializeStable();
+app.addEventListener("listen", async ({hostname, port, secure}) => {
+    await initializeStable();
     console.log(
         `Listening on: ${secure ? "https://" : "http://"}${hostname ??
         "localhost"}:${port}`,
