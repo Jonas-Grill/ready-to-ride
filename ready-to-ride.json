@@ -1939,10 +1939,10 @@
       "BaseRidingLessonModel": {
         "type": "object",
         "required": [
-          "timeslot",
           "arena",
           "day",
-          "hour"
+          "hour",
+          "startHour"
         ],
         "properties": {
           "_id": {
