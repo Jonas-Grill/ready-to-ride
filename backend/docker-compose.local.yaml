@@ -1,0 +1,16 @@
+version: "3.3"
+services:
+  mongo-db:
+    image: mongo:4.4.14
+    ports:
+      - "27017:27017"
+    container_name: mongo-db
+    volumes:
+      - ./db/:/data/db
+
+  deno-api:
+    depends_on:
+      - mongo-db
+    entrypoint: "./wait-for-it.sh mongodb://mongo-db:27017"
+    environment:
+      DB_LINK: mongodb://mongo-db:27017
