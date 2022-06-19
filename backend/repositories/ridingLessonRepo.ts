@@ -7,13 +7,13 @@ const ridingLessons = db.collection<RidingLesson>("ridingLessons");
 
 export const createRidingLesson = async (ridingLesson: RidingLesson) => {
     const id = await ridingLessons.insertOne({
-        trainerId: ridingLesson.trainerId,
-        trainerName: ridingLesson.trainerName,
+        trainer: ridingLesson.trainer,
         booked: ridingLesson.booked,
         bookerEmail: ridingLesson.bookerEmail,
         arena: ridingLesson.arena,
         day: ridingLesson.day,
         startHour: ridingLesson.startHour,
+        horse: ridingLesson.horse,
 
     });
 
@@ -21,7 +21,18 @@ export const createRidingLesson = async (ridingLesson: RidingLesson) => {
 }
 
 export const findRidingLesson = async () => {
-    return await ridingLessons.find({}).toArray();
+    return await ridingLessons.find({
+        createdAt: {
+            $gte: new Date(),
+            $lt: addDays(7)
+        }
+    }).toArray();
+}
+
+export const findRidingLessonBy = async (filter: string) => {
+    return await ridingLessons.findOne({
+        filter
+    });
 }
 
 export const findRidingLessonById = async (id: string) => {
@@ -61,13 +72,13 @@ export const updateRidingLesson = async (ridingLesson: RidingLesson) => {
         },
         {
             $set: {
-                trainerId: ridingLesson.trainerId,
-                trainerName: ridingLesson.trainerName,
+                trainer: ridingLesson.trainer,
                 booked: ridingLesson.booked,
                 bookerEmail: ridingLesson.bookerEmail,
                 arena: ridingLesson.arena,
                 day: ridingLesson.day,
                 startHour: ridingLesson.startHour,
+                horse: ridingLesson.horse,
             }
         },
     );
@@ -83,4 +94,12 @@ export const deleteRidingLesson = async (id: string) => {
     return await ridingLessons.deleteOne({
         _id: new Bson.ObjectId(id),
     });
+}
+
+/* ------------------------------ Util ------------------------------ */
+
+function addDays(numOfDays: number, date = new Date()) {
+    date.setDate(date.getDate() + numOfDays);
+
+    return date;
 }

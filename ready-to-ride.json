@@ -385,7 +385,7 @@
           {
             "name": "horse",
             "in": "query",
-            "description": "ID of horse of riding lesson to fetch",
+            "description": "ID of horse of riding lesson to fetch.",
             "required": false,
             "schema": {
               "type": "string",
@@ -412,6 +412,26 @@
               "type": "string",
               "format": "date",
               "example": "2015-10-28"
+            }
+          },
+          {
+            "name": "getPossibleHorseCombinations",
+            "in": "query",
+            "description": "Specifies whether the system should return training lessons with possible horse combinations.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "example": true
+            }
+          },
+          {
+            "name": "onlyUnbookedLessons",
+            "in": "query",
+            "description": "Specifies whether the system should return only unbooked lessons.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "example": true
             }
           }
         ],
