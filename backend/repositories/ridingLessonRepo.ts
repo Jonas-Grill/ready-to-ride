@@ -2,6 +2,7 @@ import {Bson} from "../deps.ts";
 import db from "../config/db-connection.ts";
 import RidingLesson from "../models/ridingLessonModel.ts"
 import InvalidIdException from "../exceptions/invalidIdException.ts";
+import {add} from "https://jspm.dev/npm:eth-lib@0.1.29/lib/nat!cjs";
 
 const ridingLessons = db.collection<RidingLesson>("ridingLessons");
 
@@ -14,7 +15,6 @@ export const createRidingLesson = async (ridingLesson: RidingLesson) => {
         day: ridingLesson.day,
         startHour: ridingLesson.startHour,
         horse: ridingLesson.horse,
-
     });
 
     return id.toString();
@@ -22,8 +22,8 @@ export const createRidingLesson = async (ridingLesson: RidingLesson) => {
 
 export const findRidingLesson = async () => {
     return await ridingLessons.find({
-        createdAt: {
-            $gte: new Date(),
+        day: {
+            $gte: addDays(0),
             $lt: addDays(7)
         }
     }).toArray();
@@ -101,5 +101,17 @@ export const deleteRidingLesson = async (id: string) => {
 function addDays(numOfDays: number, date = new Date()) {
     date.setDate(date.getDate() + numOfDays);
 
-    return date;
+    return formatDate(date);
+}
+
+function padTo2Digits(num: number) {
+    return num.toString().padStart(2, '0');
+}
+
+function formatDate(date: Date) {
+    return [
+        date.getFullYear(),
+        padTo2Digits(date.getMonth() + 1),
+        padTo2Digits(date.getDate()),
+    ].join('-');
 }

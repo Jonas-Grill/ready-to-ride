@@ -9,7 +9,7 @@ export interface RidingLessonSchema {
     trainer?: string;
     booked?: boolean;
     arena: string;
-    day: Date;
+    day: string;
     startHour: number;
 }
 

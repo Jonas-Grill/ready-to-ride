@@ -9,7 +9,7 @@ export default interface RidingLessonModel {
     booked: boolean;
     bookerEmail?: string;
     arena: string;
-    day: Date;
+    day: string;
     startHour: number;
     horse?: {
         name: string;

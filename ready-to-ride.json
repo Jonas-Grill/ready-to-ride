@@ -1961,7 +1961,6 @@
         "required": [
           "arena",
           "day",
-          "hour",
           "startHour"
         ],
         "properties": {
