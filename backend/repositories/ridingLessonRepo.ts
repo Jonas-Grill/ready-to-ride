@@ -29,9 +29,15 @@ export const findRidingLesson = async () => {
     }).toArray();
 }
 
-export const findRidingLessonBy = async (filter: string) => {
+export const findUnbookedRidingLessonByTrainerAndDay = async (trainer: string, fromDate?: string, toDate?: string) => {
     return await ridingLessons.findOne({
-        filter
+        trainer: {
+            id: trainer
+        },
+        day: {
+            $gte: fromDate || addDays(0),
+            $lt: toDate || addDays(7)
+        }
     });
 }
 
