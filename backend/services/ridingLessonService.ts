@@ -5,9 +5,17 @@ import UserModel from "../models/userModel.ts";
 
 // deno-lint-ignore no-unused-vars
 export async function findRidingLesson(trainer?: string, horse?: string, fromDate?: string, toDate?: string, getPossibleRidingLessonCombinations?: boolean, onlyUnbookedLessons?: boolean) {
+    let ridingLessons: RidingLessonModel[] | undefined;
 
+    if (trainer) {
+        ridingLessons = await ridingLessonRepo.findUnbookedRidingLessonByTrainerAndDay(trainer);
+    } else {
+        ridingLessons = await ridingLessonRepo.findRidingLesson();
+    }
 
-    return await ridingLessonRepo.findRidingLesson();
+    console.log(trainer);
+
+    return ridingLessons;
 }
 
 export const addRidingLesson = async (ridingLesson: RidingLessonSchema, currentUser: UserModel) => {

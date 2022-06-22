@@ -2,7 +2,6 @@ import {Bson} from "../deps.ts";
 import db from "../config/db-connection.ts";
 import RidingLesson from "../models/ridingLessonModel.ts"
 import InvalidIdException from "../exceptions/invalidIdException.ts";
-import {add} from "https://jspm.dev/npm:eth-lib@0.1.29/lib/nat!cjs";
 
 const ridingLessons = db.collection<RidingLesson>("ridingLessons");
 
@@ -30,15 +29,13 @@ export const findRidingLesson = async () => {
 }
 
 export const findUnbookedRidingLessonByTrainerAndDay = async (trainer: string, fromDate?: string, toDate?: string) => {
-    return await ridingLessons.findOne({
-        trainer: {
-            id: trainer
-        },
-        day: {
-            $gte: fromDate || addDays(0),
-            $lt: toDate || addDays(7)
-        }
-    });
+    return await ridingLessons.find({
+        "trainer.id": trainer,
+        // day: {
+        //     $gte: fromDate || addDays(0),
+        //     $lt: toDate || addDays(7)
+        // }
+    }).toArray();
 }
 
 export const findRidingLessonById = async (id: string) => {
