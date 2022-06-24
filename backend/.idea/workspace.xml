@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c346c7d-003f-4b4c-8874-8c36983721a6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/util/dateUtil.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ridingLessonController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ridingLessonController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/repositories/ridingLessonRepo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/ridingLessonRepo.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/ridingLessonService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/ridingLessonService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/ridingLessons.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/ridingLesson.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ready-to-ride.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ready-to-ride.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +164,11 @@
       <workItem from="1655629459041" duration="2023000" />
       <workItem from="1655631574899" duration="11829000" />
       <workItem from="1655899597840" duration="918000" />
-      <workItem from="1655900587245" duration="965000" />
+      <workItem from="1655900587245" duration="1174000" />
+      <workItem from="1655913739061" duration="473000" />
+      <workItem from="1656067421917" duration="2695000" />
+      <workItem from="1656075941548" duration="3138000" />
+      <workItem from="1656079507654" duration="10231000" />
     </task>
     <servers />
   </component>
@@ -180,5 +188,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

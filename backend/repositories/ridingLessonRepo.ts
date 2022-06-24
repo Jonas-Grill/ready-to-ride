@@ -2,6 +2,7 @@ import {Bson} from "../deps.ts";
 import db from "../config/db-connection.ts";
 import RidingLesson from "../models/ridingLessonModel.ts"
 import InvalidIdException from "../exceptions/invalidIdException.ts";
+import {addDays, formatDate} from "../util/dateUtil.ts";
 
 const ridingLessons = db.collection<RidingLesson>("ridingLessons");
 
@@ -28,13 +29,77 @@ export const findRidingLesson = async () => {
     }).toArray();
 }
 
-export const findUnbookedRidingLessonByTrainerAndDay = async (trainer: string, fromDate?: string, toDate?: string) => {
+export async function findRidingLessonByDay(fromDate: string, toDate: string) {
     return await ridingLessons.find({
-        "trainer.id": trainer,
-        // day: {
-        //     $gte: fromDate || addDays(0),
-        //     $lt: toDate || addDays(7)
-        // }
+        day: {
+            $gte: fromDate,
+            $lt: toDate
+        }
+    }).toArray();
+}
+
+export async function findUnbookedRidingLessonByDay(fromDate: string, toDate: string) {
+    return await ridingLessons.find({
+        booked: false,
+        day: {
+            $gte: fromDate,
+            $lt: toDate
+        }
+    }).toArray();
+}
+
+export async function findBookedRidingLessonsByDay(fromDate: string, toDate: string) {
+    return await ridingLessons.find({
+        booked: true,
+        day: {
+            $gte: fromDate,
+            $lt: toDate
+        }
+    }).toArray();
+}
+
+export async function findBookedRidingLessonsByTrainerIdAndHorseIdsAndDay(trainerId: string, horseIds: string[], fromDate: string, toDate: string) {
+    return await ridingLessons.find({
+        "trainer.id": trainerId,
+        "horse.id": {$in: horseIds},
+        booked: true,
+        day: {
+            $gte: fromDate,
+            $lt: toDate
+        }
+    }).toArray();
+}
+
+export async function findBookedRidingLessonsByHorseIdAndDay(horseIds: string[], fromDate: string, toDate: string) {
+    return await ridingLessons.find({
+        "horse.id": {$in: horseIds},
+        booked: true,
+        day: {
+            $gte: fromDate,
+            $lt: toDate
+        }
+    }).toArray();
+}
+
+export async function findBookedRidingLessonsByTrainerIdAndDay(trainerId: string, fromDate: string, toDate: string) {
+    return await ridingLessons.find({
+        "trainer.id": trainerId,
+        booked: true,
+        day: {
+            $gte: fromDate,
+            $lt: toDate
+        }
+    }).toArray();
+}
+
+export const findUnbookedRidingLessonByTrainerAndDay = async (trainerId: string, fromDate: string, toDate: string) => {
+    return await ridingLessons.find({
+        "trainer.id": trainerId,
+        booked: false,
+        day: {
+            $gte: fromDate,
+            $lt: toDate
+        }
     }).toArray();
 }
 
@@ -49,9 +114,9 @@ export const findRidingLessonById = async (id: string) => {
 }
 
 export const findRidingLessonByTrainerId = async (trainerId: string) => {
-    return await ridingLessons.findOne({
-        trainerId: trainerId,
-    });
+    return await ridingLessons.find({
+        "trainer.id": trainerId,
+    }).toArray();
 }
 
 export const findRidingLessonByBookerEmail = async (bookerEmail: string) => {
@@ -97,24 +162,4 @@ export const deleteRidingLesson = async (id: string) => {
     return await ridingLessons.deleteOne({
         _id: new Bson.ObjectId(id),
     });
-}
-
-/* ------------------------------ Util ------------------------------ */
-
-function addDays(numOfDays: number, date = new Date()) {
-    date.setDate(date.getDate() + numOfDays);
-
-    return formatDate(date);
-}
-
-function padTo2Digits(num: number) {
-    return num.toString().padStart(2, '0');
-}
-
-function formatDate(date: Date) {
-    return [
-        date.getFullYear(),
-        padTo2Digits(date.getMonth() + 1),
-        padTo2Digits(date.getDate()),
-    ].join('-');
 }

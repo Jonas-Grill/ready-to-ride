@@ -1,24 +1,29 @@
 import * as ridingLessonService from "../services/ridingLessonService.ts";
 import {Context, helpers, Status} from "../deps.ts";
 import {UserRole} from "../types/userRole.ts";
-import {instanceOfRidingLesson, RidingLessonSchema} from "../types/ridingLessons.ts";
+import {instanceOfRidingLesson, RidingLessonSchema} from "../types/ridingLesson.ts";
 
 export const findRidingLesson = async (ctx: Context) => {
-    const {trainer, horse, fromDate, toDate, getPossibleHorseCombinations, onlyUnbookedLessons} = helpers.getQuery(ctx, { mergeParams: true });
+    const {
+        trainer,
+        horses,
+        fromDate,
+        toDate,
+        getPossibleHorseCombinations,
+        bookedLessons
+    } = helpers.getQuery(ctx, {mergeParams: true});
 
-    const ridingLessons = await ridingLessonService.findRidingLesson(trainer, horse, fromDate, toDate, toBool(getPossibleHorseCombinations), toBool(onlyUnbookedLessons));
+    const ridingLessons = await ridingLessonService.findRidingLesson(
+        trainer,
+        horses ? horses.split(',') : undefined,
+        fromDate,
+        toDate,
+        toBool(getPossibleHorseCombinations),
+        toBool(bookedLessons)
+    );
 
     ctx.response.status = Status.OK;
-    ctx.response.body = ridingLessons.map((ridingLesson) => {
-        return {
-            _id: ridingLesson._id,
-            trainer: ridingLesson.trainer.name,
-            booked: ridingLesson.booked,
-            arena: ridingLesson.arena,
-            day: ridingLesson.day,
-            startHour: ridingLesson.startHour,
-        }
-    });
+    ctx.response.body = ridingLessons;
 }
 
 export const addRidingLesson = async (ctx: Context) => {

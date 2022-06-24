@@ -383,13 +383,16 @@
             }
           },
           {
-            "name": "horse",
+            "name": "horses",
             "in": "query",
-            "description": "ID of horse of riding lesson to fetch.",
+            "description": "IDs of horses of riding lessons to fetch. Comma separated. Only works in combination with bookedLessons or getPossibleHorseCombinations.",
             "required": false,
             "schema": {
-              "type": "string",
-              "example": "611d5cd230dd29fc60df7b94"
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": "611d5cd230dd29fc60df7b94, 611d5cd230dd29fc60df7b95, 611d5cd230dd29fc60df7b96"
             }
           },
           {
@@ -417,7 +420,7 @@
           {
             "name": "getPossibleHorseCombinations",
             "in": "query",
-            "description": "Specifies whether the system should return training lessons with possible horse combinations.",
+            "description": "Specifies whether the system should return training lessons with possible horse combinations. If set to true the system will only return unbooked lessons.",
             "required": false,
             "schema": {
               "type": "boolean",
@@ -425,9 +428,9 @@
             }
           },
           {
-            "name": "onlyUnbookedLessons",
+            "name": "bookedLessons",
             "in": "query",
-            "description": "Specifies whether the system should return only unbooked lessons.",
+            "description": "Specifies whether the system should return booked or unbooked lessons. If set to false the system will only return unbooked lessons. If set to true the system will only return booked lessons. If not set the system will return all lessons.",
             "required": false,
             "schema": {
               "type": "boolean",
