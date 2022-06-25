@@ -2,12 +2,13 @@ import * as ridingLessonRepo from "../repositories/ridingLessonRepo.ts";
 import RidingLessonModel from "../models/ridingLessonModel.ts";
 import {RidingLessonSchema} from "../types/ridingLesson.ts";
 import UserModel from "../models/userModel.ts";
-import {addDays, formatDate, getCurrentDate} from "../util/dateUtil.ts";
+import {addDays, getCurrentDate} from "../util/dateUtil.ts";
 import {findHorse, findHorseById} from "./horseService.ts";
 import invalidIdException from "../exceptions/invalidIdException.ts";
 
-// deno-lint-ignore no-unused-vars
-export async function findRidingLesson(trainer?: string, horses?: string[], fromDate?: string, toDate?: string, getPossibleRidingLessonCombinations?: boolean, bookedLessons?: boolean) {
+const ridingLessonLength = 1;
+
+export const findRidingLesson = async (trainer?: string, horses?: string[], fromDate?: string, toDate?: string, getPossibleRidingLessonCombinations?: boolean, bookedLessons?: boolean): Promise<RidingLessonSchema[]> => {
     bookedLessons = getPossibleRidingLessonCombinations ? false : bookedLessons;
 
     let ridingLessons: RidingLessonModel[] | undefined;
@@ -22,8 +23,6 @@ export async function findRidingLesson(trainer?: string, horses?: string[], from
     if (!toDate) { /* No else if because if it is an else if deno thinks that toDate could be undefined */
         toDate = addDays(7, fromDate);
     }
-
-    // console.log(`fromDate: ${fromDate} - toDate: ${toDate}`);
 
     // Find the riding lessons with the given parameters
     if (trainer && horses && bookedLessons) {
@@ -48,30 +47,42 @@ export async function findRidingLesson(trainer?: string, horses?: string[], from
 
     // Add possible riding lesson combinations to the result
     if (getPossibleRidingLessonCombinations) {
+        let possibleHorses: { name: string, id: string }[];
+
         if (horses) {
-            horses = await Promise.all(horses.map(async (horseId) => {
+            possibleHorses = await Promise.all(horses.map(async (horseId) => {
                 const horse = await findHorseById(horseId);
                 if (!horse) {
                     throw new invalidIdException();
                 } else {
-                    return horse.name;
+                    return {
+                        name: horse.name,
+                        id: horse._id?.toString() || "",
+                    };
                 }
             }));
         } else {
-            horses = (await findHorse()).map(horse => horse.name);
+            possibleHorses = (await findHorse()).map(horse => {
+                return {
+                    name: horse.name,
+                    id: horse._id?.toString() || "",
+                };
+            });
         }
 
         for (const ridingLesson of ridingLessons) {
-            for (const horse of horses) {
-                ridingLessonsSchema.push({
-                    _id: ridingLesson._id,
-                    trainer: ridingLesson.trainer.name,
-                    booked: ridingLesson.booked,
-                    arena: ridingLesson.arena,
-                    day: ridingLesson.day,
-                    startHour: ridingLesson.startHour,
-                    horse: horse,
-                });
+            for (const horse of possibleHorses) {
+                if (await horseFreeAtTime(horse.id, ridingLesson.day, ridingLesson.startHour)) {
+                    ridingLessonsSchema.push({
+                        _id: ridingLesson._id,
+                        trainer: ridingLesson.trainer.name,
+                        booked: ridingLesson.booked,
+                        arena: ridingLesson.arena,
+                        day: ridingLesson.day,
+                        startHour: ridingLesson.startHour,
+                        horse: horse.name,
+                    });
+                }
             }
         }
     } else {
@@ -83,7 +94,7 @@ export async function findRidingLesson(trainer?: string, horses?: string[], from
     return ridingLessonsSchema;
 }
 
-export const addRidingLesson = async (ridingLesson: RidingLessonSchema, currentUser: UserModel) => {
+export const addRidingLesson = async (ridingLesson: RidingLessonSchema, currentUser: UserModel): Promise<RidingLessonSchema> => {
     const id: string = await ridingLessonRepo.createRidingLesson(
         {
             trainer: {
@@ -123,4 +134,9 @@ const ridingLessonModelToRidingLesson = (ridingLesson: RidingLessonModel): Ridin
     }
 
     return ridingLessonSchema;
+}
+
+const horseFreeAtTime = async (horse: string, day: string, startHour: number): Promise<boolean> => {
+    const ridingLessons = await ridingLessonRepo.findBookedRidingLessonsByDayAndHorseIdAndStartHour(day, horse, startHour);
+    return ridingLessons.length === 0;
 }

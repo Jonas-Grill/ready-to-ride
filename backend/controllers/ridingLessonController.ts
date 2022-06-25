@@ -15,7 +15,7 @@ export const findRidingLesson = async (ctx: Context) => {
 
     const ridingLessons = await ridingLessonService.findRidingLesson(
         trainer,
-        horses ? horses.split(',') : undefined,
+        horses ? horses.replace(/\s/g, '').split(',') : undefined,
         fromDate,
         toDate,
         toBool(getPossibleHorseCombinations),

@@ -20,13 +20,14 @@ export const createRidingLesson = async (ridingLesson: RidingLesson) => {
     return id.toString();
 }
 
-export const findRidingLesson = async () => {
-    return await ridingLessons.find({
-        day: {
-            $gte: addDays(0),
-            $lt: addDays(7)
-        }
-    }).toArray();
+export const findRidingLessonById = async (id: string) => {
+    if (!Bson.ObjectId.isValid(id)) {
+        throw new InvalidIdException();
+    }
+
+    return await ridingLessons.findOne({
+        _id: new Bson.ObjectId(id),
+    });
 }
 
 export async function findRidingLessonByDay(fromDate: string, toDate: string) {
@@ -103,26 +104,13 @@ export const findUnbookedRidingLessonByTrainerAndDay = async (trainerId: string,
     }).toArray();
 }
 
-export const findRidingLessonById = async (id: string) => {
-    if (!Bson.ObjectId.isValid(id)) {
-        throw new InvalidIdException();
-    }
-
-    return await ridingLessons.findOne({
-        _id: new Bson.ObjectId(id),
-    });
-}
-
-export const findRidingLessonByTrainerId = async (trainerId: string) => {
+export async function findBookedRidingLessonsByDayAndHorseIdAndStartHour(day: string, horse: string, startHour: number) {
     return await ridingLessons.find({
-        "trainer.id": trainerId,
+        booked: true,
+        day: day,
+        "horse.id": horse,
+        startHour: startHour
     }).toArray();
-}
-
-export const findRidingLessonByBookerEmail = async (bookerEmail: string) => {
-    return await ridingLessons.findOne({
-        bookerEmail: bookerEmail,
-    });
 }
 
 export const updateRidingLesson = async (ridingLesson: RidingLesson) => {

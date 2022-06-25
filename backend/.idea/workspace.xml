@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1c346c7d-003f-4b4c-8874-8c36983721a6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ridingLessonController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ridingLessonController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repositories/ridingLessonRepo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/ridingLessonRepo.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/ridingLessonService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/ridingLessonService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -164,7 +166,7 @@
       <workItem from="1656067421917" duration="2695000" />
       <workItem from="1656075941548" duration="3138000" />
       <workItem from="1656079507654" duration="10231000" />
-      <workItem from="1656146579001" duration="2259000" />
+      <workItem from="1656146579001" duration="6214000" />
     </task>
     <servers />
   </component>
