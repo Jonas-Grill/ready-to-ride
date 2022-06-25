@@ -8,7 +8,7 @@ import invalidIdException from "../exceptions/invalidIdException.ts";
 import {doesArenaExist, findStable} from "./stableService.ts";
 import invalidDataException from "../exceptions/invalidDataException.ts";
 
-const ridingLessonLength = 1;
+const ridingLessonDurationInHours = 1;
 
 export const findRidingLesson = async (trainer?: string, horses?: string[], fromDate?: string, toDate?: string, getPossibleRidingLessonCombinations?: boolean, bookedLessons?: boolean): Promise<RidingLessonSchema[]> => {
     bookedLessons = getPossibleRidingLessonCombinations ? false : bookedLessons;
@@ -123,6 +123,36 @@ export const addRidingLesson = async (ridingLesson: RidingLessonSchema, currentU
     }
 
     return ridingLessonModelToRidingLesson(newRidingLesson);
+}
+
+export const bookRidingLesson = async (bookingData: {horseId: string, lessonId: string}, currentUser: UserModel): Promise<void> => {
+    const horse = await findHorseById(bookingData.horseId);
+    if (!horse) {
+        throw new invalidIdException();
+    }
+
+    const lesson = await ridingLessonRepo.findRidingLessonById(bookingData.lessonId);
+    if (!lesson) {
+        throw new invalidIdException();
+    }
+
+    if (lesson.booked) {
+        throw new invalidDataException("This lesson is already booked");
+    }
+
+    await ridingLessonRepo.updateRidingLesson({
+        _id: lesson._id,
+        arena: lesson.arena,
+        bookerEmail: currentUser.email,
+        day: lesson.day,
+        startHour: lesson.startHour,
+        trainer: lesson.trainer,
+        booked: true,
+        horse: {
+            name: horse.name,
+            id: horse._id?.toString() || ""
+        }
+    });
 }
 
 /* ------------------------------ Util ------------------------------ */

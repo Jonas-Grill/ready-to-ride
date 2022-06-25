@@ -18,7 +18,7 @@ import {
     updateHorse
 } from "./controllers/horseController.ts";
 import {findStable, updateStable} from "./controllers/stableController.ts";
-import {addRidingLesson, findRidingLesson} from "./controllers/ridingLessonController.ts";
+import {addRidingLesson, bookRidingLesson, findRidingLesson} from "./controllers/ridingLessonController.ts";
 
 const router = new Router();
 
@@ -59,6 +59,7 @@ router
     .put("/stable", updateStable)
     // Riding Lesson
     .post("/ridinglessons", addRidingLesson)
+    .post("/ridinglessons/:id/book", bookRidingLesson);
 
 router.routes();
 

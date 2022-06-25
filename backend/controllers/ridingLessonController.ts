@@ -2,6 +2,7 @@ import * as ridingLessonService from "../services/ridingLessonService.ts";
 import {Context, helpers, Status} from "../deps.ts";
 import {UserRole} from "../types/userRole.ts";
 import {instanceOfRidingLesson, RidingLessonSchema} from "../types/ridingLesson.ts";
+import {id} from "https://jspm.dev/npm:@ethersproject/hash@5.5.0";
 
 export const findRidingLesson = async (ctx: Context) => {
     const {
@@ -40,6 +41,24 @@ export const addRidingLesson = async (ctx: Context) => {
 
     ctx.response.status = Status.Created;
     ctx.response.body = ridingLesson;
+}
+
+export const bookRidingLesson = async (ctx: Context) => {
+    const {id} = helpers.getQuery(ctx, {mergeParams: true});
+
+    ctx.assert(id, Status.BadRequest, "Please provide a valid id");
+    ctx.assert(ctx.request.hasBody, Status.BadRequest, "Please provide data");
+
+    const bookingData = await ctx.request.body().value;
+
+    ctx.assert(bookingData, Status.BadRequest, "Please provide data");
+    ctx.assert(bookingData.horseId, Status.BadRequest, "Please provide valid data");
+
+    bookingData.lessonId = id;
+
+    await ridingLessonService.bookRidingLesson(bookingData, ctx.state.currentUser);
+
+    ctx.response.status = Status.Accepted;
 }
 
 /* ------------------------------ Util ------------------------------ */

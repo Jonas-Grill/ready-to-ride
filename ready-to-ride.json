@@ -664,7 +664,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of riding lessin",
+            "description": "ID of riding lesson",
             "required": true,
             "schema": {
               "type": "string",
