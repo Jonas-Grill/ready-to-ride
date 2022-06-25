@@ -18,7 +18,8 @@ export async function findRidingLesson(trainer?: string, horses?: string[], from
         toDate = addDays(7, fromDate);
     } else if (!fromDate) {
         fromDate = addDays(-7, toDate);
-    } if (!toDate) { /* No else if because if it is an else if deno thinks that toDate could be undefined */
+    }
+    if (!toDate) { /* No else if because if it is an else if deno thinks that toDate could be undefined */
         toDate = addDays(7, fromDate);
     }
 
@@ -39,8 +40,7 @@ export async function findRidingLesson(trainer?: string, horses?: string[], from
         } else {
             ridingLessons = await ridingLessonRepo.findUnbookedRidingLessonByDay(fromDate, toDate);
         }
-    }
-    else {
+    } else {
         ridingLessons = await ridingLessonRepo.findRidingLessonByDay(fromDate, toDate);
     }
 
@@ -48,7 +48,18 @@ export async function findRidingLesson(trainer?: string, horses?: string[], from
 
     // Add possible riding lesson combinations to the result
     if (getPossibleRidingLessonCombinations) {
-        horses = horses ? horses.map(horseIdToName) : (await findHorse()).map(horse => horse.name);
+        if (horses) {
+            horses = await Promise.all(horses.map(async (horseId) => {
+                const horse = await findHorseById(horseId);
+                if (!horse) {
+                    throw new invalidIdException();
+                } else {
+                    return horse.name;
+                }
+            }));
+        } else {
+            horses = (await findHorse()).map(horse => horse.name);
+        }
 
         for (const ridingLesson of ridingLessons) {
             for (const horse of horses) {
@@ -112,14 +123,4 @@ const ridingLessonModelToRidingLesson = (ridingLesson: RidingLessonModel): Ridin
     }
 
     return ridingLessonSchema;
-}
-
-async function horseIdToName(horseId: string) {
-    const horse = await findHorseById(horseId);
-
-    if (!horse) {
-        throw new invalidIdException();
-    }
-
-    return horse.name;
 }
