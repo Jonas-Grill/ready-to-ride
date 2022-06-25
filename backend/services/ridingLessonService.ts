@@ -5,6 +5,8 @@ import UserModel from "../models/userModel.ts";
 import {addDays, getCurrentDate} from "../util/dateUtil.ts";
 import {findHorse, findHorseById} from "./horseService.ts";
 import invalidIdException from "../exceptions/invalidIdException.ts";
+import {doesArenaExist, findStable} from "./stableService.ts";
+import invalidDataException from "../exceptions/invalidDataException.ts";
 
 const ridingLessonLength = 1;
 
@@ -95,6 +97,12 @@ export const findRidingLesson = async (trainer?: string, horses?: string[], from
 }
 
 export const addRidingLesson = async (ridingLesson: RidingLessonSchema, currentUser: UserModel): Promise<RidingLessonSchema> => {
+    if (!await doesArenaExist(ridingLesson.arena)) {
+        return Promise.reject(new invalidDataException("The arena does not exist"));
+    } else if (!await arenaFreeAtTime(ridingLesson.arena, ridingLesson.day, ridingLesson.startHour)) {
+        return Promise.reject(new invalidDataException("The arena is not free at the given time"));
+    }
+
     const id: string = await ridingLessonRepo.createRidingLesson(
         {
             trainer: {
@@ -138,5 +146,10 @@ const ridingLessonModelToRidingLesson = (ridingLesson: RidingLessonModel): Ridin
 
 const horseFreeAtTime = async (horse: string, day: string, startHour: number): Promise<boolean> => {
     const ridingLessons = await ridingLessonRepo.findBookedRidingLessonsByDayAndHorseIdAndStartHour(day, horse, startHour);
+    return ridingLessons.length === 0;
+}
+
+const arenaFreeAtTime = async (arena: string, day: string, startHour: number): Promise<boolean> => {
+    const ridingLessons = await ridingLessonRepo.findRidingLessonsByDayAndArenaAndStartHour(day, arena, startHour);
     return ridingLessons.length === 0;
 }

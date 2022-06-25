@@ -39,6 +39,14 @@ export async function findRidingLessonByDay(fromDate: string, toDate: string) {
     }).toArray();
 }
 
+export async function findRidingLessonsByDayAndArenaAndStartHour(day: string, arena: string, startHour: number) {
+    return await ridingLessons.find({
+        day: day,
+        arena: arena,
+        startHour: startHour,
+    }).toArray();
+}
+
 export async function findUnbookedRidingLessonByDay(fromDate: string, toDate: string) {
     return await ridingLessons.find({
         booked: false,

@@ -103,3 +103,9 @@ const stableModelToStable = (stable: StableModel): ExtendedStableSchema => {
         trainerPasscode: stable.trainerPasscode,
     };
 }
+
+export const doesArenaExist = async (name: string) => {
+    const stable: StableModel = await findStable()
+
+    return stable.arenas.some(arena => arena.name === name);
+}
