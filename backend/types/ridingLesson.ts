@@ -16,8 +16,8 @@ export interface RidingLessonSchema {
 
 export const instanceOfRidingLesson = (object: any): object is RidingLessonSchema => {
     return 'arena' in object && typeof object.arena === "string"
-        && 'day' in object
-        && 'startHour' in object && isNumber(object.startHour)
+        && 'day' in object && typeof object.day === "string"
+        && 'startHour' in object && isNumber(object.startHour) && object.startHour >= 0 && object.startHour <= 23 && object.startHour % 1 === 0
 }
 
 /* ------------------------------ Create Multiple Riding Lesson ------------------------------ */
