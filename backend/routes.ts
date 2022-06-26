@@ -18,6 +18,12 @@ import {
     updateHorse
 } from "./controllers/horseController.ts";
 import {findStable, updateStable} from "./controllers/stableController.ts";
+import {
+    addMultipleRidingLessons,
+    addRidingLesson,
+    bookRidingLesson, cancelRidingLesson,
+    findRidingLesson
+} from "./controllers/ridingLessonController.ts";
 
 const router = new Router();
 
@@ -42,6 +48,8 @@ router
     .get("/horses/:id", findHorseById)
     // Stable
     .get("/stable", findStable)
+    // Riding Lesson
+    .get("/ridinglessons", findRidingLesson)
     // Auth required
     .use(authMiddleware)
     // User
@@ -54,6 +62,12 @@ router
     .delete("/horses/:id", deleteHorse)
     // Stable
     .put("/stable", updateStable)
+    // Riding Lesson
+    .post("/ridinglessons", addRidingLesson)
+    .post("/ridinglessons/multiple", addMultipleRidingLessons)
+    .post("/ridinglessons/:id/book", bookRidingLesson)
+    .delete("/ridinglessons/:id", cancelRidingLesson)
+;
 
 router.routes();
 
