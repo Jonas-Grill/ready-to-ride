@@ -2,7 +2,7 @@ import * as ridingLessonRepo from "../repositories/ridingLessonRepo.ts";
 import RidingLessonModel from "../models/ridingLessonModel.ts";
 import {CreateMultipleRidingLessonSchema, RidingLessonSchema} from "../types/ridingLesson.ts";
 import UserModel from "../models/userModel.ts";
-import {addDays, getCurrentDate} from "../util/dateUtil.ts";
+import {addDays, getCurrentDate, getDateRange} from "../util/dateUtil.ts";
 import {findHorse, findHorseById} from "./horseService.ts";
 import invalidIdException from "../exceptions/invalidIdException.ts";
 import {doesArenaExist} from "./stableService.ts";
@@ -15,16 +15,9 @@ export const findRidingLesson = async (trainer?: string, horses?: string[], from
 
     let ridingLessons: RidingLessonModel[] | undefined;
 
-    // Define the date range
-    if (!fromDate && !toDate) {
-        fromDate = getCurrentDate();
-        toDate = addDays(7, fromDate);
-    } else if (!fromDate) {
-        fromDate = addDays(-7, toDate);
-    }
-    if (!toDate) { /* No else if because if it is an else if deno thinks that toDate could be undefined */
-        toDate = addDays(7, fromDate);
-    }
+    const dateRange = getDateRange(fromDate, toDate)
+    fromDate = dateRange.fromDate;
+    toDate = dateRange.toDate;
 
     // Find the riding lessons with the given parameters
     if (trainer && horses && bookedLessons) {
@@ -94,6 +87,20 @@ export const findRidingLesson = async (trainer?: string, horses?: string[], from
     }
 
     return ridingLessonsSchema;
+}
+
+export async function findRidingLessonsByArenaAndDay(name: string, fromDate: string, toDate: string) {
+    const dateRange = getDateRange(fromDate, toDate)
+    fromDate = dateRange.fromDate;
+    toDate = dateRange.toDate;
+
+    const ridingLessons: RidingLessonModel[] = await ridingLessonRepo.findRidingLessonsByArenaAndDay(name, fromDate, toDate);
+
+
+
+    return ridingLessons.map(ridingLesson => {
+        return ridingLessonModelToRidingLesson(ridingLesson);
+    });
 }
 
 export const addRidingLesson = async (ridingLesson: RidingLessonSchema, currentUser: UserModel): Promise<RidingLessonSchema> => {

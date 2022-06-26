@@ -6,6 +6,7 @@ import {
     instanceOfRidingLesson,
     RidingLessonSchema
 } from "../types/ridingLesson.ts";
+import {doesArenaExist} from "../services/stableService.ts";
 
 export const findRidingLesson = async (ctx: Context) => {
     const {
@@ -28,6 +29,30 @@ export const findRidingLesson = async (ctx: Context) => {
 
     ctx.response.status = Status.OK;
     ctx.response.body = ridingLessons;
+}
+
+export const findRidingLessonsByArenaAndDay = async (ctx: Context) => {
+    const {
+        fromDate,
+        toDate,
+        name,
+    } = helpers.getQuery(ctx, {mergeParams: true});
+
+    ctx.assert(name, Status.BadRequest, "Missing arena name");
+    ctx.assert(doesArenaExist(name), Status.BadRequest, "Arena does not exist");
+
+    const ridingLessons = await ridingLessonService.findRidingLessonsByArenaAndDay(
+        name,
+        fromDate,
+        toDate
+    );
+
+    ctx.response.status = Status.OK;
+    ctx.response.body = ridingLessons;
+}
+
+export const findRidingLessonsByUser = async (ctx: Context) => {
+
 }
 
 export const addRidingLesson = async (ctx: Context) => {
