@@ -1,4 +1,5 @@
 import * as ridingLessonService from "../services/ridingLessonService.ts";
+import * as userService from "../services/userService.ts";
 import {Context, helpers, Status} from "../deps.ts";
 import {UserRole} from "../types/userRole.ts";
 import {
@@ -7,6 +8,7 @@ import {
     RidingLessonSchema
 } from "../types/ridingLesson.ts";
 import {doesArenaExist} from "../services/stableService.ts";
+import UserModel from "../models/userModel.ts";
 
 export const findRidingLesson = async (ctx: Context) => {
     const {
@@ -51,8 +53,34 @@ export const findRidingLessonsByArenaAndDay = async (ctx: Context) => {
     ctx.response.body = ridingLessons;
 }
 
-export const findRidingLessonsByUser = async (ctx: Context) => {
+export const findRidingLessonsByCurrentUser = async (ctx: Context) => {
+    const {
+        fromDate,
+        toDate,
+    } = helpers.getQuery(ctx, {mergeParams: true});
 
+    const ridingLessons = await ridingLessonService.findRidingLessonsByBookerEmailAndDay(ctx.state.currentUser.email, fromDate, toDate);
+
+    ctx.response.status = Status.OK;
+    ctx.response.body = ridingLessons;
+}
+
+export const findRidingLessonsByUserId = async (ctx: Context) => {
+    const {
+        fromDate,
+        toDate,
+        id,
+    } = helpers.getQuery(ctx, {mergeParams: true});
+
+    ctx.assert(id, Status.BadRequest, "Missing user id");
+
+    const user: UserModel | undefined = await userService.findUserById(id);
+    ctx.assert(user, Status.BadRequest, `User with the id: ${id} does not exist`);
+
+    const ridingLessons = await ridingLessonService.findRidingLessonsByBookerEmailAndDay(user.email, fromDate, toDate);
+
+    ctx.response.status = Status.OK;
+    ctx.response.body = ridingLessons;
 }
 
 export const addRidingLesson = async (ctx: Context) => {

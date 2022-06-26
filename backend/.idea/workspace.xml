@@ -5,8 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/ridingLessonController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ridingLessonController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/repositories/ridingLessonRepo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/ridingLessonRepo.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/ridingLessonService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/ridingLessonService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/dateUtil.ts" beforeDir="false" afterPath="$PROJECT_DIR$/util/dateUtil.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ready-to-ride.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ready-to-ride.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -171,7 +171,7 @@
       <workItem from="1656146579001" duration="10907000" />
       <workItem from="1656235153664" duration="63000" />
       <workItem from="1656235233838" duration="5846000" />
-      <workItem from="1656251145124" duration="1527000" />
+      <workItem from="1656251145124" duration="4283000" />
     </task>
     <servers />
   </component>

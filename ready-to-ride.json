@@ -1404,7 +1404,7 @@
         }
       }
     },
-    "/stable/arena/{name}/calender": {
+    "/stable/arenas/{name}/calender": {
       "get": {
         "description": "Get all bookings from the arena with the specified name.",
         "operationId": "find booking by arena",

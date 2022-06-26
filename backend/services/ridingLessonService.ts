@@ -103,6 +103,18 @@ export async function findRidingLessonsByArenaAndDay(name: string, fromDate: str
     });
 }
 
+export async function findRidingLessonsByBookerEmailAndDay(email: string, fromDate: string, toDate: string) {
+    const dateRange = getDateRange(fromDate, toDate)
+    fromDate = dateRange.fromDate;
+    toDate = dateRange.toDate;
+
+    const ridingLessons: RidingLessonModel[] = await ridingLessonRepo.findRidingLessonsByBookerEmailAndDay(email, fromDate, toDate);
+
+    return ridingLessons.map(ridingLesson => {
+        return ridingLessonModelToRidingLesson(ridingLesson);
+    });
+}
+
 export const addRidingLesson = async (ridingLesson: RidingLessonSchema, currentUser: UserModel): Promise<RidingLessonSchema> => {
     if (!await doesArenaExist(ridingLesson.arena)) {
         return Promise.reject(new invalidDataException("The arena does not exist"));

@@ -48,6 +48,16 @@ export async function findRidingLessonsByArenaAndDay(name: string, fromDate: str
     }).toArray();
 }
 
+export async function findRidingLessonsByBookerEmailAndDay(email: string, fromDate: string, toDate: string) {
+    return await ridingLessons.find({
+        bookerEmail: email,
+        day: {
+            $gte: fromDate,
+            $lt: toDate
+        }
+    }).toArray();
+}
+
 export async function findRidingLessonsByDayAndArenaAndStartHour(day: string, arena: string, startHour: number) {
     return await ridingLessons.find({
         day: day,
