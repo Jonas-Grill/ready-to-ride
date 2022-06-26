@@ -2,7 +2,6 @@ import * as ridingLessonService from "../services/ridingLessonService.ts";
 import {Context, helpers, Status} from "../deps.ts";
 import {UserRole} from "../types/userRole.ts";
 import {instanceOfRidingLesson, RidingLessonSchema} from "../types/ridingLesson.ts";
-import {id} from "https://jspm.dev/npm:@ethersproject/hash@5.5.0";
 
 export const findRidingLesson = async (ctx: Context) => {
     const {
