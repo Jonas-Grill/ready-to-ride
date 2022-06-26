@@ -5,7 +5,7 @@ import UserModel from "../models/userModel.ts";
 import {addDays, getCurrentDate} from "../util/dateUtil.ts";
 import {findHorse, findHorseById} from "./horseService.ts";
 import invalidIdException from "../exceptions/invalidIdException.ts";
-import {doesArenaExist, findStable} from "./stableService.ts";
+import {doesArenaExist} from "./stableService.ts";
 import invalidDataException from "../exceptions/invalidDataException.ts";
 
 const ridingLessonDurationInHours = 1;
@@ -183,7 +183,7 @@ export const bookRidingLesson = async (bookingData: {horseId: string, lessonId: 
     });
 }
 
-export async function cancelRidingLesson(id: string, currentUser: any) {
+export async function cancelRidingLesson(id: string, currentUser: UserModel): Promise<void> {
     const lesson = await ridingLessonRepo.findRidingLessonById(id);
     if (!lesson) {
         throw new invalidIdException();

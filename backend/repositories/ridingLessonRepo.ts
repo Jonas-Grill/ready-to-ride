@@ -2,7 +2,6 @@ import {Bson} from "../deps.ts";
 import db from "../config/db-connection.ts";
 import RidingLesson from "../models/ridingLessonModel.ts"
 import InvalidIdException from "../exceptions/invalidIdException.ts";
-import {addDays, formatDate} from "../util/dateUtil.ts";
 
 const ridingLessons = db.collection<RidingLesson>("ridingLessons");
 

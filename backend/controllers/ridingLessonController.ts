@@ -2,7 +2,6 @@ import * as ridingLessonService from "../services/ridingLessonService.ts";
 import {Context, helpers, Status} from "../deps.ts";
 import {UserRole} from "../types/userRole.ts";
 import {
-    CreateMultipleRidingLessonSchema,
     instanceOfCreateMultipleRidingLesson,
     instanceOfRidingLesson,
     RidingLessonSchema
