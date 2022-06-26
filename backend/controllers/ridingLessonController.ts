@@ -1,7 +1,12 @@
 import * as ridingLessonService from "../services/ridingLessonService.ts";
 import {Context, helpers, Status} from "../deps.ts";
 import {UserRole} from "../types/userRole.ts";
-import {instanceOfRidingLesson, RidingLessonSchema} from "../types/ridingLesson.ts";
+import {
+    CreateMultipleRidingLessonSchema,
+    instanceOfCreateMultipleRidingLesson,
+    instanceOfRidingLesson,
+    RidingLessonSchema
+} from "../types/ridingLesson.ts";
 
 export const findRidingLesson = async (ctx: Context) => {
     const {
@@ -42,10 +47,28 @@ export const addRidingLesson = async (ctx: Context) => {
     ctx.response.body = ridingLesson;
 }
 
+export const addMultipleRidingLessons = async (ctx: Context) => {
+    ctx.assert(ctx.state.currentUser.role === UserRole.TRAINER, Status.Unauthorized, "Your role isn't authorized to access this function")
+
+    ctx.assert(ctx.request.hasBody, Status.BadRequest, "Please provide data");
+
+    const ridingLessonsData = await ctx.request.body().value;
+
+    ctx.assert(ridingLessonsData, Status.BadRequest, "Please provide data");
+    ctx.assert(instanceOfCreateMultipleRidingLesson(ridingLessonsData), Status.BadRequest, "Please provide valid data");
+    ctx.assert(ridingLessonsData.endHour - ridingLessonsData.startHour >= 1, Status.BadRequest, "Please provide at least one lesson");
+
+    const ridingLessons: RidingLessonSchema[] = await ridingLessonService.addMultipleRidingLessons(ridingLessonsData, ctx.state.currentUser);
+
+    ctx.response.status = Status.Created;
+    ctx.response.body = ridingLessons;
+}
+
 export const bookRidingLesson = async (ctx: Context) => {
     const {id} = helpers.getQuery(ctx, {mergeParams: true});
 
     ctx.assert(id, Status.BadRequest, "Please provide a valid id");
+
     ctx.assert(ctx.request.hasBody, Status.BadRequest, "Please provide data");
 
     const bookingData = await ctx.request.body().value;
@@ -56,6 +79,18 @@ export const bookRidingLesson = async (ctx: Context) => {
     bookingData.lessonId = id;
 
     await ridingLessonService.bookRidingLesson(bookingData, ctx.state.currentUser);
+
+    ctx.response.status = Status.Accepted;
+}
+
+export const cancelRidingLesson = async (ctx: Context) => {
+    ctx.assert(ctx.state.currentUser.role === UserRole.TRAINER, Status.Unauthorized, "Your role isn't authorized to access this function")
+
+    const {id} = helpers.getQuery(ctx, {mergeParams: true});
+
+    ctx.assert(id, Status.BadRequest, "Please provide a valid id");
+
+    await ridingLessonService.cancelRidingLesson(id, ctx.state.currentUser);
 
     ctx.response.status = Status.Accepted;
 }

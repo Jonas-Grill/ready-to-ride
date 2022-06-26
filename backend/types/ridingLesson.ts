@@ -23,11 +23,10 @@ export const instanceOfRidingLesson = (object: any): object is RidingLessonSchem
 /* ------------------------------ Create Multiple Riding Lesson ------------------------------ */
 
 export interface CreateMultipleRidingLessonSchema extends RidingLessonSchema{
-    startHour: number;
+    endHour: number;
 }
 
 export const instanceOfCreateMultipleRidingLesson = (object: any): object is CreateMultipleRidingLessonSchema => {
-    return 'arena' in object && typeof object.arena === "string"
-        && 'day' in object
-        && 'startHour' in object && isNumber(object.startHour)
+    return 'endHour' in object && isNumber(object.endHour) && object.endHour >= 0 && object.endHour <= 23 && object.endHour % 1 === 0
+        && instanceOfRidingLesson(object);
 }

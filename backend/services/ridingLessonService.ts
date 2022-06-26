@@ -1,6 +1,6 @@
 import * as ridingLessonRepo from "../repositories/ridingLessonRepo.ts";
 import RidingLessonModel from "../models/ridingLessonModel.ts";
-import {RidingLessonSchema} from "../types/ridingLesson.ts";
+import {CreateMultipleRidingLessonSchema, RidingLessonSchema} from "../types/ridingLesson.ts";
 import UserModel from "../models/userModel.ts";
 import {addDays, getCurrentDate} from "../util/dateUtil.ts";
 import {findHorse, findHorseById} from "./horseService.ts";
@@ -125,6 +125,34 @@ export const addRidingLesson = async (ridingLesson: RidingLessonSchema, currentU
     return ridingLessonModelToRidingLesson(newRidingLesson);
 }
 
+export async function addMultipleRidingLessons(ridingLessonsData: CreateMultipleRidingLessonSchema, currentUser: UserModel): Promise<RidingLessonSchema[]> {
+    const ridingLessons: RidingLessonSchema[] = [];
+
+    if (!await doesArenaExist(ridingLessonsData.arena)) {
+        return Promise.reject(new invalidDataException("The arena does not exist"));
+    }
+
+    for (let i = ridingLessonsData.startHour; i < ridingLessonsData.endHour; i += ridingLessonDurationInHours) {
+        if (!await arenaFreeAtTime(ridingLessonsData.arena, ridingLessonsData.day, i)) {
+            return Promise.reject(new invalidDataException("The arena is not free at the given time"));
+        }
+    }
+
+    for (let i = ridingLessonsData.startHour; i < ridingLessonsData.endHour; i += ridingLessonDurationInHours) {
+        const ridingLesson: RidingLessonSchema = {
+            arena: ridingLessonsData.arena,
+            day: ridingLessonsData.day,
+            startHour: i,
+        }
+
+        const newRidingLesson: RidingLessonSchema = await addRidingLesson(ridingLesson, currentUser);
+
+        ridingLessons.push(newRidingLesson);
+    }
+
+    return ridingLessons;
+}
+
 export const bookRidingLesson = async (bookingData: {horseId: string, lessonId: string}, currentUser: UserModel): Promise<void> => {
     const horse = await findHorseById(bookingData.horseId);
     if (!horse) {
@@ -153,6 +181,23 @@ export const bookRidingLesson = async (bookingData: {horseId: string, lessonId: 
             id: horse._id?.toString() || ""
         }
     });
+}
+
+export async function cancelRidingLesson(id: string, currentUser: any) {
+    const lesson = await ridingLessonRepo.findRidingLessonById(id);
+    if (!lesson) {
+        throw new invalidIdException();
+    }
+
+    if (lesson.trainer.id !== currentUser._id?.toString()) {
+        throw new invalidDataException("You are not the trainer of this lesson");
+    }
+
+    if (lesson.booked) {
+        // TODO: Send message to booker
+    }
+
+    await ridingLessonRepo.deleteRidingLesson(id);
 }
 
 /* ------------------------------ Util ------------------------------ */
