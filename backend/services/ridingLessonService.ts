@@ -89,6 +89,11 @@ export const findRidingLesson = async (trainer?: string, horses?: string[], from
     return ridingLessonsSchema;
 }
 
+export async function findRidingLessonsByTrainerIdAndDay(id: string, fromDate: string, toDate: string) {
+    const ridingLessons = await ridingLessonRepo.findRidingLessonsByTrainerIdAndDay(id, fromDate, toDate);
+    return ridingLessons.map(ridingLessonModelToRidingLesson);
+}
+
 export async function findRidingLessonsByArenaAndDay(name: string, fromDate: string, toDate: string) {
     const dateRange = getDateRange(fromDate, toDate)
     fromDate = dateRange.fromDate;

@@ -55,7 +55,7 @@ router
     // User
     .get("/users/me/calendar", findRidingLessonsByCurrentUser)
     .get("/users/me", findCurrentUser)
-    .get("/users/:id/calender", findRidingLessonsByUserId)
+    .get("/users/:id/calendar", findRidingLessonsByUserId)
     .get("/users/:id", findUserById)
     .put("/users", updateUser)
     // Horse
@@ -63,7 +63,7 @@ router
     .put("/horses/:id", updateHorse)
     .delete("/horses/:id", deleteHorse)
     // Stable
-    .get("/stable/arenas/:name/calender", findRidingLessonsByArenaAndDay)
+    .get("/stable/arenas/:name/calendar", findRidingLessonsByArenaAndDay)
     .put("/stable", updateStable)
     // Riding Lesson
     .post("/ridinglessons", addRidingLesson)

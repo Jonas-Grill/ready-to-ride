@@ -932,7 +932,7 @@
         }
       }
     },
-    "/users/{id}/calender": {
+    "/users/{id}/calendar": {
       "get": {
         "description": "Get all bookings from the user with the specified id.",
         "operationId": "find booking by user",
@@ -1166,7 +1166,7 @@
         }
       }
     },
-    "/users/me/calender": {
+    "/users/me/calendar": {
       "get": {
         "description": "Get all bookings from the authorized user.",
         "operationId": "find booking by user",
@@ -1404,7 +1404,7 @@
         }
       }
     },
-    "/stable/arenas/{name}/calender": {
+    "/stable/arenas/{name}/calendar": {
       "get": {
         "description": "Get all bookings from the arena with the specified name.",
         "operationId": "find booking by arena",

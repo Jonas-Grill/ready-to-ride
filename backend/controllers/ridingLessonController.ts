@@ -77,7 +77,9 @@ export const findRidingLessonsByUserId = async (ctx: Context) => {
     const user: UserModel | undefined = await userService.findUserById(id);
     ctx.assert(user, Status.BadRequest, `User with the id: ${id} does not exist`);
 
-    const ridingLessons = await ridingLessonService.findRidingLessonsByBookerEmailAndDay(user.email, fromDate, toDate);
+    const ridingLessons = user.role === UserRole.TRAINER ?
+        await ridingLessonService.findRidingLessonsByTrainerIdAndDay(id, fromDate, toDate)
+        : await ridingLessonService.findRidingLessonsByBookerEmailAndDay(user.email, fromDate, toDate);
 
     ctx.response.status = Status.OK;
     ctx.response.body = ridingLessons;
@@ -117,6 +119,8 @@ export const addMultipleRidingLessons = async (ctx: Context) => {
 }
 
 export const bookRidingLesson = async (ctx: Context) => {
+    ctx.assert(ctx.state.currentUser.role === UserRole.USER || ctx.state.currentUser.role === UserRole.ADMIN, Status.Unauthorized, "Your role isn't authorized to access this function")
+
     const {id} = helpers.getQuery(ctx, {mergeParams: true});
 
     ctx.assert(id, Status.BadRequest, "Please provide a valid id");

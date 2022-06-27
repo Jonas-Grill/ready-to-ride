@@ -131,6 +131,16 @@ export const findUnbookedRidingLessonByTrainerAndDay = async (trainerId: string,
     }).toArray();
 }
 
+export const findRidingLessonsByTrainerIdAndDay = async (trainerId: string, fromDate: string, toDate: string) => {
+    return await ridingLessons.find({
+        "trainer.id": trainerId,
+        day: {
+            $gte: fromDate,
+            $lt: toDate
+        }
+    }).toArray();
+}
+
 export async function findBookedRidingLessonsByDayAndHorseIdAndStartHour(day: string, horse: string, startHour: number) {
     return await ridingLessons.find({
         booked: true,
