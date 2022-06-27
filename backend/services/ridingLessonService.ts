@@ -2,7 +2,7 @@ import * as ridingLessonRepo from "../repositories/ridingLessonRepo.ts";
 import RidingLessonModel from "../models/ridingLessonModel.ts";
 import {CreateMultipleRidingLessonSchema, RidingLessonSchema} from "../types/ridingLesson.ts";
 import UserModel from "../models/userModel.ts";
-import {addDays, getCurrentDate, getDateRange} from "../util/dateUtil.ts";
+import {getDateRange} from "../util/dateUtil.ts";
 import {findHorse, findHorseById} from "./horseService.ts";
 import invalidIdException from "../exceptions/invalidIdException.ts";
 import {doesArenaExist} from "./stableService.ts";
