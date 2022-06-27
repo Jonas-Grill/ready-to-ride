@@ -26,8 +26,10 @@ export const findRidingLesson = async (trainer?: string, horses?: string[], from
         ridingLessons = await ridingLessonRepo.findBookedRidingLessonsByHorseIdAndDay(horses, fromDate, toDate);
     } else if (trainer && bookedLessons) {
         ridingLessons = await ridingLessonRepo.findBookedRidingLessonsByTrainerIdAndDay(trainer, fromDate, toDate);
-    } else if (trainer) {
+    } else if (trainer && bookedLessons === false) {
         ridingLessons = await ridingLessonRepo.findUnbookedRidingLessonByTrainerAndDay(trainer, fromDate, toDate);
+    } else if (trainer && bookedLessons === undefined) {
+        ridingLessons = await ridingLessonRepo.findRidingLessonsByTrainerIdAndDay(trainer, fromDate, toDate);
     } else if (bookedLessons !== undefined) {
         if (bookedLessons) {
             ridingLessons = await ridingLessonRepo.findBookedRidingLessonsByDay(fromDate, toDate);
