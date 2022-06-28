@@ -2,7 +2,7 @@ import * as ridingLessonRepo from "../repositories/ridingLessonRepo.ts";
 import RidingLessonModel from "../models/ridingLessonModel.ts";
 import {CreateMultipleRidingLessonSchema, RidingLessonSchema} from "../types/ridingLesson.ts";
 import UserModel from "../models/userModel.ts";
-import {addDays, getCurrentDate} from "../util/dateUtil.ts";
+import {getDateRange} from "../util/dateUtil.ts";
 import {findHorse, findHorseById} from "./horseService.ts";
 import invalidIdException from "../exceptions/invalidIdException.ts";
 import {doesArenaExist} from "./stableService.ts";
@@ -15,16 +15,9 @@ export const findRidingLesson = async (trainer?: string, horses?: string[], from
 
     let ridingLessons: RidingLessonModel[] | undefined;
 
-    // Define the date range
-    if (!fromDate && !toDate) {
-        fromDate = getCurrentDate();
-        toDate = addDays(7, fromDate);
-    } else if (!fromDate) {
-        fromDate = addDays(-7, toDate);
-    }
-    if (!toDate) { /* No else if because if it is an else if deno thinks that toDate could be undefined */
-        toDate = addDays(7, fromDate);
-    }
+    const dateRange = getDateRange(fromDate, toDate)
+    fromDate = dateRange.fromDate;
+    toDate = dateRange.toDate;
 
     // Find the riding lessons with the given parameters
     if (trainer && horses && bookedLessons) {
@@ -33,8 +26,10 @@ export const findRidingLesson = async (trainer?: string, horses?: string[], from
         ridingLessons = await ridingLessonRepo.findBookedRidingLessonsByHorseIdAndDay(horses, fromDate, toDate);
     } else if (trainer && bookedLessons) {
         ridingLessons = await ridingLessonRepo.findBookedRidingLessonsByTrainerIdAndDay(trainer, fromDate, toDate);
-    } else if (trainer) {
+    } else if (trainer && bookedLessons === false) {
         ridingLessons = await ridingLessonRepo.findUnbookedRidingLessonByTrainerAndDay(trainer, fromDate, toDate);
+    } else if (trainer && bookedLessons === undefined) {
+        ridingLessons = await ridingLessonRepo.findRidingLessonsByTrainerIdAndDay(trainer, fromDate, toDate);
     } else if (bookedLessons !== undefined) {
         if (bookedLessons) {
             ridingLessons = await ridingLessonRepo.findBookedRidingLessonsByDay(fromDate, toDate);
@@ -94,6 +89,37 @@ export const findRidingLesson = async (trainer?: string, horses?: string[], from
     }
 
     return ridingLessonsSchema;
+}
+
+export async function findRidingLessonsByTrainerIdAndDay(id: string, fromDate: string, toDate: string) {
+    const ridingLessons = await ridingLessonRepo.findRidingLessonsByTrainerIdAndDay(id, fromDate, toDate);
+    return ridingLessons.map(ridingLessonModelToRidingLesson);
+}
+
+export async function findRidingLessonsByArenaAndDay(name: string, fromDate: string, toDate: string) {
+    const dateRange = getDateRange(fromDate, toDate)
+    fromDate = dateRange.fromDate;
+    toDate = dateRange.toDate;
+
+    const ridingLessons: RidingLessonModel[] = await ridingLessonRepo.findRidingLessonsByArenaAndDay(name, fromDate, toDate);
+
+
+
+    return ridingLessons.map(ridingLesson => {
+        return ridingLessonModelToRidingLesson(ridingLesson);
+    });
+}
+
+export async function findRidingLessonsByBookerEmailAndDay(email: string, fromDate: string, toDate: string) {
+    const dateRange = getDateRange(fromDate, toDate)
+    fromDate = dateRange.fromDate;
+    toDate = dateRange.toDate;
+
+    const ridingLessons: RidingLessonModel[] = await ridingLessonRepo.findRidingLessonsByBookerEmailAndDay(email, fromDate, toDate);
+
+    return ridingLessons.map(ridingLesson => {
+        return ridingLessonModelToRidingLesson(ridingLesson);
+    });
 }
 
 export const addRidingLesson = async (ridingLesson: RidingLessonSchema, currentUser: UserModel): Promise<RidingLessonSchema> => {
