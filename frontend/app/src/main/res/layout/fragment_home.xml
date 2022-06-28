@@ -54,6 +54,7 @@
                 android:textSize="30sp"
                 android:textStyle="bold"
                 android:tag="sticky"
+                android:text="Neuigkeiten"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
