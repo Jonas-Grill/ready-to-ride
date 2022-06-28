@@ -24,6 +24,7 @@ import {
     bookRidingLesson, cancelRidingLesson,
     findRidingLesson, findRidingLessonsByArenaAndDay, findRidingLessonsByCurrentUser, findRidingLessonsByUserId
 } from "./controllers/ridingLessonController.ts";
+import {addNews, findNews} from "./controllers/newsController.ts";
 
 const router = new Router();
 
@@ -50,6 +51,8 @@ router
     .get("/stable", findStable)
     // Riding Lesson
     .get("/ridinglessons", findRidingLesson)
+    // News
+    .get("/news", findNews)
     // Auth required
     .use(authMiddleware)
     // User
@@ -70,6 +73,8 @@ router
     .post("/ridinglessons/multiple", addMultipleRidingLessons)
     .post("/ridinglessons/:id/book", bookRidingLesson)
     .delete("/ridinglessons/:id", cancelRidingLesson)
+    // News
+    .post("/news", addNews)
 ;
 
 router.routes();

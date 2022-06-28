@@ -3,13 +3,13 @@ import * as newsRepo from "../repositories/newsRepo.ts";
 import NewsModel from "../models/newsModel.ts";
 import UserModel from "../models/userModel.ts";
 
-export async function findNews(user: UserModel): NewsSchema {
-    const addresses: string[] = ["all", user.email, user.role];
+export async function findNews(user?: UserModel): Promise<NewsSchema[]> {
+    const addresses: string[] = user ? ["all", user.email, user.role.toString()] : ["all"];
 
     return (await newsRepo.findNewsByAddressees(addresses)).map(newsModelToNews);
 }
 
-export async function addNews(newsData: NewsSchema): NewsSchema {
+export async function addNews(newsData: NewsSchema): Promise<NewsSchema> {
     const id: string =  await newsRepo.createNews({
         caption: newsData.caption,
         text: newsData.text,

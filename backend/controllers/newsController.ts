@@ -4,8 +4,10 @@ import * as newsService from "../services/newsService.ts";
 import {instanceOfNews, NewsSchema} from "../types/news.ts";
 
 export const findNews = async (ctx: Context) => {
+    const news: NewsSchema[] = ctx.state.currentUser ? await  newsService.findNews(ctx.state.currentUser) : await newsService.findNews();
+
     ctx.response.status = Status.OK;
-    ctx.response.body = (await newsService.findNews()).map((news) => {
+    ctx.response.body = news.map((news) => {
         return {
             _id: news._id,
             caption: news.caption,
@@ -13,7 +15,6 @@ export const findNews = async (ctx: Context) => {
         }
     });
 }
-
 
 export const addNews = async (ctx: Context) => {
     ctx.assert(ctx.state.currentUser.role === UserRole.ADMIN || ctx.state.currentUser.role === UserRole.TRAINER, Status.Unauthorized, "Your role isn't authorized to access this function")
