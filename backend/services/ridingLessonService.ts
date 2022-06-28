@@ -217,6 +217,7 @@ export const bookRidingLesson = async (bookingData: { horseId: string, lessonId:
 
 export async function cancelRidingLesson(id: string, currentUser: UserModel): Promise<void> {
     const lesson = await ridingLessonRepo.findRidingLessonById(id);
+
     if (!lesson) {
         throw new invalidIdException();
     }
@@ -227,7 +228,7 @@ export async function cancelRidingLesson(id: string, currentUser: UserModel): Pr
 
     await ridingLessonRepo.deleteRidingLesson(id);
 
-    if (lesson.booked) {
+    if (lesson.booked && lesson.horse && lesson.bookerEmail) {
         addNews({
             caption: "Riding Lesson Cancelled",
             text: `${currentUser.name.firstName} ${currentUser.name.lastName} has cancelled a riding lesson for ${lesson.horse.name} on ${lesson.day} at ${lesson.startHour}`,
