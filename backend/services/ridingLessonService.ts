@@ -7,6 +7,8 @@ import {findHorse, findHorseById} from "./horseService.ts";
 import invalidIdException from "../exceptions/invalidIdException.ts";
 import {doesArenaExist} from "./stableService.ts";
 import invalidDataException from "../exceptions/invalidDataException.ts";
+import {addNews} from "./newsService.ts";
+import {findUserById} from "./userService.ts";
 
 const ridingLessonDurationInHours = 1;
 
@@ -103,8 +105,6 @@ export async function findRidingLessonsByArenaAndDay(name: string, fromDate: str
 
     const ridingLessons: RidingLessonModel[] = await ridingLessonRepo.findRidingLessonsByArenaAndDay(name, fromDate, toDate);
 
-
-
     return ridingLessons.map(ridingLesson => {
         return ridingLessonModelToRidingLesson(ridingLesson);
     });
@@ -179,7 +179,7 @@ export async function addMultipleRidingLessons(ridingLessonsData: CreateMultiple
     return ridingLessons;
 }
 
-export const bookRidingLesson = async (bookingData: {horseId: string, lessonId: string}, currentUser: UserModel): Promise<void> => {
+export const bookRidingLesson = async (bookingData: { horseId: string, lessonId: string }, currentUser: UserModel): Promise<void> => {
     const horse = await findHorseById(bookingData.horseId);
     if (!horse) {
         throw new invalidIdException();
@@ -207,6 +207,12 @@ export const bookRidingLesson = async (bookingData: {horseId: string, lessonId: 
             id: horse._id?.toString() || ""
         }
     });
+
+    addNews({
+        caption: "Riding Lesson Booked",
+        text: `${currentUser.name.firstName} ${currentUser.name.lastName} has booked a riding lesson for ${horse.name} on ${lesson.day} at ${lesson.startHour}`,
+        addressees: (await findUserById(lesson.trainer.id))?.email || "",
+    });
 }
 
 export async function cancelRidingLesson(id: string, currentUser: UserModel): Promise<void> {
@@ -219,11 +225,15 @@ export async function cancelRidingLesson(id: string, currentUser: UserModel): Pr
         throw new invalidDataException("You are not the trainer of this lesson");
     }
 
-    if (lesson.booked) {
-        // TODO: Send message to booker
-    }
-
     await ridingLessonRepo.deleteRidingLesson(id);
+
+    if (lesson.booked) {
+        addNews({
+            caption: "Riding Lesson Cancelled",
+            text: `${currentUser.name.firstName} ${currentUser.name.lastName} has cancelled a riding lesson for ${lesson.horse.name} on ${lesson.day} at ${lesson.startHour}`,
+            addressees: lesson.bookerEmail,
+        });
+    }
 }
 
 /* ------------------------------ Util ------------------------------ */
