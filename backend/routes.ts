@@ -1,4 +1,4 @@
-import {Router, upload} from "./deps.ts";
+import {Router} from "./deps.ts";
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.ts";
 import {
     findCurrentUser,
@@ -25,6 +25,7 @@ import {
     findRidingLesson, findRidingLessonsByArenaAndDay, findRidingLessonsByCurrentUser, findRidingLessonsByUserId
 } from "./controllers/ridingLessonController.ts";
 import {addNews, findNews} from "./controllers/newsController.ts";
+import {download, upload} from "./controllers/imageController.ts";
 
 const router = new Router();
 
@@ -54,11 +55,7 @@ router
     // News
     .get("/news", findNews)
     // Image
-    .post("/image", upload('uploads', { extensions: ['jpg', 'png'], maxSizeBytes: 20000000, maxFileSizeBytes: 10000000, saveFile: true }),
-        async (context: any) => {
-            context.response.body = context.uploadedFiles;
-        }
-    )
+    .get("/images/:id", download)
     // Auth required
     .use(authMiddleware)
     // User
@@ -81,6 +78,8 @@ router
     .delete("/ridinglessons/:id", cancelRidingLesson)
     // News
     .post("/news", addNews)
+    // Image
+    .post("/images", upload)
 ;
 
 router.routes();

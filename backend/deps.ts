@@ -17,9 +17,6 @@ export {
 export type {State, RouteParams} from "https://deno.land/x/oak@v10.6.0/mod.ts";
 // OakLogger
 import logger from "https://deno.land/x/oak_logger@1.0.0/mod.ts";
-//Oak Upload
-export { upload, preUploadValidate} from "https://deno.land/x/oak_upload_middleware@4.3/mod.ts";
-
 export {logger};
 
 //Bcrypt
