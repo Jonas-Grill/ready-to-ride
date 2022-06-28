@@ -3,6 +3,8 @@ import * as userService from "../services/userService.ts";
 import {KEY} from "../config/config.ts";
 
 export const authMiddleware = async (ctx: Context, next: () => void) => {
+    console.log(await ctx.request.body().value);
+
     const authHeader = ctx.request.headers.get("authorization");
 
     ctx.assert(!(authHeader === null), Status.Unauthorized, "Please authenticate yourself");
