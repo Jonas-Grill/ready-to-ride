@@ -932,7 +932,7 @@
         }
       }
     },
-    "/users/{id}/calender": {
+    "/users/{id}/calendar": {
       "get": {
         "description": "Get all bookings from the user with the specified id.",
         "operationId": "find booking by user",
@@ -954,6 +954,28 @@
               "type": "string",
               "example": "611d5cd230dd29fc60df7b94"
             }
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "Date from which riding lesson should be fetched. If no toDate is defined the system will return the lessons for one week.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2015-10-26"
+            }
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "Date to which riding lesson should be fetched. If no fromDate is defined the system will return the lessons for one week.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2015-10-28"
+            }
           }
         ],
         "responses": {
@@ -962,7 +984,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExtendedRidingLessonModel"
+                  "type": "array",
+                    "items": {
+                        "$ref": "#/components/schemas/ExtendedRidingLessonModel"
+                    }
                 }
               }
             }
@@ -1120,6 +1145,79 @@
           },
           "401": {
             "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/me/calendar": {
+      "get": {
+        "description": "Get all bookings from the authorized user.",
+        "operationId": "find booking by user",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "Date from which riding lesson should be fetched. If no toDate is defined the system will return the lessons for one week.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2015-10-26"
+            }
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "Date to which riding lesson should be fetched. If no fromDate is defined the system will return the lessons for one week.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2015-10-28"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "booking response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExtendedRidingLessonModel"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found error",
             "content": {
               "application/json": {
                 "schema": {
@@ -1306,7 +1404,7 @@
         }
       }
     },
-    "/stable/arena/{name}/calender": {
+    "/stable/arenas/{name}/calendar": {
       "get": {
         "description": "Get all bookings from the arena with the specified name.",
         "operationId": "find booking by arena",
@@ -1937,27 +2035,11 @@
             "example": "Pferd das krass sein tut hat auf krassem Tunier gewonnen mit dem Trainer xyz."
           },
           "addressees": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "string",
-                  "description": "Role of addressees",
-                  "enum": [
-                    "user",
-                    "trainer",
-                    "admin"
-                  ]
-                },
-                {
-                  "type": "string",
-                  "description": "E-Mail of addressee",
-                  "example": "horst.müller@pferde-liebhaber.de"
-                }
-              ]
-            }
+            "type": "string",
+            "writeOnly": true,
+            "description": "Email or role of user you want to address, or 'all' to address everyone.",
+            "example": "horst.müller@pferde-liebhaber.com"
           }
-        }
       },
       "BaseRidingLessonModel": {
         "type": "object",

@@ -38,6 +38,26 @@ export async function findRidingLessonByDay(fromDate: string, toDate: string) {
     }).toArray();
 }
 
+export async function findRidingLessonsByArenaAndDay(name: string, fromDate: string, toDate: string) {
+    return await ridingLessons.find({
+        arena: name,
+        day: {
+            $gte: fromDate,
+            $lt: toDate
+        }
+    }).toArray();
+}
+
+export async function findRidingLessonsByBookerEmailAndDay(email: string, fromDate: string, toDate: string) {
+    return await ridingLessons.find({
+        bookerEmail: email,
+        day: {
+            $gte: fromDate,
+            $lt: toDate
+        }
+    }).toArray();
+}
+
 export async function findRidingLessonsByDayAndArenaAndStartHour(day: string, arena: string, startHour: number) {
     return await ridingLessons.find({
         day: day,
@@ -104,6 +124,16 @@ export const findUnbookedRidingLessonByTrainerAndDay = async (trainerId: string,
     return await ridingLessons.find({
         "trainer.id": trainerId,
         booked: false,
+        day: {
+            $gte: fromDate,
+            $lt: toDate
+        }
+    }).toArray();
+}
+
+export const findRidingLessonsByTrainerIdAndDay = async (trainerId: string, fromDate: string, toDate: string) => {
+    return await ridingLessons.find({
+        "trainer.id": trainerId,
         day: {
             $gte: fromDate,
             $lt: toDate

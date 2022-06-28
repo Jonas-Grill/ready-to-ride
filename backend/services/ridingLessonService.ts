@@ -2,11 +2,13 @@ import * as ridingLessonRepo from "../repositories/ridingLessonRepo.ts";
 import RidingLessonModel from "../models/ridingLessonModel.ts";
 import {CreateMultipleRidingLessonSchema, RidingLessonSchema} from "../types/ridingLesson.ts";
 import UserModel from "../models/userModel.ts";
-import {addDays, getCurrentDate} from "../util/dateUtil.ts";
+import {getDateRange} from "../util/dateUtil.ts";
 import {findHorse, findHorseById} from "./horseService.ts";
 import invalidIdException from "../exceptions/invalidIdException.ts";
 import {doesArenaExist} from "./stableService.ts";
 import invalidDataException from "../exceptions/invalidDataException.ts";
+import {addNews} from "./newsService.ts";
+import {findUserById} from "./userService.ts";
 
 const ridingLessonDurationInHours = 1;
 
@@ -15,16 +17,9 @@ export const findRidingLesson = async (trainer?: string, horses?: string[], from
 
     let ridingLessons: RidingLessonModel[] | undefined;
 
-    // Define the date range
-    if (!fromDate && !toDate) {
-        fromDate = getCurrentDate();
-        toDate = addDays(7, fromDate);
-    } else if (!fromDate) {
-        fromDate = addDays(-7, toDate);
-    }
-    if (!toDate) { /* No else if because if it is an else if deno thinks that toDate could be undefined */
-        toDate = addDays(7, fromDate);
-    }
+    const dateRange = getDateRange(fromDate, toDate)
+    fromDate = dateRange.fromDate;
+    toDate = dateRange.toDate;
 
     // Find the riding lessons with the given parameters
     if (trainer && horses && bookedLessons) {
@@ -33,8 +28,10 @@ export const findRidingLesson = async (trainer?: string, horses?: string[], from
         ridingLessons = await ridingLessonRepo.findBookedRidingLessonsByHorseIdAndDay(horses, fromDate, toDate);
     } else if (trainer && bookedLessons) {
         ridingLessons = await ridingLessonRepo.findBookedRidingLessonsByTrainerIdAndDay(trainer, fromDate, toDate);
-    } else if (trainer) {
+    } else if (trainer && bookedLessons === false) {
         ridingLessons = await ridingLessonRepo.findUnbookedRidingLessonByTrainerAndDay(trainer, fromDate, toDate);
+    } else if (trainer && bookedLessons === undefined) {
+        ridingLessons = await ridingLessonRepo.findRidingLessonsByTrainerIdAndDay(trainer, fromDate, toDate);
     } else if (bookedLessons !== undefined) {
         if (bookedLessons) {
             ridingLessons = await ridingLessonRepo.findBookedRidingLessonsByDay(fromDate, toDate);
@@ -96,6 +93,35 @@ export const findRidingLesson = async (trainer?: string, horses?: string[], from
     return ridingLessonsSchema;
 }
 
+export async function findRidingLessonsByTrainerIdAndDay(id: string, fromDate: string, toDate: string) {
+    const ridingLessons = await ridingLessonRepo.findRidingLessonsByTrainerIdAndDay(id, fromDate, toDate);
+    return ridingLessons.map(ridingLessonModelToRidingLesson);
+}
+
+export async function findRidingLessonsByArenaAndDay(name: string, fromDate: string, toDate: string) {
+    const dateRange = getDateRange(fromDate, toDate)
+    fromDate = dateRange.fromDate;
+    toDate = dateRange.toDate;
+
+    const ridingLessons: RidingLessonModel[] = await ridingLessonRepo.findRidingLessonsByArenaAndDay(name, fromDate, toDate);
+
+    return ridingLessons.map(ridingLesson => {
+        return ridingLessonModelToRidingLesson(ridingLesson);
+    });
+}
+
+export async function findRidingLessonsByBookerEmailAndDay(email: string, fromDate: string, toDate: string) {
+    const dateRange = getDateRange(fromDate, toDate)
+    fromDate = dateRange.fromDate;
+    toDate = dateRange.toDate;
+
+    const ridingLessons: RidingLessonModel[] = await ridingLessonRepo.findRidingLessonsByBookerEmailAndDay(email, fromDate, toDate);
+
+    return ridingLessons.map(ridingLesson => {
+        return ridingLessonModelToRidingLesson(ridingLesson);
+    });
+}
+
 export const addRidingLesson = async (ridingLesson: RidingLessonSchema, currentUser: UserModel): Promise<RidingLessonSchema> => {
     if (!await doesArenaExist(ridingLesson.arena)) {
         return Promise.reject(new invalidDataException("The arena does not exist"));
@@ -153,7 +179,7 @@ export async function addMultipleRidingLessons(ridingLessonsData: CreateMultiple
     return ridingLessons;
 }
 
-export const bookRidingLesson = async (bookingData: {horseId: string, lessonId: string}, currentUser: UserModel): Promise<void> => {
+export const bookRidingLesson = async (bookingData: { horseId: string, lessonId: string }, currentUser: UserModel): Promise<void> => {
     const horse = await findHorseById(bookingData.horseId);
     if (!horse) {
         throw new invalidIdException();
@@ -181,10 +207,17 @@ export const bookRidingLesson = async (bookingData: {horseId: string, lessonId: 
             id: horse._id?.toString() || ""
         }
     });
+
+    addNews({
+        caption: "Riding Lesson Booked",
+        text: `${currentUser.name.firstName} ${currentUser.name.lastName} has booked a riding lesson for ${horse.name} on ${lesson.day} at ${lesson.startHour}`,
+        addressees: (await findUserById(lesson.trainer.id))?.email || "",
+    });
 }
 
 export async function cancelRidingLesson(id: string, currentUser: UserModel): Promise<void> {
     const lesson = await ridingLessonRepo.findRidingLessonById(id);
+
     if (!lesson) {
         throw new invalidIdException();
     }
@@ -193,11 +226,15 @@ export async function cancelRidingLesson(id: string, currentUser: UserModel): Pr
         throw new invalidDataException("You are not the trainer of this lesson");
     }
 
-    if (lesson.booked) {
-        // TODO: Send message to booker
-    }
-
     await ridingLessonRepo.deleteRidingLesson(id);
+
+    if (lesson.booked && lesson.horse && lesson.bookerEmail) {
+        addNews({
+            caption: "Riding Lesson Cancelled",
+            text: `${currentUser.name.firstName} ${currentUser.name.lastName} has cancelled a riding lesson for ${lesson.horse.name} on ${lesson.day} at ${lesson.startHour}`,
+            addressees: lesson.bookerEmail,
+        });
+    }
 }
 
 /* ------------------------------ Util ------------------------------ */
