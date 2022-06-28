@@ -1,4 +1,4 @@
-import {Router} from "./deps.ts";
+import {Router, upload} from "./deps.ts";
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.ts";
 import {
     findCurrentUser,
@@ -53,6 +53,12 @@ router
     .get("/ridinglessons", findRidingLesson)
     // News
     .get("/news", findNews)
+    // Image
+    .post("/image", upload('uploads', { extensions: ['jpg', 'png'], maxSizeBytes: 20000000, maxFileSizeBytes: 10000000, saveFile: true }),
+        async (context: any) => {
+            context.response.body = context.uploadedFiles;
+        }
+    )
     // Auth required
     .use(authMiddleware)
     // User
