@@ -44,7 +44,7 @@ interface UserApiService {
     suspend fun postNewUser(@Header("Authorization") token: String, @Body requestBody: UserEntity): HorseEntity
 
     @POST("users/login")
-    suspend fun login(@Body requestBody: LoginEntity): TokenEntity
+    suspend  fun login(@Body requestBody: LoginEntity): TokenEntity
 
 }
 
