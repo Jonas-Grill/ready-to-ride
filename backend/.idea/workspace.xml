@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c346c7d-003f-4b4c-8874-8c36983721a6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/repositories/newsRepo.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controllers/newsController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/newsService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ready-to-ride.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ready-to-ride.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +171,7 @@
       <workItem from="1656235233838" duration="5846000" />
       <workItem from="1656251145124" duration="4283000" />
       <workItem from="1656326855694" duration="3137000" />
-      <workItem from="1656405689048" duration="2511000" />
+      <workItem from="1656405689048" duration="4110000" />
     </task>
     <servers />
   </component>

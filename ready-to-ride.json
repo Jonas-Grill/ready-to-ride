@@ -2036,6 +2036,7 @@
           },
           "addressees": {
             "type": "string",
+            "writeOnly": true,
             "description": "Email or role of user you want to address, or 'all' to address everyone.",
             "example": "horst.müller@pferde-liebhaber.com"
           }
