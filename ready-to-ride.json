@@ -985,9 +985,9 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                    "items": {
-                        "$ref": "#/components/schemas/ExtendedRidingLessonModel"
-                    }
+                  "items": {
+                    "$ref": "#/components/schemas/ExtendedRidingLessonModel"
+                  }
                 }
               }
             }
@@ -1572,6 +1572,128 @@
           }
         }
       }
+    },
+    "/images": {
+      "post": {
+        "description": "Uploads an image to the server.",
+        "operationId": "uploadImage",
+        "tags": [
+          "Images"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Image to upload",
+          "required": true,
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "image/jpeg": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "image response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request/Wrong data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/{id}": {
+      "get": {
+        "description": "Returns the image with the specified id.",
+        "operationId": "getImage",
+        "tags": [
+          "Images"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of image to fetch",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "image response",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2040,6 +2162,7 @@
             "description": "Email or role of user you want to address, or 'all' to address everyone.",
             "example": "horst.müller@pferde-liebhaber.com"
           }
+        }
       },
       "BaseRidingLessonModel": {
         "type": "object",
@@ -2148,3 +2271,4 @@
     }
   }
 }
+
