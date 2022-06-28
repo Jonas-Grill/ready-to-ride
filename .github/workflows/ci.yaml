@@ -19,6 +19,11 @@ jobs:
         with:
           deno-version: "1.22.0"
 
+      - name: Run tests
+        run: |
+          cd ./backend/
+          deno run --allow-net --allow-write --allow-read --allow-env main.ts
+
       - name: Run linter
         run: |
           cd ./backend/
