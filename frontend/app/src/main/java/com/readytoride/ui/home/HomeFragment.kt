@@ -21,6 +21,8 @@ import com.readytoride.R
 import com.readytoride.databinding.FragmentHomeBinding
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.news_detail_dialog.*
+import com.readytoride.network.HorseApi.HorseApi
+import com.readytoride.network.HorseApi.HorseEntity
 
 class HomeFragment : Fragment() {
 
@@ -40,15 +42,21 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+    //This code section is used to process Changes of Objects mainly due to backend calls
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        /////Example to call the getAllHorses() Method in the ViewModel
+        //homeViewModel.getAllHorses()
+        /////
+
         val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        homeViewModel.horse.observe(viewLifecycleOwner) {
+            //Everytime there are any changes to the observing instance, this code will be called
+            textView.text = it.description
         }
         return root
     }

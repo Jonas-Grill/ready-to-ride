@@ -2,7 +2,7 @@ import {Context, Status, verify} from "../deps.ts";
 import * as userService from "../services/userService.ts";
 import {KEY} from "../config/config.ts";
 
-const authMiddleware = async (ctx: Context, next: () => void) => {
+export const authMiddleware = async (ctx: Context, next: () => void) => {
     const authHeader = ctx.request.headers.get("authorization");
 
     ctx.assert(!(authHeader === null), Status.Unauthorized, "Please authenticate yourself");
@@ -33,4 +33,20 @@ const authMiddleware = async (ctx: Context, next: () => void) => {
     await next();
 };
 
-export default authMiddleware;
+export const preAuthMiddleware = async (ctx: Context, next: () => void) => {
+    const authHeader = ctx.request.headers.get("authorization");
+
+    if (authHeader) {
+        const jwt: string[] = authHeader.split(" ");
+
+        try {
+            const email: string | unknown = await verify(jwt[1], KEY).then(payload => payload.email);
+
+            if (typeof email === "string") {
+                ctx.state.currentUser = await userService.findUserByEmail(email);
+            }
+
+        }catch (_e) { /* It is expected that the above function throws an error in a lot of cases. If it does, it is not needed. */ }
+    }
+    await next();
+};

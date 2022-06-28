@@ -12,6 +12,8 @@
     <string name="menu_lessons">Reitstunden buchen</string>
     <string name="menu_profile">Profil</string>
     <string name="menu_contact">Kontakt</string>
+    <string name="menu_login">Login</string>
+    <string name="menu_register">Registrieren</string>
 
     <string name="book_lesson">Jetzt Reitstunde buchen</string>
     <string name="horse_details">Mehr erfahren</string>
@@ -151,11 +153,10 @@
     <string name="rb_user3">Fortgeschrittener</string>
 
     <string name="contact_header">Impressum</string>
-    <string name="contact_header2">Kontakt zu uns</string>
-    <string name="contact_name">Dein Name:</string>
-    <string name="contact_mail">Deine Mailadresse:</string>
-    <string name="contact_message">Deine Nachricht an uns:</string>
-    <string name="contact_sent">Absenden</string>
+    <string name="contact_header2">Kontakt</string>
+    <string name="contact_adress">Adresse des Stalls:\nAm Reitplatz 1\n 68175 Mannheim</string>
+    <string name="contact_name">Telefonische Erreichbarkeit:\nMontag bis Freitag: 8:00 - 16:00 Uhr\nSamstag: 9:00 - 14:00 Uhr</string>
+    <string name="contact_message">Telefonnummer:\n0621/895641\nE-Mail Adresse:\nreiter-info@ready-to-ride.tk</string>
     <string name="contact_impressum">
 Angaben gem. § 5 TMG:\n\n
 Mustermann, Max\n

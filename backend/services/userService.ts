@@ -5,6 +5,7 @@ import {UserRole} from "../types/userRole.ts";
 import UserModel from "../models/userModel.ts";
 import {Focus} from "../types/focus.ts";
 import {Proficiency} from "../types/proficiency.ts";
+import {findStable} from "./stableService.ts";
 
 export const findTrainer = async () => {
     return (await userRepo.findUserByRole(UserRole.TRAINER)).map(userModelToTrainer);
@@ -24,6 +25,18 @@ export const isUserDataValid = async (userData: { email: string; password: strin
     if (!user) {
         return false;
     } else return userData.password === user.password;
+}
+
+export const isUserPasscodeValid = async (passcode: string, role: UserRole) => {
+    if (role === UserRole.USER) {
+        return true;
+    } else if (role === UserRole.TRAINER) {
+        return (await findStable()).trainerPasscode === passcode;
+    } else if (role === UserRole.ADMIN) {
+        return (await findStable()).adminPasscode === passcode;
+    } else {
+        return false;
+    }
 }
 
 export const addNewUser = async (userData: BaseUserSchema) => {

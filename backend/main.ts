@@ -1,6 +1,7 @@
 import {Application, logger, oakCors} from "./deps.ts";
 import router from "./routes.ts";
 import {CERT_PATH, ENV, KEY_PATH, PORT} from "./config/config.ts";
+import {initializeStable} from "./services/stableService.ts";
 
 const app = new Application();
 
@@ -19,7 +20,8 @@ app.use(logger.responseTime)
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.addEventListener("listen", ({hostname, port, secure}) => {
+app.addEventListener("listen", async ({hostname, port, secure}) => {
+    await initializeStable();
     console.log(
         `Listening on: ${secure ? "https://" : "http://"}${hostname ??
         "localhost"}:${port}`,

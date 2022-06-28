@@ -34,6 +34,9 @@ android {
     buildFeatures {
         viewBinding true
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -54,4 +57,9 @@ dependencies {
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     api 'com.google.android.material:material:1.6.1'
     implementation 'se.emilsjolander:StickyScrollViewItems:1.1.0'
+    // Retrofit with Moshi Converter
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+    // Moshi
+    implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
+
 }

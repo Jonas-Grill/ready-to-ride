@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
 import com.readytoride.MainActivity
 import com.readytoride.R
 import com.readytoride.ui.home.HomeFragment
@@ -36,26 +37,29 @@ class TrainerRegisterFragment : Fragment() {
         trainer_age = view.findViewById(R.id.trainer_age)
 
         view.findViewById<Button>(R.id.btn_finish).setOnClickListener {
-            validateInput()
-            var navRegister = activity as FragmentNavigation
-            navRegister.navigateFrag(HomeFragment(), true)
+            if (validateInput()) {
+                view.findNavController().navigate(R.id.nav_home)
+            }
         }
         return view
     }
 
-    fun validateInput() {
+    fun validateInput(): Boolean {
         when {
             TextUtils.isEmpty(trainer_age.text.toString().trim()) -> {
                 trainer_age.setError("Bitte Alter eintragen")
+                return false
             }
             trainer_age.toString().isNotEmpty() -> {
                 if (trainer_age.text.toString().matches(Regex("[0-9]"))) {
                     Toast.makeText(context, "Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
                 } else {
                     trainer_age.setError("Bitte gültige Zahl eintragen")
+                    return false
                 }
             }
         }
+        return true
     }
 
     companion object {

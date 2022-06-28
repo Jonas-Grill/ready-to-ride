@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.navigation.findNavController
 import com.readytoride.R
 import com.readytoride.ui.home.HomeFragment
 
@@ -34,37 +35,43 @@ class UserRegisterFragment : Fragment() {
         user_weight = view.findViewById(R.id.user_weight)
 
         view.findViewById<Button>(R.id.btn_finish_user).setOnClickListener {
-            validateInput()
-            var navRegister = activity as FragmentNavigation
-            navRegister.navigateFrag(HomeFragment(), true)
+            if (validateInput()) {
+                view.findNavController().navigate(R.id.nav_home)
+            }
         }
 
         return view
     }
 
-    fun validateInput() {
+    fun validateInput(): Boolean {
         when {
             TextUtils.isEmpty(user_height.text.toString().trim()) -> {
                 user_height.setError("Bitte Alter eintragen")
+                return false
             }
-            user_height.toString().isNotEmpty()&&user_weight.toString().isNotEmpty()&&user_age.toString().isNotEmpty() -> {
+            user_height.toString().isNotEmpty() && user_weight.toString()
+                .isNotEmpty() && user_age.toString().isNotEmpty() -> {
                 if (user_height.text.toString().matches(Regex("[0-9]"))) {
-                    Toast.makeText(context,"Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
                 } else {
                     user_height.setError("Bitte gültige Zahl eintragen")
+                    return false
                 }
                 if (user_weight.text.toString().matches(Regex("[0-9]"))) {
-                    Toast.makeText(context,"Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
                 } else {
                     user_weight.setError("Bitte gültige Zahl eintragen")
+                    return false
                 }
                 if (user_age.text.toString().matches(Regex("[0-9]"))) {
-                    Toast.makeText(context,"Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Registrierung erfolgreich", Toast.LENGTH_SHORT).show()
                 } else {
                     user_age.setError("Bitte gültige Zahl eintragen")
+                    return false
                 }
             }
         }
+        return true
     }
 
     companion object {
