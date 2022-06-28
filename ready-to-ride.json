@@ -2035,27 +2035,11 @@
             "example": "Pferd das krass sein tut hat auf krassem Tunier gewonnen mit dem Trainer xyz."
           },
           "addressees": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "string",
-                  "description": "Role of addressees",
-                  "enum": [
-                    "user",
-                    "trainer",
-                    "admin"
-                  ]
-                },
-                {
-                  "type": "string",
-                  "description": "E-Mail of addressee",
-                  "example": "horst.müller@pferde-liebhaber.de"
-                }
-              ]
-            }
+            "type": "string",
+            "writeOnly": true,
+            "description": "Email or role of user you want to address, or 'all' to address everyone.",
+            "example": "horst.müller@pferde-liebhaber.com"
           }
-        }
       },
       "BaseRidingLessonModel": {
         "type": "object",
