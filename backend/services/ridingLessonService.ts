@@ -7,8 +7,6 @@ import {findHorse, findHorseById} from "./horseService.ts";
 import invalidIdException from "../exceptions/invalidIdException.ts";
 import {doesArenaExist} from "./stableService.ts";
 import invalidDataException from "../exceptions/invalidDataException.ts";
-import * as newsService from "./newsService.ts";
-import {createNews} from "../repositories/newsRepo.ts";
 import {addNews} from "./newsService.ts";
 import {findUserById} from "./userService.ts";
 
