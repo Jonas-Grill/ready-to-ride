@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c346c7d-003f-4b4c-8874-8c36983721a6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/controllers/newsController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/newsController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/newsService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/newsService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/ridingLessonService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/ridingLessonService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
