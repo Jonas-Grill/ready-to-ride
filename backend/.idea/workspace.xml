@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c346c7d-003f-4b4c-8874-8c36983721a6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/images/638b60d2-78c9-4cfc-8324-7da6789b88f3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/c5a9f27a-252f-4b57-b349-332d8b4e7f22.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/imageController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/imageController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/authMiddleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/authMiddleware.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/imageService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/imageService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ready-to-ride.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ready-to-ride.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -179,6 +173,7 @@
       <workItem from="1656429471918" duration="621000" />
       <workItem from="1656430551061" duration="315000" />
       <workItem from="1656439774501" duration="1373000" />
+      <workItem from="1656441543168" duration="770000" />
     </task>
     <servers />
   </component>

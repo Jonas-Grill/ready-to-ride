@@ -259,6 +259,203 @@
         }
       }
     },
+    "/horses/{id}/images": {
+      "post": {
+        "description": "Uploads an image to the server.",
+        "operationId": "uploadImage",
+        "tags": [
+          "Horses"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Image to upload",
+          "required": true,
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "image/jpeg": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "image response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request/Wrong data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/horses/{id}/images/{imageId}": {
+      "get": {
+        "description": "Gets an image from the server.",
+        "operationId": "getImage",
+        "tags": [
+          "Horses"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of horse to get image from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
+            }
+          },
+          {
+            "name": "imageId",
+            "in": "path",
+            "description": "ID of image to get",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "image response",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes an image from the server.",
+        "operationId": "deleteImage",
+        "tags": [
+          "Horses"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of horse to delete image from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
+            }
+          },
+          {
+            "name": "imageId",
+            "in": "path",
+            "description": "ID of image to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "image deleted"
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/horses/races": {
       "get": {
         "description": "Returns all horse races from the system.",
