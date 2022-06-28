@@ -1,8 +1,15 @@
 import {NewsSchema} from "../types/news.ts";
 import * as newsRepo from "../repositories/newsRepo.ts";
 import NewsModel from "../models/newsModel.ts";
+import UserModel from "../models/userModel.ts";
 
-export async function addNews(newsData: NewsSchema) {
+export async function findNews(user: UserModel): NewsSchema {
+    const addresses: string[] = ["all", user.email, user.role];
+
+    return (await newsRepo.findNewsByAddressees(addresses)).map(newsModelToNews);
+}
+
+export async function addNews(newsData: NewsSchema): NewsSchema {
     const id: string =  await newsRepo.createNews({
         caption: newsData.caption,
         text: newsData.text,
