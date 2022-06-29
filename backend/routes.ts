@@ -10,11 +10,11 @@ import {
 } from "./controllers/userController.ts";
 import {preAuthMiddleware, authMiddleware} from "./middleware/authMiddleware.ts";
 import {
-    addHorse,
+    addHorse, addImage,
     deleteHorse,
     findHorse,
     findHorseById, findHorseColours, findHorseLevels,
-    findHorseRaces,
+    findHorseRaces, removeImage,
     updateHorse
 } from "./controllers/horseController.ts";
 import {findStable, updateStable} from "./controllers/stableController.ts";
@@ -68,6 +68,8 @@ router
     .post("/horses", addHorse)
     .put("/horses/:id", updateHorse)
     .delete("/horses/:id", deleteHorse)
+    .post("/horses/:id/images", addImage)
+    .delete("/horses/:id/images/:imageId", removeImage)
     // Stable
     .get("/stable/arenas/:name/calendar", findRidingLessonsByArenaAndDay)
     .put("/stable", updateStable)

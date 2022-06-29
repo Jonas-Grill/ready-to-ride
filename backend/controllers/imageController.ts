@@ -11,6 +11,8 @@ export const upload = async (ctx: Context) => {
 
     ctx.response.status = Status.Created;
     ctx.response.body = {_id: id};
+
+    return id;
 };
 
 export const download = async (ctx: Context) => {
