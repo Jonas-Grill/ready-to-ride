@@ -95,7 +95,7 @@ export const deleteHorse = async (ctx: Context) => {
 
 /* ------------------------------ Images ------------------------------ */
 
-export const addImage = async (ctx: Context) => {
+export const addImageToHorse = async (ctx: Context) => {
     ctx.assert(ctx.state.currentUser.role === UserRole.ADMIN, Status.Unauthorized, "Your role isn't authorized to access this function")
 
     const id: string = helpers.getQuery(ctx, {mergeParams: true}).id;
@@ -107,7 +107,7 @@ export const addImage = async (ctx: Context) => {
     horseService.addImage(id, imageId)
 }
 
-export const removeImage = async (ctx: Context) => {
+export const removeImageFromHorse = async (ctx: Context) => {
     ctx.assert(ctx.state.currentUser.role === UserRole.ADMIN, Status.Unauthorized, "Your role isn't authorized to access this function")
 
     const id: string = helpers.getQuery(ctx, {mergeParams: true}).id;
