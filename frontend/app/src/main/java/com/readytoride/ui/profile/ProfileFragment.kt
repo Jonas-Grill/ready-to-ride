@@ -69,6 +69,10 @@ class ProfileFragment : Fragment() {
                 binding.fieldWeight.visibility = View.GONE
                 binding.headerProficiency.visibility = View.GONE
                 binding.fieldProficiency.visibility = View.GONE
+                binding.bookedHoursLayout.visibility = View.GONE
+
+                //Admin and Trainer only
+                binding.passcodeLogin.visibility = View.GONE
 
                 binding.infoText.visibility = View.VISIBLE
             }
@@ -109,6 +113,9 @@ class ProfileFragment : Fragment() {
                 binding.headerProficiency.visibility = View.VISIBLE
                 binding.fieldProficiency.visibility = View.VISIBLE
                 binding.fieldProficiency.text = it.proficiency
+
+                //Set Booked Hours
+                binding.bookedHoursLayout.visibility = View.VISIBLE
             }
             else if(it.role == "Trainer") {
                 //Set Focus
@@ -130,13 +137,15 @@ class ProfileFragment : Fragment() {
                 binding.headerCertifiates.visibility = View.VISIBLE
                 //binding.fieldFocus.visibility = View.VISIBLE
                 //binding.fieldFocus.text = it.focus
-            }
-            else if(it.role == "Admin" || it.role == "Trainer") {
-                //SET RolePasscode
 
-                //binding.headerDescription.visibility = View.VISIBLE
-                //binding.fieldDescription.visibility = View.VISIBLE
-                //binding.fieldDescription.text = it.description
+                //SET RolePasscode
+                binding.passcodeLogin.visibility = View.VISIBLE
+                binding.passcodeLogin.text = "Trainer registrieren"
+            }
+            else if(it.role == "Admin") {
+                //SET RolePasscode
+                binding.passcodeLogin.visibility = View.VISIBLE
+                binding.passcodeLogin.text = "Admin registrieren"
             }
 
             binding.fieldName.text = it.name.firstName + " " + it.name.lastName

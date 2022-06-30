@@ -54,9 +54,9 @@ class HomeFragment : Fragment() {
         /////
 
         val textView: TextView = binding.textHome
-        homeViewModel.horse.observe(viewLifecycleOwner) {
+        homeViewModel.horses.observe(viewLifecycleOwner) {
             //Everytime there are any changes to the observing instance, this code will be called
-            textView.text = it.description
+            textView.text = it[0].description
         }
         return root
     }
