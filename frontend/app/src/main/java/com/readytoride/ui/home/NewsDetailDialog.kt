@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.news_detail_dialog.view.*
 
 class NewsDetailDialog(private val title: CharSequence, private val description: CharSequence): DialogFragment() {
 
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
