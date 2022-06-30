@@ -3,6 +3,14 @@ import InvalidIdException from "../exceptions/invalidIdException.ts";
 const imageDir = "./images/";
 
 export async function findImage(id: string): Promise<Uint8Array> {
+    id = id.replace(/\s/g, '');
+    id = id.replace(/\/\.\.\//g, "");
+
+    while (id.includes(".") || id.includes("/")) {
+        id = id.replace("..", '');
+        id = id.replace("/", '');
+    }
+
     try {
         return await Deno.readFile(`${imageDir}${id}.png`);
     } catch (_e) {
