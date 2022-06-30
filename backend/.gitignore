@@ -1,3 +1,4 @@
 .env
 db/*
 test.ts
+images/*

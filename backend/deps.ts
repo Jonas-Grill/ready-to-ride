@@ -5,7 +5,7 @@ export type {Header, Payload} from "https://deno.land/x/djwt@v2.4/mod.ts"
 export {create, getNumericDate, verify} from "https://deno.land/x/djwt@v2.4/mod.ts";
 
 // Mongo
-export {Bson, MongoClient} from "https://deno.land/x/mongo@v0.30.0/mod.ts";
+export {Bson, MongoClient, Database} from "https://deno.land/x/mongo@v0.30.0/mod.ts";
 
 // OakCors
 export {oakCors} from "https://deno.land/x/cors@v1.2.2/mod.ts";
@@ -17,7 +17,6 @@ export {
 export type {State, RouteParams} from "https://deno.land/x/oak@v10.6.0/mod.ts";
 // OakLogger
 import logger from "https://deno.land/x/oak_logger@1.0.0/mod.ts";
-
 export {logger};
 
 //Bcrypt

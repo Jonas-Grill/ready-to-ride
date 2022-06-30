@@ -1,10 +1,25 @@
-import {MongoClient} from "../deps.ts";
+import {Database, MongoClient} from "../deps.ts";
 import {DB_LINK} from "./config.ts"
 
-const client = new MongoClient();
+let db: Database;
 
-await client.connect(DB_LINK);
+export const getDb = async () => {
+    if (db) {
+        return db;
+    } else {
+        const client = new MongoClient();
 
-const db = client.database("ready-to-ride");
+        try {
+            await client.connect(DB_LINK);
+            db = client.database("ready-to-ride");
 
-export default db;
+            return db;
+        } catch (_e) {
+            await client.connect("mongodb://localhost:27017");
+            db = client.database("ready-to-ride");
+
+            return db;
+        }
+    }
+}
+

@@ -1,8 +1,10 @@
 import {Bson} from "../deps.ts";
-import db from "../config/db-connection.ts";
+import {getDb} from "../config/db-connection.ts";
 import User from "../models/userModel.ts"
 import InvalidIdException from "../exceptions/invalidIdException.ts";
 import {UserRole} from "../types/userRole.ts";
+
+const db = await getDb();
 
 const users = db.collection<User>("users");
 
