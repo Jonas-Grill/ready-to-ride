@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
-import com.readytoride.ui.stable.Arena
+import com.readytoride.network.StableApi.Arena
 
 class ArenaSelectionItemAdapter(
     private val context: EditArenasFragment,
@@ -28,8 +28,8 @@ class ArenaSelectionItemAdapter(
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = dataset[position]
-        holder.checkbox.text = context.resources.getString(item.arenaName)
-        holder.checkbox.tooltipText = "1" //Muss ID von Arena bekommen
+        holder.checkbox.text = item.name
+        holder.checkbox.tooltipText = "item._id" //Muss ID von Arena bekommen
     }
 
     override fun getItemCount() = dataset.size

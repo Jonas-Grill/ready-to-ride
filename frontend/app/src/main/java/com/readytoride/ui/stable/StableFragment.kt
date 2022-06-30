@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
+import com.readytoride.network.StableApi.StableEntity
 
 class StableFragment : Fragment(){
 
@@ -23,27 +25,26 @@ class StableFragment : Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_stable, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(StableViewModel::class.java)
+        return inflater.inflate(R.layout.fragment_stable, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val myDatasetBox = BoxDatasource().loadBoxes()
-        val myDatasetArena = ArenaDatasource().loadArenas()
-
         val recyclerViewBox = view.findViewById<RecyclerView>(R.id.recycler_view_box)
         val recyclerViewArena = view.findViewById<RecyclerView>(R.id.recycler_view_arenas)
 
-        recyclerViewBox.adapter = BoxItemAdapter(this, myDatasetBox)
-        recyclerViewBox.setHasFixedSize(true)
+        viewModel.getStable()
+        val myObserver = Observer<StableEntity> { newStable -> run{
+            val myDatasetArena = newStable.arenas
+            val myDatasetBox = newStable.boxes
+            recyclerViewBox.adapter = BoxItemAdapter(this, myDatasetBox)
+            recyclerViewBox.setHasFixedSize(true)
 
-        recyclerViewArena.adapter = ArenaItemAdapter(this, myDatasetArena)
-        recyclerViewArena.setHasFixedSize(true)
+            recyclerViewArena.adapter = ArenaItemAdapter(this, myDatasetArena)
+            recyclerViewArena.setHasFixedSize(true)
+        }}
+        viewModel.stable.observe(viewLifecycleOwner, myObserver)
 
         val buttonEditBoxes = view.findViewById<Button>(R.id.button8)
         val buttonEditArenas = view.findViewById<Button>(R.id.button9)
@@ -58,7 +59,7 @@ class StableFragment : Fragment(){
             view.findNavController().navigate(action)
         }
 
-        //TODO: Buttons only visible for Trainers
+        //TODO: Buttons only visible for Admins
 
     }
 

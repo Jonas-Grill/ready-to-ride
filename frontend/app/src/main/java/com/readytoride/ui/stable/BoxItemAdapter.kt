@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
+import com.readytoride.network.StableApi.Box
 
 class BoxItemAdapter(private val context: StableFragment, private val dataset: List<Box>) :
     RecyclerView.Adapter<BoxItemAdapter.ItemViewHolder>() {
@@ -27,10 +28,10 @@ class BoxItemAdapter(private val context: StableFragment, private val dataset: L
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = dataset[position]
-        holder.textViewName.text = context.resources.getString(item.boxName)
-        holder.textViewSize.text = context.resources.getString(item.boxSize)
-        holder.textViewPrice.text = context.resources.getString(item.boxPrice)
-        holder.textViewNumber.text = context.resources.getString(item.boxNumber)
+        holder.textViewName.text = item.name
+        holder.textViewSize.text = item.size.toString() + " qm"
+        holder.textViewPrice.text = item.price.toString() + " €"
+        holder.textViewNumber.text = item.count.toString()
     }
 
     override fun getItemCount() = dataset.size

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
+import com.readytoride.network.StableApi.Arena
 
 class ArenaItemAdapter(private val context: StableFragment, private val dataset: List<Arena>) :
     RecyclerView.Adapter<ArenaItemAdapter.ItemViewHolder>() {
@@ -25,8 +26,8 @@ class ArenaItemAdapter(private val context: StableFragment, private val dataset:
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = dataset[position]
-        holder.textViewName.text = context.resources.getString(item.arenaName)
-        holder.textViewSize.text = context.resources.getString(item.arenaSize)
+        holder.textViewName.text = item.name
+        holder.textViewSize.text = item.size.toString() + " qm"
     }
 
     override fun getItemCount() = dataset.size

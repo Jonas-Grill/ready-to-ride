@@ -7,12 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.readytoride.R
-import com.readytoride.ui.editarenas.ArenaSelectionItemAdapter
-import com.readytoride.ui.stable.ArenaDatasource
-import com.readytoride.ui.stable.BoxDatasource
+import com.readytoride.network.StableApi.StableEntity
+import com.readytoride.ui.stable.ArenaItemAdapter
+import com.readytoride.ui.stable.BoxItemAdapter
 
 class EditBoxesFragment : Fragment() {
 
@@ -52,59 +53,63 @@ class EditBoxesFragment : Fragment() {
         layoutEdit.visibility = View.GONE
         layoutDelete.visibility = View.GONE
 
-        val myDatasetBox = BoxDatasource().loadBoxes()
-        val recyclerBox: RecyclerView = view.findViewById(R.id.recycler_delete_boxes)
-        recyclerBox.adapter = BoxesSelectionItemAdapter(this, myDatasetBox)
-        recyclerBox.setHasFixedSize(true)
+        viewModel.getStable()
+        val myObserver = Observer<StableEntity> { newStable -> run{
+            val myDatasetBox = newStable.boxes
+            val recyclerBox: RecyclerView = view.findViewById(R.id.recycler_delete_boxes)
+            recyclerBox.adapter = BoxesSelectionItemAdapter(this, myDatasetBox)
+            recyclerBox.setHasFixedSize(true)
 
-        val spinnerAction: Spinner = view.findViewById(R.id.spinner_action_box)
-        ArrayAdapter.createFromResource(view.context, R.array.actionsbox, android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            spinnerAction.adapter = adapter
-        }
-        spinnerAction.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
+            val spinnerAction: Spinner = view.findViewById(R.id.spinner_action_box)
+            ArrayAdapter.createFromResource(view.context, R.array.actionsbox, android.R.layout.simple_spinner_item
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                // Apply the adapter to the spinner
+                spinnerAction.adapter = adapter
             }
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if (id == 0.toLong()){
-                    layoutAdd.visibility = View.GONE
-                    layoutEdit.visibility = View.VISIBLE
-                    layoutDelete.visibility = View.GONE
-                } else if (id == 1.toLong()){
-                    layoutAdd.visibility = View.VISIBLE
-                    layoutEdit.visibility = View.GONE
-                    layoutDelete.visibility = View.GONE
-                } else if (id == 2.toLong()){
-                    layoutAdd.visibility = View.GONE
-                    layoutEdit.visibility = View.GONE
-                    layoutDelete.visibility = View.VISIBLE
+            spinnerAction.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    if (id == 0.toLong()){
+                        layoutAdd.visibility = View.GONE
+                        layoutEdit.visibility = View.VISIBLE
+                        layoutDelete.visibility = View.GONE
+                    } else if (id == 1.toLong()){
+                        layoutAdd.visibility = View.VISIBLE
+                        layoutEdit.visibility = View.GONE
+                        layoutDelete.visibility = View.GONE
+                    } else if (id == 2.toLong()){
+                        layoutAdd.visibility = View.GONE
+                        layoutEdit.visibility = View.GONE
+                        layoutDelete.visibility = View.VISIBLE
+                    }
                 }
             }
-        }
 
-        val myBoxNames: MutableList<String> = mutableListOf()
-        for (item in myDatasetBox){
-            myBoxNames.add( view.context.resources.getString(item.boxName))
-        }
-        val spinnerArena: Spinner = view.findViewById(R.id.spinner_box)
-        ArrayAdapter(view.context, android.R.layout.simple_spinner_item, myBoxNames
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            spinnerArena.adapter = adapter
-        }
-        spinnerArena.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
+            val myBoxNames: MutableList<String> = mutableListOf()
+            for (item in myDatasetBox){
+                myBoxNames.add(item.name)
             }
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                //TODO: Change Text in TextInput as it is now
-
+            val spinnerArena: Spinner = view.findViewById(R.id.spinner_box)
+            ArrayAdapter(view.context, android.R.layout.simple_spinner_item, myBoxNames
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                // Apply the adapter to the spinner
+                spinnerArena.adapter = adapter
             }
-        }
+            spinnerArena.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    //TODO: Change Text in TextInput as it is now
+
+                }
+            }
+        }}
+        viewModel.stable.observe(viewLifecycleOwner, myObserver)
 
         val buttonSubmitChanges: Button = view.findViewById(R.id.buttonSubmitChangesBox)
         buttonSubmitChanges.setOnClickListener {
