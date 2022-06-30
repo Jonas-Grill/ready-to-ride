@@ -1,6 +1,7 @@
 package com.readytoride.network.UserApi
 
 import com.readytoride.network.HorseApi.HorseEntity
+import com.readytoride.network.LessonApi.LessonEntity
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -36,6 +37,9 @@ interface UserApiService {
 
     @GET("users/me")
     suspend fun getMyUser(@Header("Authorization") token: String): UserEntity
+
+    @GET("users/me/calendar")
+    suspend fun getMyUserCalendar(@Header("Authorization") token: String): List<LessonEntity>
 
     @PUT("users")
     suspend fun updateUser(@Header("Authorization") token: String, @Body requestBody: UserEntity): UserEntity
