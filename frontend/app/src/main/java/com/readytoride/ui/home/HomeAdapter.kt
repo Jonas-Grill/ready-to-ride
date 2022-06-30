@@ -25,7 +25,6 @@ class HomeAdapter(private val context: HomeFragment, private val dataset: List<N
         return dataset[position]
     }
 
-
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
