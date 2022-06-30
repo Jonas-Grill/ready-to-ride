@@ -7,6 +7,11 @@
       <change beforePath="$PROJECT_DIR$/deps.ts" beforeDir="false" afterPath="$PROJECT_DIR$/deps.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/repositories/horseRepo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/horseRepo.ts" afterDir="false" />
     </list>
+    <list default="true" id="1c346c7d-003f-4b4c-8874-8c36983721a6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.github/workflows/ci.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../.github/workflows/ci.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/main.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -178,6 +183,8 @@
       <workItem from="1656504019198" duration="18000" />
       <workItem from="1656508172401" duration="6249000" />
       <workItem from="1656573854343" duration="1327000" />
+      <workItem from="1656429471918" duration="931000" />
+      <workItem from="1656576168718" duration="312000" />
     </task>
     <servers />
   </component>

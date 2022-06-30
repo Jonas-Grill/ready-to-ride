@@ -5,6 +5,9 @@ import {initializeStable} from "./services/stableService.ts";
 
 const app = new Application();
 
+const controller = new AbortController();
+const { signal } = controller;
+
 app.use(
     oakCors({
         origin: [
@@ -26,6 +29,10 @@ app.addEventListener("listen", async ({hostname, port, secure}) => {
         `Listening on: ${secure ? "https://" : "http://"}${hostname ??
         "localhost"}:${port}`,
     );
+
+    if (ENV === "test") {
+        controller.abort();
+    }
 });
 
 app.addEventListener("error", (evt) => {
@@ -37,6 +44,7 @@ try {
         await app.listen({
             port: PORT,
             secure: false,
+            signal
         });
     } else if (ENV === "prod") {
         await app.listen({
@@ -44,12 +52,14 @@ try {
             secure: true,
             certFile: CERT_PATH,
             keyFile: KEY_PATH,
+            signal
         });
     }
 } catch (e) {
     await app.listen({
         port: PORT,
         secure: false,
+        signal
     });
     console.log(e)
 }
