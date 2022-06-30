@@ -1,11 +1,13 @@
 import StableModel from "../models/stableModel.ts";
 import * as stableRepo from "../repositories/stableRepo.ts";
 import {ExtendedStableSchema} from "../types/stable.ts";
+import InvalidDataException from "../exceptions/invalidDataException.ts";
 
 export const findStable = async () => {
     const stable: StableModel | undefined = (await stableRepo.findStable()).pop();
 
     if (!stable) {
+        await initializeStable()
         throw new Error("Error in findStable Method in stableService.");
     }
 
@@ -66,22 +68,28 @@ export const initializeStable = async () => {
 }
 
 // deno-lint-ignore no-explicit-any
-export const updateStable = async (stable: any) => {
+export const updateStable = async (stable: any): Promise<ExtendedStableSchema> => {
     const oldStable: StableModel | undefined = (await stableRepo.findStable()).pop();
 
     if (!oldStable) {
         throw new Error("Error in updateStable Method in stableService.");
     }
 
-    const newStable: StableModel | undefined = await stableRepo.updateStable({
+    let newStable: StableModel | undefined = {
         _id: oldStable._id,
         name: stable.name || oldStable.name,
         description: stable.description || oldStable.description,
         arenas: stable.arenas || oldStable.arenas,
         boxes: stable.boxes || oldStable.boxes,
-        adminPasscode: stable.adminPasscode ||oldStable.adminPasscode,
+        adminPasscode: stable.adminPasscode || oldStable.adminPasscode,
         trainerPasscode: stable.trainerPasscode || oldStable.trainerPasscode,
-    });
+    }
+
+    if (doesStableHaveDuplicateArenaNames(stable)) {
+        return Promise.reject(new InvalidDataException("Duplicate arena names are not allowed."));
+    }
+
+    newStable = await stableRepo.updateStable(newStable);
 
     if (!newStable) {
         throw new Error("Error in updateStable Method in stableService.");
@@ -101,4 +109,16 @@ const stableModelToStable = (stable: StableModel): ExtendedStableSchema => {
         adminPasscode: stable.adminPasscode,
         trainerPasscode: stable.trainerPasscode,
     };
+}
+
+export const doesArenaExist = async (name: string) => {
+    const stable: StableModel = await findStable()
+
+    return stable.arenas.some(arena => arena.name === name);
+}
+
+export const doesStableHaveDuplicateArenaNames = (stable: ExtendedStableSchema) => {
+    const stableArenas: string[] = stable.arenas.map(arena => arena.name);
+
+    return stableArenas.some((arena, index) => stableArenas.indexOf(arena) !== index);
 }

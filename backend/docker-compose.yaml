@@ -1,13 +1,5 @@
 version: "3.3"
 services:
-  mongo-db:
-    image: mongo:4.4.14
-    ports:
-      - "27017:27017"
-    container_name: mongo-db
-    volumes:
-      - ./db/:/data/db
-
   deno-api:
     build:
       context: ./
@@ -17,6 +9,8 @@ services:
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
     container_name: deno-api
+    volumes:
+      - ./images/:/images
     environment:
       DB_LINK: ${DB_LINK}
       CERT_PATH: ${CERT_PATH}

@@ -259,6 +259,136 @@
         }
       }
     },
+    "/horses/{id}/images": {
+      "post": {
+        "description": "Uploads an image to the server.",
+        "operationId": "uploadImage",
+        "tags": [
+          "Horses"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Image to upload",
+          "required": true,
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "image/jpeg": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "image response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request/Wrong data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/horses/{id}/images/{imageId}": {
+      "delete": {
+        "description": "Deletes an image from the server.",
+        "operationId": "deleteImage",
+        "tags": [
+          "Horses"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of horse to delete image from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
+            }
+          },
+          {
+            "name": "imageId",
+            "in": "path",
+            "description": "ID of image to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "611d5cd230dd29fc60df7b94"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "image deleted"
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/horses/races": {
       "get": {
         "description": "Returns all horse races from the system.",
@@ -383,13 +513,16 @@
             }
           },
           {
-            "name": "horse",
+            "name": "horses",
             "in": "query",
-            "description": "ID of horse of riding lesson to fetch",
+            "description": "IDs of horses of riding lessons to fetch. Comma separated. Only works in combination with bookedLessons or getPossibleHorseCombinations.",
             "required": false,
             "schema": {
-              "type": "string",
-              "example": "611d5cd230dd29fc60df7b94"
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": "611d5cd230dd29fc60df7b94, 611d5cd230dd29fc60df7b95, 611d5cd230dd29fc60df7b96"
             }
           },
           {
@@ -412,6 +545,26 @@
               "type": "string",
               "format": "date",
               "example": "2015-10-28"
+            }
+          },
+          {
+            "name": "getPossibleHorseCombinations",
+            "in": "query",
+            "description": "Specifies whether the system should return training lessons with possible horse combinations. If set to true the system will only return unbooked lessons.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "example": true
+            }
+          },
+          {
+            "name": "bookedLessons",
+            "in": "query",
+            "description": "Specifies whether the system should return booked or unbooked lessons. If set to false the system will only return unbooked lessons. If set to true the system will only return booked lessons. If not set the system will return all lessons.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "example": true
             }
           }
         ],
@@ -641,7 +794,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID of riding lessin",
+            "description": "ID of riding lesson",
             "required": true,
             "schema": {
               "type": "string",
@@ -909,7 +1062,7 @@
         }
       }
     },
-    "/users/{id}/calender": {
+    "/users/{id}/calendar": {
       "get": {
         "description": "Get all bookings from the user with the specified id.",
         "operationId": "find booking by user",
@@ -931,6 +1084,28 @@
               "type": "string",
               "example": "611d5cd230dd29fc60df7b94"
             }
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "Date from which riding lesson should be fetched. If no toDate is defined the system will return the lessons for one week.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2015-10-26"
+            }
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "Date to which riding lesson should be fetched. If no fromDate is defined the system will return the lessons for one week.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2015-10-28"
+            }
           }
         ],
         "responses": {
@@ -939,7 +1114,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExtendedRidingLessonModel"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExtendedRidingLessonModel"
+                  }
                 }
               }
             }
@@ -1097,6 +1275,79 @@
           },
           "401": {
             "description": "Unauthorized error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/me/calendar": {
+      "get": {
+        "description": "Get all bookings from the authorized user.",
+        "operationId": "find booking by user",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "Date from which riding lesson should be fetched. If no toDate is defined the system will return the lessons for one week.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2015-10-26"
+            }
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "Date to which riding lesson should be fetched. If no fromDate is defined the system will return the lessons for one week.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2015-10-28"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "booking response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExtendedRidingLessonModel"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found error",
             "content": {
               "application/json": {
                 "schema": {
@@ -1283,7 +1534,7 @@
         }
       }
     },
-    "/stable/arena/{name}/calender": {
+    "/stable/arenas/{name}/calendar": {
       "get": {
         "description": "Get all bookings from the arena with the specified name.",
         "operationId": "find booking by arena",
@@ -1431,6 +1682,128 @@
           },
           "400": {
             "description": "Bad request/Wrong data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images": {
+      "post": {
+        "description": "Uploads an image to the server.",
+        "operationId": "uploadImage",
+        "tags": [
+          "Images"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Image to upload",
+          "required": true,
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "image/jpeg": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "image response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request/Wrong data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/{id}": {
+      "get": {
+        "description": "Returns the image with the specified id.",
+        "operationId": "getImage",
+        "tags": [
+          "Images"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of image to fetch",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "image response",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found error",
             "content": {
               "application/json": {
                 "schema": {
@@ -1914,35 +2287,19 @@
             "example": "Pferd das krass sein tut hat auf krassem Tunier gewonnen mit dem Trainer xyz."
           },
           "addressees": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "string",
-                  "description": "Role of addressees",
-                  "enum": [
-                    "user",
-                    "trainer",
-                    "admin"
-                  ]
-                },
-                {
-                  "type": "string",
-                  "description": "E-Mail of addressee",
-                  "example": "horst.müller@pferde-liebhaber.de"
-                }
-              ]
-            }
+            "type": "string",
+            "writeOnly": true,
+            "description": "Email or role of user you want to address, or 'all' to address everyone.",
+            "example": "horst.müller@pferde-liebhaber.com"
           }
         }
       },
       "BaseRidingLessonModel": {
         "type": "object",
         "required": [
-          "timeslot",
           "arena",
           "day",
-          "hour"
+          "startHour"
         ],
         "properties": {
           "_id": {
@@ -2044,3 +2401,4 @@
     }
   }
 }
+
