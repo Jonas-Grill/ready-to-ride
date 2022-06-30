@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
+import com.readytoride.DownloadImageTask
 import com.readytoride.R
 import com.readytoride.network.HorseApi.HorseEntity
 
@@ -64,7 +65,7 @@ class HorseDetail : Fragment() {
             val imageList = ArrayList<SlideModel>()
 
             for (image in it.pictures) {
-                imageList.add(SlideModel(image))
+                imageList.add(SlideModel("https://ready-to-ride-backend.tk/images/$image"))
             }
 
             val imageSlider = view.findViewById<ImageSlider>(R.id.imageSliderTrainer)

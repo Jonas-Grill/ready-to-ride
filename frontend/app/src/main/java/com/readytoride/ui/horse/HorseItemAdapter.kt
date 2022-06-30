@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.readytoride.DownloadImageTask
 import com.readytoride.R
 import com.readytoride.network.HorseApi.HorseEntity
 
@@ -42,7 +42,10 @@ class HorseItemAdapter(private val context: HorseFragment, private val dataset: 
         holder.textViewAge.text = item.age.toString()
         holder.textViewColour.text = item.colour
         holder.textViewDifficulty.text = item.difficultyLevel
-        holder.imageView.setImageURI(item.profilePicture.toUri())
+
+        DownloadImageTask(holder.imageView)
+            .execute("https://ready-to-ride-backend.tk/images/" + item.profilePicture)
+
         holder.button.tooltipText = item._id
         holder.button.setOnClickListener(this)
     }
@@ -55,3 +58,4 @@ class HorseItemAdapter(private val context: HorseFragment, private val dataset: 
         view.findNavController().navigate(action)
     }
 }
+

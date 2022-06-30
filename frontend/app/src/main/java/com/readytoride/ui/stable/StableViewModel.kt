@@ -16,8 +16,8 @@ class StableViewModel : ViewModel() {
     internal fun getStable() {
         viewModelScope.launch {
             try {
-                val listResult = StableApi.retrofitService.getStable()
-                _stable.value = listResult
+                val result = StableApi.retrofitService.getStable()
+                _stable.value = result
             } catch (e: Exception){
 
             }

@@ -31,18 +31,20 @@ class StableFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerViewBox = view.findViewById<RecyclerView>(R.id.recycler_view_box)
-        val recyclerViewArena = view.findViewById<RecyclerView>(R.id.recycler_view_arenas)
 
         viewModel.getStable()
         val myObserver = Observer<StableEntity> { newStable -> run{
             val myDatasetArena = newStable.arenas
             val myDatasetBox = newStable.boxes
+            val recyclerViewBox = view.findViewById<RecyclerView>(R.id.recycler_view_box)
+            val recyclerViewArena = view.findViewById<RecyclerView>(R.id.recycler_view_arenas)
+
             recyclerViewBox.adapter = BoxItemAdapter(this, myDatasetBox)
             recyclerViewBox.setHasFixedSize(true)
 
             recyclerViewArena.adapter = ArenaItemAdapter(this, myDatasetArena)
             recyclerViewArena.setHasFixedSize(true)
+
         }}
         viewModel.stable.observe(viewLifecycleOwner, myObserver)
 

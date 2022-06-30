@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.readytoride.DownloadImageTask
 import com.readytoride.R
 import com.readytoride.network.UserApi.Accomplishment
 import com.readytoride.network.UserApi.Name
@@ -55,7 +56,8 @@ class TrainerItemAdapter(private val context: TrainerFragment, private val datas
 
         holder.textViewAge.text = item.age.toString()
         holder.textViewFocus.text = item.focus
-        holder.imageView.setImageURI(item.profilePicture.toUri())
+        DownloadImageTask(holder.imageView)
+            .execute("https://ready-to-ride-backend.tk/images/" + item.profilePicture)
         holder.button.tooltipText = item._id
         holder.button.setOnClickListener(this)
     }

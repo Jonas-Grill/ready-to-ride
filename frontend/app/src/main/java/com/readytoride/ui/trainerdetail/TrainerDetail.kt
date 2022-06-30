@@ -70,7 +70,7 @@ class TrainerDetail : Fragment() {
             val imageList = ArrayList<SlideModel>()
 
             for (image in it.pictures) {
-                imageList.add(SlideModel(image))
+                imageList.add(SlideModel("https://ready-to-ride-backend.tk/images/$image"))
             }
 
             val imageSlider = view.findViewById<ImageSlider>(R.id.imageSliderTrainer)
