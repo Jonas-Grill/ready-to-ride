@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   test:
@@ -19,10 +19,24 @@ jobs:
         with:
           deno-version: "1.22.0"
 
+      - name: Create mongo Docker container
+        uses: yog27ray/mongo-inmemory-action@v1.1.0
+        with:
+          image-version: latest
+          port: 27017
+
       - name: Run tests
+        env:
+          DB_LINK: mongodb://localhost:27017
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+          ENVIRONMENT: test
+          SIGN_ALG: ${{ secrets.SIGN_ALG }}
+          KEY_GEN_ALG: ${{ secrets.KEY_GEN_ALG }}
+          KEY_GEN_CURVE: ${{ secrets.KEY_GEN_CURVE }}
         run: |
           cd ./backend/
           deno run --allow-net --allow-write --allow-read --allow-env main.ts
+                    
 
       - name: Run linter
         run: |
