@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
 import com.readytoride.network.UserApi.UserEntity
@@ -17,27 +18,24 @@ class TrainerFragment : Fragment() {
     }
 
     private lateinit var viewModel: TrainerViewModel
-    private lateinit var trainerList: List<UserEntity>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_trainer, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(TrainerViewModel::class.java)
-        viewModel.getTrainerList()
-        this.trainerList = viewModel.trainers
+        return inflater.inflate(R.layout.fragment_trainer, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //val myDataset = TrainerDatasource().loadTrainer()
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_trainer)
-        recyclerView.adapter = TrainerItemAdapter(this, this.trainerList)
-        recyclerView.setHasFixedSize(true)
+
+        viewModel.getAllTrainer()
+        val myObserver = Observer<MutableList<UserEntity>> { newList -> run{
+            val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_trainer)
+            recyclerView.adapter = TrainerItemAdapter(this, newList)
+            recyclerView.setHasFixedSize(true)
+        }}
+        viewModel.trainer.observe(viewLifecycleOwner, myObserver)
     }
 }

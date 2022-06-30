@@ -53,7 +53,7 @@ class TrainerItemAdapter(private val context: TrainerFragment, private val datas
 
         holder.textViewQualification.text = qual
 
-        holder.textViewAge.text = context.resources.getString(item.age)
+        holder.textViewAge.text = item.age.toString()
         holder.textViewFocus.text = item.focus
         holder.imageView.setImageURI(item.profilePicture.toUri())
         holder.button.tooltipText = item._id
