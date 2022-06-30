@@ -1,7 +1,9 @@
 import {Bson} from "../deps.ts";
-import db from "../config/db-connection.ts";
+import {getDb} from "../config/db-connection.ts";
 import Stable from "../models/stableModel.ts"
 import InvalidIdException from "../exceptions/invalidIdException.ts";
+
+const db = await getDb();
 
 const stables = db.collection<Stable>("stables");
 

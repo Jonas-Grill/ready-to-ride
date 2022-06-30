@@ -5,6 +5,7 @@ import {ExtendedHorseSchema, HorseSchema, instanceOfHorse} from "../types/horse.
 import {RACES} from "../types/race.ts";
 import {COLOURS} from "../types/colour.ts";
 import {UserRole} from "../types/userRole.ts";
+import {upload} from "./imageController.ts";
 
 export const findHorse = async (ctx: Context) => {
     ctx.response.status = Status.OK;
@@ -91,6 +92,34 @@ export const deleteHorse = async (ctx: Context) => {
 
     ctx.response.status = Status.NoContent;
 };
+
+/* ------------------------------ Images ------------------------------ */
+
+export const addImageToHorse = async (ctx: Context) => {
+    ctx.assert(ctx.state.currentUser.role === UserRole.ADMIN, Status.Unauthorized, "Your role isn't authorized to access this function")
+
+    const id: string = helpers.getQuery(ctx, {mergeParams: true}).id;
+    ctx.assert(id, Status.BadRequest, "Please provide an id");
+    ctx.assert(horseService.findHorseById(id), Status.BadRequest, "Please provide a valid id")
+
+    const imageId: string = await upload(ctx);
+
+    horseService.addImage(id, imageId)
+}
+
+export const removeImageFromHorse = async (ctx: Context) => {
+    ctx.assert(ctx.state.currentUser.role === UserRole.ADMIN, Status.Unauthorized, "Your role isn't authorized to access this function")
+
+    const id: string = helpers.getQuery(ctx, {mergeParams: true}).id;
+    const imageId: string = helpers.getQuery(ctx, {mergeParams: true}).imageId;
+
+    ctx.assert(id, Status.BadRequest, "Please provide an id");
+    ctx.assert(horseService.findHorseById(id), Status.BadRequest, "Please provide a valid id")
+
+    ctx.assert(await horseService.removeImage(id, imageId), Status.BadRequest, "Please provide a valid id");
+
+    ctx.response.status = Status.NoContent;
+}
 
 /* ------------------------------ Enums ------------------------------ */
 
