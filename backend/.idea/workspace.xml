@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c346c7d-003f-4b4c-8874-8c36983721a6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/controllers/horseController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/horseController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/db-connection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/db-connection.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deps.ts" beforeDir="false" afterPath="$PROJECT_DIR$/deps.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repositories/horseRepo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/horseRepo.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,7 +177,7 @@
       <workItem from="1656441543168" duration="770000" />
       <workItem from="1656504019198" duration="18000" />
       <workItem from="1656508172401" duration="6249000" />
-      <workItem from="1656573854343" duration="296000" />
+      <workItem from="1656573854343" duration="1327000" />
     </task>
     <servers />
   </component>

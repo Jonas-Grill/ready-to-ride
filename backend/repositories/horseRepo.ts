@@ -1,7 +1,9 @@
 import {Bson} from "../deps.ts";
-import db from "../config/db-connection.ts";
 import Horse from "../models/horseModel.ts"
 import InvalidIdException from "../exceptions/invalidIdException.ts";
+import {getDb} from "../config/db-connection.ts";
+
+const db = await getDb();
 
 const horses = db.collection<Horse>("horses");
 
