@@ -1001,11 +1001,6 @@
         "tags": [
           "Users"
         ],
-        "security": [
-          {
-            "JWTAuth": []
-          }
-        ],
         "parameters": [
           {
             "name": "id",
