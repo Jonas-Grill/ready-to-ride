@@ -203,5 +203,12 @@ Die auf unserer Webseite veröffentlichen Inhalte und Werke unterliegen dem deut
     <string name="dates">13.06.2022 - 19.06.2022</string>
     <string name="book_now">Jetzt Buchen</string>
 
+    <string name="newsTitle1">Helm gefunden</string>
+    <string name="newsTitle2">Trainer krank</string>
+    <string name="newsTitle3">Reitfest</string>
+
+    <string name="newsDesc1">Letzten Freitag, roter Helm, Stall 11</string>
+    <string name="newsDesc2">Alexander von Falkenstein hat sich mit Corona infiziert und fällt kommende Woche aus</string>
+    <string name="newsDesc3">Am 08.07.2022 findet das jährliche Reitfest statt. Speisen und Getränke werden vor Ort angeboten. Für die einzelnen Stände hängen am Eingang Helferlisten aus. Wir sind dankbar für jeden der uns beim Fest unterstützen kann.</string>
 
 </resources>
