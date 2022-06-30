@@ -1,6 +1,7 @@
 import * as horseRepo from "../repositories/horseRepo.ts";
 import {ExtendedHorseSchema, HorseSchema} from "../types/horse.ts";
 import HorseModel from "../models/horseModel.ts";
+import {deleteImage} from "./imageService.ts";
 
 export async function deleteHorse(id: string) {
     await horseRepo.deleteHorse(id);
@@ -52,6 +53,53 @@ export const updateHorse = async (horse: any, id: string) => {
         description: horse.description || oldHorse.description,
         pictures: horse.pictures || oldHorse.pictures,
     });
+
+    if (!newHorse) {
+        throw new Error("Error in updateHorse Method in horseService.");
+    }
+
+    return horseModelToExtendedHorse(newHorse);
+}
+
+export const addImage = async (id: string, imageId: string) => {
+    const horse: HorseModel | undefined = await horseRepo.findHorseById(id);
+
+    if (!(horse)) {
+        return;
+    }
+
+    if (horse.pictures) {
+        horse.pictures.push(imageId);
+    } else {
+        horse.pictures = [imageId];
+    }
+
+    const newHorse: HorseModel | undefined = await horseRepo.updateHorse(horse);
+
+    if (!newHorse) {
+        throw new Error("Error in updateHorse Method in horseService.");
+    }
+
+    return horseModelToExtendedHorse(newHorse);
+}
+
+export const removeImage = async (id: string, imageId: string) => {
+    await deleteImage(imageId)
+
+    const horse: HorseModel | undefined = await horseRepo.findHorseById(id);
+
+    if (!(horse)) {
+        return;
+    }
+
+    if (horse.pictures) {
+        const index = horse.pictures.indexOf(imageId, 0);
+        if (index > -1) {
+            horse.pictures.splice(index, 1);
+        }
+    }
+
+    const newHorse: HorseModel | undefined = await horseRepo.updateHorse(horse);
 
     if (!newHorse) {
         throw new Error("Error in updateHorse Method in horseService.");
