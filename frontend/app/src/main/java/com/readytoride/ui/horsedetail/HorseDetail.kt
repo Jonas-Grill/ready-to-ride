@@ -31,13 +31,12 @@ class HorseDetail : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         this.horseId = args.horseId.toString()
+        viewModel = ViewModelProvider(this).get(HorseDetailViewModel::class.java)
         return inflater.inflate(R.layout.fragment_horse_detail, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HorseDetailViewModel::class.java)
-        viewModel.getHorse(this.horseId)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,25 +50,26 @@ class HorseDetail : Fragment() {
         val textViewDifficulty: TextView = view.findViewById(R.id.difficulty_detail)
         val textViewDescription: TextView = view.findViewById(R.id.horsedescription_detail)
 
-        //val index: Int = horseId.toInt()
-        //val horse = HorseDatasource().loadHorses()[index - 1]
+        viewModel.getHorse(this.horseId)
 
-        textViewHorsename.text = this.horse.name
-        textViewHeight.text = getString(this.horse.height)
-        textViewRace.text = this.horse.race
-        textViewAge.text = getString(this.horse.age)
-        textViewColour.text = this.horse.colour
-        textViewDifficulty.text = this.horse.difficultyLevel
-        textViewDescription.text = this.horse.description
+        viewModel.horse.observe(viewLifecycleOwner) {
+            textViewHorsename.text = it.name
+            textViewHeight.text = it.height.toString() + " cm"
+            textViewRace.text =  it.race
+            textViewAge.text = it.age.toString()
+            textViewColour.text = it.colour
+            textViewDifficulty.text = it.difficultyLevel
+            textViewDescription.text = it.description
 
-        val imageList = ArrayList<SlideModel>()
+            val imageList = ArrayList<SlideModel>()
 
-        for (image in this.horse.pictures) {
-            imageList.add(SlideModel(image))
+            for (image in it.pictures) {
+                imageList.add(SlideModel(image))
+            }
+
+            val imageSlider = view.findViewById<ImageSlider>(R.id.imageSliderTrainer)
+            imageSlider.setImageList(imageList)
         }
-
-        val imageSlider = view.findViewById<ImageSlider>(R.id.imageSliderTrainer)
-        imageSlider.setImageList(imageList)
 
         val bookingButton: Button = view.findViewById(R.id.button)
         bookingButton.setOnClickListener {

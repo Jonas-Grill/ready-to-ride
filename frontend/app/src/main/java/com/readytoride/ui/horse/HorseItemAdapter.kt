@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
 import com.readytoride.network.HorseApi.HorseEntity
 
-class HorseItemAdapter(private val context: HorseFragment, private val dataset: List<HorseEntity>) :
+class HorseItemAdapter(private val context: HorseFragment, private val dataset: MutableList<HorseEntity>) :
     RecyclerView.Adapter<HorseItemAdapter.ItemViewHolder>(), View.OnClickListener {
 
     class ItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -37,9 +37,9 @@ class HorseItemAdapter(private val context: HorseFragment, private val dataset: 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = dataset[position]
         holder.textViewName.text = item.name
-        holder.textViewHeight.text = context.resources.getString(item.height)
+        holder.textViewHeight.text = item.height.toString() + " cm"
         holder.textViewRace.text = item.race
-        holder.textViewAge.text = context.resources.getString(item.age)
+        holder.textViewAge.text = item.age.toString()
         holder.textViewColour.text = item.colour
         holder.textViewDifficulty.text = item.difficultyLevel
         holder.imageView.setImageURI(item.profilePicture.toUri())

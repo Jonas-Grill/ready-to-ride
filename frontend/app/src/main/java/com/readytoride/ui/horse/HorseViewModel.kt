@@ -7,15 +7,18 @@ import androidx.lifecycle.viewModelScope
 import com.readytoride.network.HorseApi.HorseApi
 import com.readytoride.network.HorseApi.HorseEntity
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class HorseViewModel : ViewModel() {
-    var horses: MutableList<HorseEntity> = mutableListOf()
+    private val _horses = MutableLiveData<MutableList<HorseEntity>>()
+    val horses: LiveData<MutableList<HorseEntity>> = _horses
 
-    fun getHorseList() {
+    internal fun getAllHorses() {
         viewModelScope.launch {
             try {
-                horses = HorseApi.retrofitService.getHorses().toMutableList()
-            } catch (e: Exception) {
+                val listResult = HorseApi.retrofitService.getHorses().toMutableList()
+                _horses.value = listResult
+            } catch (e: Exception){
 
             }
         }

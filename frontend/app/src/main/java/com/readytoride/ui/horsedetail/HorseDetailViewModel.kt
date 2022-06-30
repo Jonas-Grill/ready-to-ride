@@ -1,5 +1,7 @@
 package com.readytoride.ui.horsedetail
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.readytoride.network.HorseApi.HorseApi
@@ -8,14 +10,16 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class HorseDetailViewModel : ViewModel() {
-    var horse: HorseEntity = HorseEntity("", "", 0, "", 0, "", "", "", "", listOf(""))
+    private val _horse = MutableLiveData<HorseEntity>()
+    val horse: LiveData<HorseEntity> = _horse
 
     fun getHorse(id: String) {
         viewModelScope.launch {
             try {
                 val listResult = HorseApi.retrofitService.getHorseById(id)
-                horse = listResult
+                _horse.value = listResult
             } catch (e: Exception){
+
             }
         }
     }
