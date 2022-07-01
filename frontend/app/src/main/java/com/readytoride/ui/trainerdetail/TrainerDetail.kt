@@ -49,7 +49,7 @@ class TrainerDetail : Fragment() {
 
         viewModel.trainer.observe(viewLifecycleOwner){
             val name: Name = it.name
-            val nameString: String = name.firstName + name.lastName
+            val nameString: String = name.firstName + " " + name.lastName
             textViewTrainername.text = nameString
 
             textViewAge.text = it.age.toString()

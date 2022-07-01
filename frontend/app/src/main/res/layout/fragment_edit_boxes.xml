@@ -42,7 +42,7 @@
                 android:paddingVertical="8dp">
 
                 <Spinner
-                    android:id="@+id/spinner_box"
+                    android:id="@+id/spinner_box_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingVertical="8dp" />
@@ -69,6 +69,7 @@
                         android:id="@+id/edit_box_size"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:hint="@string/size" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,6 +82,7 @@
                         android:id="@+id/edit_box_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:hint="@string/price" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,6 +95,7 @@
                         android:id="@+id/edit_box_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:hint="@string/number" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -104,12 +107,11 @@
                 android:orientation="vertical"
                 android:paddingVertical="8dp">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_delete_boxes"
+                <Spinner
+                    android:id="@+id/spinner_boxes_delete"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layoutManager="GridLayoutManager" />
-
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="8dp"  />
             </LinearLayout>
 
             <LinearLayout
@@ -140,6 +142,7 @@
                         android:id="@+id/add_box_size"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:hint="@string/size" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -152,6 +155,7 @@
                         android:id="@+id/add_box_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:hint="@string/price" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -164,6 +168,7 @@
                         android:id="@+id/add_box_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:hint="@string/number" />
                 </com.google.android.material.textfield.TextInputLayout>
 

@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.readytoride.network.StableApi.StableApi
 import com.readytoride.network.StableApi.StableEntity
+import com.readytoride.network.UserApi.LoginEntity
+import com.readytoride.network.UserApi.UserApi
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -25,12 +27,11 @@ class EditArenasViewModel : ViewModel() {
     }
 
     internal fun setStable(stableEdited: StableEntity){
-        println(stableEdited)
         viewModelScope.launch {
             try {
-
-                //val listResult = StableApi.retrofitService.getStables()
-                //_stable.value = listResult
+                val stableEntity = stableEdited
+                val token = " " //TODO: Richtigen Token laden
+                var response = StableApi.retrofitService.updateStable(token, stableEntity)
             } catch (e: Exception){
 
             }

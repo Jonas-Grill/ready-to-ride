@@ -51,6 +51,13 @@ class StableFragment : Fragment(){
         val buttonEditBoxes = view.findViewById<Button>(R.id.button8)
         val buttonEditArenas = view.findViewById<Button>(R.id.button9)
 
+        //TODO: Buttons only visible for Admins
+        val role = ""
+        if (role != "Admin") {
+            buttonEditBoxes.visibility = View.GONE
+            buttonEditArenas.visibility = View.GONE
+        }
+
         buttonEditBoxes.setOnClickListener{
             val action = StableFragmentDirections.actionNavStableToEditBoxesFragment()
             view.findNavController().navigate(action)
@@ -60,8 +67,6 @@ class StableFragment : Fragment(){
             val action = StableFragmentDirections.actionNavStableToEditArenasFragment()
             view.findNavController().navigate(action)
         }
-
-        //TODO: Buttons only visible for Admins
 
     }
 

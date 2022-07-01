@@ -8,12 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.readytoride.R
+import com.readytoride.network.StableApi.Arena
+import com.readytoride.network.StableApi.Box
 import com.readytoride.network.StableApi.StableEntity
-import com.readytoride.ui.stable.ArenaItemAdapter
-import com.readytoride.ui.stable.BoxItemAdapter
 
 class EditBoxesFragment : Fragment() {
 
@@ -27,12 +26,12 @@ class EditBoxesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel = ViewModelProvider(this).get(EditBoxesViewModel::class.java)
         return inflater.inflate(R.layout.fragment_edit_boxes, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EditBoxesViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,6 +48,15 @@ class EditBoxesFragment : Fragment() {
         val layoutAdd: LinearLayout = view.findViewById(R.id.action_add_boxes)
         val layoutDelete: LinearLayout = view.findViewById(R.id.action_delete_box)
 
+        val spinnerAction: Spinner = view.findViewById(R.id.spinner_action_box)
+        val spinnerBoxEdit: Spinner = view.findViewById(R.id.spinner_box_edit)
+        val spinnerBoxDelete: Spinner = view.findViewById(R.id.spinner_boxes_delete)
+
+        var stableObject: StableEntity = StableEntity("", "", "", listOf<Arena>(), listOf<Box>())
+        var boxes: MutableList<Box> = mutableListOf()
+        var selectedBoxEdit = ""
+        var selectedBoxDelete = ""
+
         layoutAdd.visibility = View.GONE
         layoutEdit.visibility = View.GONE
         layoutDelete.visibility = View.GONE
@@ -56,11 +64,14 @@ class EditBoxesFragment : Fragment() {
         viewModel.getStable()
         val myObserver = Observer<StableEntity> { newStable -> run{
             val myDatasetBox = newStable.boxes
-            val recyclerBox: RecyclerView = view.findViewById(R.id.recycler_delete_boxes)
-            recyclerBox.adapter = BoxesSelectionItemAdapter(this, myDatasetBox)
-            recyclerBox.setHasFixedSize(true)
+            boxes = newStable.boxes.toMutableList()
+            stableObject = newStable
 
-            val spinnerAction: Spinner = view.findViewById(R.id.spinner_action_box)
+            val myBoxNames: MutableList<String> = mutableListOf()
+            for (item in myDatasetBox){
+                myBoxNames.add(item.name)
+            }
+
             ArrayAdapter.createFromResource(view.context, R.array.actionsbox, android.R.layout.simple_spinner_item
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -88,23 +99,41 @@ class EditBoxesFragment : Fragment() {
                 }
             }
 
-            val myBoxNames: MutableList<String> = mutableListOf()
-            for (item in myDatasetBox){
-                myBoxNames.add(item.name)
-            }
-            val spinnerArena: Spinner = view.findViewById(R.id.spinner_box)
             ArrayAdapter(view.context, android.R.layout.simple_spinner_item, myBoxNames
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 // Apply the adapter to the spinner
-                spinnerArena.adapter = adapter
+                spinnerBoxDelete.adapter = adapter
             }
-            spinnerArena.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            spinnerBoxDelete.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 
                 }
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    //TODO: Change Text in TextInput as it is now
+                    selectedBoxDelete = spinnerBoxDelete.selectedItem.toString()
+                }
+            }
+
+            ArrayAdapter(view.context, android.R.layout.simple_spinner_item, myBoxNames
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                // Apply the adapter to the spinner
+                spinnerBoxEdit.adapter = adapter
+            }
+            spinnerBoxEdit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    selectedBoxEdit = spinnerBoxEdit.selectedItem.toString()
+                    for (box in newStable.boxes){
+                        if (box.name == selectedBoxEdit) {
+                            changeName.setText(box.name)
+                            changeSize.setText(box.size.toString())
+                            changeNumber.setText(box.count.toString())
+                            changePrice.setText(box.price.toString())
+                        }
+                    }
 
                 }
             }
@@ -113,7 +142,38 @@ class EditBoxesFragment : Fragment() {
 
         val buttonSubmitChanges: Button = view.findViewById(R.id.buttonSubmitChangesBox)
         buttonSubmitChanges.setOnClickListener {
-            //TODO: Read Changes and send them to backend
+            if (spinnerAction.selectedItem.toString() == "Box bearbeiten") {
+                for (box in boxes) {
+                    if (box.name == selectedBoxEdit) {
+                        boxes.remove(box)
+                        boxes.add(
+                            Box(
+                                changeName.text.toString(),
+                                changePrice.text.toString().toInt(),
+                                changeSize.text.toString().toDouble(),
+                                changeNumber.text.toString().toInt()
+                            )
+                        )
+                        break
+                    }
+                }
+            } else if (spinnerAction.selectedItem.toString() == "Box erstellen") {
+                boxes.add(Box(addName.text.toString(), addPrice.text.toString().toInt(), addSize.text.toString().toDouble(), addNumber.text.toString().toInt()))
+                addName.text?.clear()
+                addSize.text?.clear()
+                addPrice.text?.clear()
+                addNumber.text?.clear()
+            } else if (spinnerAction.selectedItem.toString() == "Box löschen") {
+                for (box in boxes) {
+                    if (box.name == selectedBoxDelete) {
+                        boxes.remove(box)
+                        break
+                    }
+                }
+            }
+
+            stableObject.boxes = boxes
+            viewModel.setStable(stableObject)
         }
     }
 }

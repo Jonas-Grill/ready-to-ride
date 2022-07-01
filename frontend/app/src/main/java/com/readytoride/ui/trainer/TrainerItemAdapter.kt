@@ -39,7 +39,7 @@ class TrainerItemAdapter(private val context: TrainerFragment, private val datas
         val item = dataset[position]
 
         val name: Name = item.name
-        val nameString: String = name.firstName + name.lastName
+        val nameString: String = name.firstName + " " + name.lastName
         holder.textViewName.text = nameString
 
         val certificates: List<Accomplishment> = item.certificates
