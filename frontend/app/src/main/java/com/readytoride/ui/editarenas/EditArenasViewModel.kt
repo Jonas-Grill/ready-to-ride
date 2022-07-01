@@ -23,4 +23,18 @@ class EditArenasViewModel : ViewModel() {
             }
         }
     }
+
+    internal fun setStable(stableEdited: StableEntity){
+        println(stableEdited)
+        viewModelScope.launch {
+            try {
+
+                //val listResult = StableApi.retrofitService.getStables()
+                //_stable.value = listResult
+            } catch (e: Exception){
+
+            }
+        }
+    }
+
 }

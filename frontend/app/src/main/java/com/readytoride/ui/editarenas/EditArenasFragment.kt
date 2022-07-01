@@ -8,12 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.readytoride.R
+import com.readytoride.network.StableApi.Arena
+import com.readytoride.network.StableApi.Box
 import com.readytoride.network.StableApi.StableEntity
-import com.readytoride.ui.stable.ArenaItemAdapter
-import com.readytoride.ui.stable.BoxItemAdapter
 
 class EditArenasFragment : Fragment() {
 
@@ -41,71 +40,151 @@ class EditArenasFragment : Fragment() {
         val layoutAdd: LinearLayout = view.findViewById(R.id.action_add_arena)
         val layoutDelete: LinearLayout = view.findViewById(R.id.action_delete_arena)
 
+        val spinnerAction: Spinner = view.findViewById(R.id.spinner_action_arena)
+        val spinnerArenaEdit: Spinner = view.findViewById(R.id.spinner_arena_edit)
+        val spinnerArenaDelete: Spinner = view.findViewById(R.id.spinner_arena_delete)
+
+        var stableObject: StableEntity = StableEntity("", "", "", listOf<Arena>(), listOf<Box>())
+        var arenas: MutableList<Arena> = mutableListOf()
+        var selectedArenaEdit = ""
+        var selectedArenaDelete = ""
+
         layoutAdd.visibility = View.GONE
         layoutEdit.visibility = View.GONE
         layoutDelete.visibility = View.GONE
 
         viewModel.getStable()
-        val myObserver = Observer<StableEntity> { newStable -> run{
-            val myDatasetArena = newStable.arenas
-            val recyclerArenas: RecyclerView = view.findViewById(R.id.recycler_delete_arenas)
-            recyclerArenas.adapter = ArenaSelectionItemAdapter(this, myDatasetArena)
-            recyclerArenas.setHasFixedSize(true)
+        val myObserver = Observer<StableEntity> { newStable ->
+            run {
+                val myDatasetArena = newStable.arenas
+                arenas = newStable.arenas.toMutableList()
+                stableObject = newStable
 
-            val spinnerAction: Spinner = view.findViewById(R.id.spinner_action_arena)
-            ArrayAdapter.createFromResource(view.context, R.array.actionsarena, android.R.layout.simple_spinner_item
-            ).also { adapter ->
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                // Apply the adapter to the spinner
-                spinnerAction.adapter = adapter
-            }
-            spinnerAction.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-
+                val myArenaNames: MutableList<String> = mutableListOf()
+                for (item in myDatasetArena) {
+                    myArenaNames.add(item.name)
                 }
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    if (id == 0.toLong()){
-                        layoutAdd.visibility = View.GONE
-                        layoutEdit.visibility = View.VISIBLE
-                        layoutDelete.visibility = View.GONE
-                    } else if (id == 1.toLong()){
-                        layoutAdd.visibility = View.VISIBLE
-                        layoutEdit.visibility = View.GONE
-                        layoutDelete.visibility = View.GONE
-                    } else if (id == 2.toLong()){
-                        layoutAdd.visibility = View.GONE
-                        layoutEdit.visibility = View.GONE
-                        layoutDelete.visibility = View.VISIBLE
+
+                ArrayAdapter.createFromResource(
+                    view.context, R.array.actionsarena, android.R.layout.simple_spinner_item
+                ).also { adapter ->
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    // Apply the adapter to the spinner
+                    spinnerAction.adapter = adapter
+                }
+                spinnerAction.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                    }
+
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        if (id == 0.toLong()) {
+                            layoutAdd.visibility = View.GONE
+                            layoutEdit.visibility = View.VISIBLE
+                            layoutDelete.visibility = View.GONE
+                        } else if (id == 1.toLong()) {
+                            layoutAdd.visibility = View.VISIBLE
+                            layoutEdit.visibility = View.GONE
+                            layoutDelete.visibility = View.GONE
+                        } else if (id == 2.toLong()) {
+                            layoutAdd.visibility = View.GONE
+                            layoutEdit.visibility = View.GONE
+                            layoutDelete.visibility = View.VISIBLE
+                        }
                     }
                 }
-            }
 
-            val myArenaNames: MutableList<String> = mutableListOf()
-            for (item in myDatasetArena){
-                myArenaNames.add(item.name)
-            }
-            val spinnerArena: Spinner = view.findViewById(R.id.spinner_arena)
-            ArrayAdapter(view.context, android.R.layout.simple_spinner_item, myArenaNames
-            ).also { adapter ->
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                // Apply the adapter to the spinner
-                spinnerArena.adapter = adapter
-            }
-            spinnerArena.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-
+                ArrayAdapter(
+                    view.context, android.R.layout.simple_spinner_item, myArenaNames
+                ).also { adapter ->
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    // Apply the adapter to the spinner
+                    spinnerArenaDelete.adapter = adapter
                 }
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    //TODO: Change Text in TextInput as it is now
+                spinnerArenaDelete.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
 
+                        }
+
+                        override fun onItemSelected(
+                            parent: AdapterView<*>?,
+                            view: View?,
+                            position: Int,
+                            id: Long
+                        ) {
+                            selectedArenaDelete = spinnerArenaDelete.selectedItem.toString()
+                        }
+                    }
+
+                ArrayAdapter(
+                    view.context, android.R.layout.simple_spinner_item, myArenaNames
+                ).also { adapter ->
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    // Apply the adapter to the spinner
+                    spinnerArenaEdit.adapter = adapter
                 }
+                spinnerArenaEdit.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                        }
+
+                        override fun onItemSelected(
+                            parent: AdapterView<*>?,
+                            view: View?,
+                            position: Int,
+                            id: Long
+                        ) {
+                            selectedArenaEdit = spinnerArenaEdit.selectedItem.toString()
+                            for (arena in newStable.arenas) {
+                                if (arena.name == selectedArenaEdit) {
+                                    changeName.setText(arena.name)
+                                    changeSize.setText(arena.size.toString())
+                                }
+                            }
+                        }
+                    }
             }
-        }}
+        }
         viewModel.stable.observe(viewLifecycleOwner, myObserver)
 
         val buttonSubmitChanges: Button = view.findViewById(R.id.button10)
         buttonSubmitChanges.setOnClickListener {
-            //TODO: Read Changes and send them to backend
+            if (spinnerAction.selectedItem.toString() == "Anlage bearbeiten") {
+                for (arena in arenas) {
+                    if (arena.name == selectedArenaEdit) {
+                        arenas.remove(arena)
+                        arenas.add(
+                            Arena(
+                                changeName.text.toString(),
+                                changeSize.text.toString().toInt()
+                            )
+                        )
+                        break
+                    }
+                }
+            } else if (spinnerAction.selectedItem.toString() == "Anlage erstellen") {
+                arenas.add(Arena(addName.text.toString(), addSize.text.toString().toInt()))
+                addName.text?.clear()
+                addSize.text?.clear()
+            } else if (spinnerAction.selectedItem.toString() == "Anlage löschen") {
+                for (arena in arenas) {
+                    if (arena.name == selectedArenaDelete) {
+                        arenas.remove(arena)
+                        break
+                    }
+                }
+            }
+
+            stableObject.arenas = arenas
+            viewModel.setStable(stableObject)
+
         }
     }
 }

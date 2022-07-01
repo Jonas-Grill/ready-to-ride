@@ -4,10 +4,10 @@ data class StableEntity(
     val _id: String = " ",
     val name: String,
     val description: String,
-    val arenas: List<Arena>,
-    val boxes: List<Box>
+    var arenas: List<Arena>,
+    var boxes: List<Box>
 )
 
-data class Arena(val name: String, val size: Int)
+data class Arena(var name: String, var size: Int)
 
-data class Box(val name: String, val price: Int, val size: Double, val count: Int)
+data class Box(var name: String, var price: Int, var size: Double, var count: Int)
