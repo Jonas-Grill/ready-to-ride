@@ -38,6 +38,9 @@ interface HorseApiService {
 
     @DELETE("horses/{id}")
     suspend fun deleteHorse(@Header("Authorization") token: String, @Path("id") horseId: String): String
+
+    @DELETE("horses/{id}/images/{imageId}")
+    suspend fun deleteHorsePicture(@Header("Authorization") token: String, @Path("id") horseId: String, @Path("imageId") imageId: String)
 }
 
 object HorseApi {
