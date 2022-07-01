@@ -60,8 +60,8 @@ router
     // Auth required
     .use(authMiddleware)
     // User
-    .get("/users/me/calendar", findRidingLessonsByCurrentUser)
-    .get("/users/me", findCurrentUser)
+    .get("/me/calendar", findRidingLessonsByCurrentUser)
+    .get("/me", findCurrentUser)
     .get("/users/:id/calendar", findRidingLessonsByUserId)
     .put("/users", updateUser)
     // Horse
