@@ -1245,7 +1245,7 @@
         }
       }
     },
-    "/users/me": {
+    "/me": {
       "get": {
         "description": "Returns the currently authenticated user.",
         "operationId": "find user by email",
@@ -1291,7 +1291,7 @@
         }
       }
     },
-    "/users/me/calendar": {
+    "/me/calendar": {
       "get": {
         "description": "Get all bookings from the authorized user.",
         "operationId": "find booking by user",
