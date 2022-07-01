@@ -16,7 +16,7 @@ class EditArenasViewModel : ViewModel() {
     internal fun getStable() {
         viewModelScope.launch {
             try {
-                val listResult = StableApi.retrofitService.getStable()
+                val listResult = StableApi.retrofitService.getStables()
                 _stable.value = listResult
             } catch (e: Exception){
 
