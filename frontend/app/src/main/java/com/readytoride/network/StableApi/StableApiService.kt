@@ -1,6 +1,6 @@
 package com.readytoride.network.StableApi
 
-import com.readytoride.network.HorseApi.HorseEntity
+import com.readytoride.network.LessonApi.LessonEntity
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -18,6 +18,9 @@ interface StableApiService {
 
     @GET("stable")
     suspend fun getStables(): StableEntity
+
+    @GET("stable/arenas/{name}/calendar")
+    suspend fun getBookingForArena(@Header("Authorization") token: String, @Path("name") arenaName: String): List<LessonEntity>
 
     @PUT("stable")
     suspend fun updateStable(@Header("Authorization") token: String, @Body requestBody: StableEntity): StableEntity

@@ -42,6 +42,7 @@ router
     .get("/users/proficiencies", findUserProficiencies)
     .post("/users", registration)
     .post("/users/login", login)
+    .get("/users/:id", findUserById)
     // Horse
     .get("/horses", findHorse)
     .get("/horses/races", findHorseRaces)
@@ -62,7 +63,6 @@ router
     .get("/users/me/calendar", findRidingLessonsByCurrentUser)
     .get("/users/me", findCurrentUser)
     .get("/users/:id/calendar", findRidingLessonsByUserId)
-    .get("/users/:id", findUserById)
     .put("/users", updateUser)
     // Horse
     .post("/horses", addHorse)
