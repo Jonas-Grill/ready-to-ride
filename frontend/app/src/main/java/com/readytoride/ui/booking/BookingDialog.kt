@@ -8,14 +8,19 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import com.readytoride.R
 
 class BookingDialog : DialogFragment() {
+
+    private lateinit var viewModel: BookingViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel = ViewModelProvider(this).get(BookingViewModel::class.java)
         return inflater.inflate(com.readytoride.R.layout.fragment_booking_dialog, container, false)
     }
 
@@ -27,10 +32,22 @@ class BookingDialog : DialogFragment() {
         val failMessage: LinearLayout = view.findViewById(R.id.linear_layout_fail)
         val submitButton: Button = view.findViewById(R.id.booking_button)
 
-        //TODO: Fail Message ohne Button anzeigen, wenn kein User angemeldet
+        val role = "A" //TODO: Richtige Rolle laden
+        if (role == "") {
+            failMessage.visibility = View.VISIBLE
+            firstMessage.visibility = View.GONE
+            submitButton.visibility = View.GONE
+            secondMessage.visibility = View.GONE
+        } else {
+            failMessage.visibility = View.GONE
+            secondMessage.visibility = View.GONE
+            println("1: "+submitButton.isClickable)
+        }
 
         firstMessage.setOnClickListener {
+            println("2: "+submitButton.isClickable)
             submitButton.isClickable = !submitButton.isClickable
+            println("3: "+submitButton.isClickable)
         }
 
         submitButton.setOnClickListener {
@@ -38,10 +55,11 @@ class BookingDialog : DialogFragment() {
             submitButton.visibility = View.GONE
             secondMessage.visibility = View.VISIBLE
 
-            //Buchung durchführen
+            viewModel.bookLesson()
+
         }
 
-        secondMessage.visibility = View.GONE
         submitButton.isClickable = false
+
     }
 }

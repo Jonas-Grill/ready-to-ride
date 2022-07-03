@@ -17,7 +17,7 @@ private val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFact
 interface LessonApiService {
 
     @GET("ridinglessons")
-    suspend fun getLessons(): List<LessonEntity>
+    suspend fun getLessons(): MutableList<LessonEntity>
 
     @POST("ridinglessons")
     suspend fun postNewLesson(@Header("Authorization") token: String, @Body requestBody: PostingLessonEntity): LessonEntity

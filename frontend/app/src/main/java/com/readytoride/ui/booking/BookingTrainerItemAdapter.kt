@@ -7,11 +7,11 @@ import android.widget.CheckBox
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
-import com.readytoride.ui.trainer.Trainer
+import com.readytoride.network.UserApi.UserEntity
 
 class BookingTrainerItemAdapter(
     private val context: BookingFragment,
-    private val dataset: List<Trainer>,
+    private val dataset: MutableList<UserEntity>,
     private val trainerId: String,
 ) :
     RecyclerView.Adapter<BookingTrainerItemAdapter.ItemViewHolder>() {
@@ -33,8 +33,9 @@ class BookingTrainerItemAdapter(
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = dataset[position]
-        holder.checkbox.text = context.resources.getString(item.trainerStringResourceId)
-        holder.checkbox.tooltipText = context.resources.getString(item.trainerId)
+        val name = item.name
+        holder.checkbox.text = name.firstName + " " + name.lastName
+        holder.checkbox.tooltipText = item._id
 
         holder.checkbox.setOnClickListener {
             val trainerid = holder.checkbox.tooltipText.toString()

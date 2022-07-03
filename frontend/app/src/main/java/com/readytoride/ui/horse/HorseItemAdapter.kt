@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.DownloadImageTask
 import com.readytoride.R
 import com.readytoride.network.HorseApi.HorseEntity
+import com.readytoride.ui.booking.BookingFragment
 
 class HorseItemAdapter(private val context: HorseFragment, private val dataset: MutableList<HorseEntity>) :
     RecyclerView.Adapter<HorseItemAdapter.ItemViewHolder>(), View.OnClickListener {
