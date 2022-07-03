@@ -3,8 +3,8 @@ export enum Focus {
     COMPETITIVE = "Turnierreiter",
     BEGINNER = "Anfänger",
     CHILDREN  = "Kinder",
-    INTERMEDIATE  = "Fortgeschrittener ",
-    ADULTS  = "Erwachsene ",
+    INTERMEDIATE  = "Fortgeschrittener",
+    ADULTS  = "Erwachsene",
 }
 
 export const FOCUSES = [
