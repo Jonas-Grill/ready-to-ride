@@ -19,12 +19,12 @@ interface LessonApiService {
     @GET("ridinglessons")
     suspend fun getLessons(): MutableList<LessonEntity>
 
-    @POST("ridinglessons")
-    suspend fun postNewLesson(@Header("Authorization") token: String, @Body requestBody: PostingLessonEntity): LessonEntity
+    //probably not needed
+    //@POST("ridinglessons")
+    //suspend fun postNewLesson(@Header("Authorization") token: String, @Body requestBody: PostingLessonEntity): LessonEntity
 
-//May or may not be in final Version
-    //@POST("ridinglessons/multiple")
-    //suspend fun postNewLessons(@Header("Authorization") token: String, @Body requestBody: List<PostingLessonEntity>): List<LessonEntity>
+    @POST("ridinglessons/multiple")
+    suspend fun postNewLessons(@Header("Authorization") token: String, @Body requestBody: PostingLessonEntity): List<LessonEntity>
 
     @POST("ridinglessons/{id}/book")
     suspend fun makeBookingRequest(@Header("Authorization") token: String, @Body requestBody: HorseIdForLesson, @Path("id") lessonId: String): LessonEntity

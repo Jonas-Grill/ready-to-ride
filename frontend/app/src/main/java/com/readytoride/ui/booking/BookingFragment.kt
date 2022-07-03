@@ -192,8 +192,8 @@ class BookingFragment : Fragment() {
             viewModel.getAllLessons(date1.toString())
 
             //TODO: Später noch rausnehmen, gerade nur zu Testzwecken
-            //val action = BookingFragmentDirections.actionNavLessonsToCreateLesson()
-            //view.findNavController().navigate(action)
+            val action = BookingFragmentDirections.actionNavLessonsToCreateLesson()
+            view.findNavController().navigate(action)
         }
 
     }
