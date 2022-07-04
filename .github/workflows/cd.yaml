@@ -2,7 +2,7 @@ name: CD
 
 on:
   push:
-    branches: [ main, apk-downloadable ]
+    branches: [ main ]
 
 permissions:
   contents: write

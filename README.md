@@ -14,9 +14,9 @@ Eine native Android-App, in der man als Stallbesitzer seinen Reitstall verwalten
 **Jonas Grill:** Backend, Linting-Integration, Code Review  
 **Niklas Schäfer:** Frontend, Dokumentation, Code Review  
 
-## Unsere Webseite
+## Unsere App
 
-https://www.ready-to-ride.tk
+https://www.ready-to-ride-backend.tk
 
 ## Unsere PPT-Präsentation
 
