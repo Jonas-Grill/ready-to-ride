@@ -22,7 +22,7 @@ export async function findImage(id: string): Promise<Uint8Array> {
 export async function addImage(data: Uint8Array): Promise<string> {
     const id: string = crypto.randomUUID();
 
-    ensureDir(imageDir);
+    await ensureDir(imageDir);
 
     await Deno.writeFile(`${imageDir}${id}.png`, data);
 
