@@ -41,16 +41,16 @@ jobs:
           echo ${{ secrets.ENV_FILE }} >> .env
           cat .env
 
-      - name: Build Android App
-        uses: sparkfabrik/android-build-action@v1.2.0
-        with:
-          project-path: /frontend
-          output-path: ${{ secrets.APK_FILE_PATH }}
-
-      - name: test
-        run: |
-          cd backend
-          ls -a
+#      - name: Build Android App
+#        uses: sparkfabrik/android-build-action@v1.2.0
+#        with:
+#          project-path: /frontend
+#          output-path: ${{ secrets.APK_FILE_PATH }}
+#
+#      - name: test
+#        run: |
+#          cd backend
+#          ls -a
 
       - name: Deploy
         env:
