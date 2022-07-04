@@ -25,7 +25,7 @@ import {
     findRidingLesson, findRidingLessonsByArenaAndDay, findRidingLessonsByCurrentUser, findRidingLessonsByUserId
 } from "./controllers/ridingLessonController.ts";
 import {addNews, findNews} from "./controllers/newsController.ts";
-import {download, upload} from "./controllers/imageController.ts";
+import {download, listImages, upload} from "./controllers/imageController.ts";
 import {APK_FILE_PATH} from "./config/config.ts";
 
 const router = new Router();
@@ -59,6 +59,7 @@ router
     // News
     .get("/news", findNews)
     // Image
+    .get("/images", listImages)
     .get("/images/:id", download)
     // Auth required
     .use(authMiddleware)

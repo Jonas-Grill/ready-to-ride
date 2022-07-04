@@ -1,6 +1,6 @@
 import InvalidIdException from "../exceptions/invalidIdException.ts";
 
-const imageDir = "./images/";
+export const imageDir = "./images/";
 
 export async function findImage(id: string): Promise<Uint8Array> {
     id = id.replace(/\s/g, '');
