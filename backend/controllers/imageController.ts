@@ -1,5 +1,18 @@
 import {Context, helpers, Status} from "./../deps.ts";
-import {addImage, findImage} from "./../services/imageService.ts";
+import {addImage, findImage, imageDir} from "./../services/imageService.ts";
+
+export const listImages = async (ctx: Context) => {
+    const fileNames: string[] = [];
+
+    for await (const dirEntry of Deno.readDir(imageDir)) {
+        if (dirEntry.isFile) {
+            fileNames.push(dirEntry.name);
+        }
+    }
+
+    ctx.response.status = Status.OK;
+    ctx.response.body = fileNames;
+}
 
 export const upload = async (ctx: Context) => {
     ctx.assert(ctx.request.hasBody, Status.BadRequest, "Please provide data");
@@ -16,7 +29,7 @@ export const upload = async (ctx: Context) => {
 };
 
 export const download = async (ctx: Context) => {
-    const id: string = helpers.getQuery(ctx, { mergeParams: true }).id;
+    const id: string = helpers.getQuery(ctx, {mergeParams: true}).id;
 
     ctx.assert(id, Status.BadRequest, "Please provide an id");
 
