@@ -41,12 +41,17 @@ jobs:
           echo ${{ secrets.ENV_FILE }} >> .env
           cat .env
 
-      - name: Build Android App
-        uses: sparkfabrik/android-build-action@v1.2.0
+      - name: Setup Java
+        uses: actions/setup-java@v3
         with:
-          project-path: frontend
-#          output-path: /backend
-#          output-path: ${{ secrets.APK_FILE_PATH }}
+          distribution: temurin
+          java-version: 11
+
+      - name: Build Android App
+        run: |
+          cd frontend
+          ./gradlew assembleDebug
+          cp /app/build/outputs/apk/debug/app-debug.apk ../backend
 
       - name: test
         run: |
