@@ -52,9 +52,9 @@ jobs:
           cd frontend
           ./gradlew assembleDebug
           ls 
-          cd /build
+          cd build
           ls
-          cd /outputs
+          cd outputs
           ls
 
       - name: test
