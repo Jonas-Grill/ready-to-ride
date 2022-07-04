@@ -51,7 +51,12 @@ jobs:
         run: |
           cd frontend
           ./gradlew assembleDebug
-          cp /app/build/outputs/apk/debug/app-debug.apk ../backend
+#          cp /app/build/outputs/apk/debug/app-debug.apk ../backend
+          ls 
+          cd /build
+          ls
+          cd /outputs
+          ls
 
       - name: test
         run: |
