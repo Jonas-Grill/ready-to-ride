@@ -45,7 +45,8 @@ jobs:
         uses: sparkfabrik/android-build-action@v1.2.0
         with:
           project-path: frontend
-          output-path: ${{ secrets.APK_FILE_PATH }}
+#          output-path: /backend
+#          output-path: ${{ secrets.APK_FILE_PATH }}
 
       - name: test
         run: |
