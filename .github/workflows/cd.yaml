@@ -2,7 +2,7 @@ name: CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, apk-downloadable ]
 
 permissions:
   contents: write
@@ -40,6 +40,18 @@ jobs:
           touch .env
           echo ${{ secrets.ENV_FILE }} >> .env
           cat .env
+
+      - name: Create test file
+        run: |
+          cd backend
+          touch test.txt
+          echo Hallo da >> test.txt
+          cat test.txt
+
+      - name: Test test file
+        run: |
+          cd backend
+          cat test.txt
 
       - name: Deploy
         env:
