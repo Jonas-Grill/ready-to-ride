@@ -10,7 +10,7 @@ services:
       - ${SERVER_PORT}:${SERVER_PORT}
     container_name: deno-api
     volumes:
-      - ./images/:/images
+      - ./images/:/app/images
     environment:
       DB_LINK: ${DB_LINK}
       CERT_PATH: ${CERT_PATH}
