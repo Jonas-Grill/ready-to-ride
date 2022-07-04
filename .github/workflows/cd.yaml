@@ -51,11 +51,7 @@ jobs:
         run: |
           cd frontend
           ./gradlew assembleDebug
-          ls 
-          cd build
-          ls
-          cd outputs
-          ls
+          ls -R
 
       - name: test
         run: |
