@@ -12,7 +12,7 @@ const instanceOfAlgorithm = (algorithm: string): algorithm is Algorithm => {
 
 const PORT = parseInt(Deno.env.get('SERVER_PORT') || "8008");
 const ENV = Deno.env.get('ENVIRONMENT') || "dev";
-const APK_FILE_PATH = Deno.env.get('APK_FILE_PATH') || "";
+const APK_FILE_PATH = Deno.env.get('APK_FILE_PATH') || "./app-debug.apk";
 const DB_LINK = Deno.env.get('DB_LINK') || "";
 
 // const CERT_PATH = Deno.env.get('CERT_PATH') || "";
