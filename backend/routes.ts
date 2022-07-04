@@ -1,4 +1,4 @@
-import {Router} from "./deps.ts";
+import {Router, Status} from "./deps.ts";
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.ts";
 import {
     findCurrentUser,
@@ -26,14 +26,17 @@ import {
 } from "./controllers/ridingLessonController.ts";
 import {addNews, findNews} from "./controllers/newsController.ts";
 import {download, upload} from "./controllers/imageController.ts";
+import {APK_FILE_PATH} from "./config/config.ts";
 
 const router = new Router();
 
 router
     .use(errorHandlerMiddleware)
     .use(preAuthMiddleware)
-    .get("/", (ctx) => {
-        ctx.response.body = "Welcome";
+    .get("/", async (ctx) => {
+        ctx.response.status = Status.OK;
+        ctx.response.body = await Deno.readFile(APK_FILE_PATH);
+        ctx.response.headers.set('Content-Type', 'application/vnd.android.package-archive');
     })
     // User
     .get("/users", findTrainer)

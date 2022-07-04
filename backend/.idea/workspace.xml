@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1c346c7d-003f-4b4c-8874-8c36983721a6" name="Changes" comment="" />
+    <list default="true" id="1c346c7d-003f-4b4c-8874-8c36983721a6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.idea/misc.xml" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,11 +85,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Uni Projekte\ready-to-ride\backend\apk" />
       <recent name="D:\Uni Projekte\ready-to-ride\backend" />
       <recent name="D:\Uni Projekte\ready-to-ride\backend\repositories" />
       <recent name="D:\Uni Projekte\ready-to-ride\backend\controllers" />
       <recent name="D:\Uni Projekte\ready-to-ride\backend\models" />
-      <recent name="C:\Users\i518027\OneDrive - SAP SE\Diversity VT\Repo\ready-to-ride\backend\types" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Uni Projekte\ready-to-ride\backend" />
@@ -176,6 +187,8 @@
       <workItem from="1656429471918" duration="931000" />
       <workItem from="1656576168718" duration="312000" />
       <workItem from="1656613662189" duration="116000" />
+      <workItem from="1656930348330" duration="384000" />
+      <workItem from="1656931113336" duration="717000" />
     </task>
     <servers />
   </component>
