@@ -19,6 +19,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.google.gson.annotations.SerializedName
 import com.readytoride.R
 import com.readytoride.databinding.FragmentHomeBinding
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -26,6 +28,7 @@ import kotlinx.android.synthetic.main.news_detail_dialog.*
 import com.readytoride.network.HorseApi.HorseApi
 import com.readytoride.network.HorseApi.HorseEntity
 import com.readytoride.network.LessonApi.PostingLessonEntity
+import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 class HomeFragment : Fragment() {
 
@@ -78,6 +81,10 @@ class HomeFragment : Fragment() {
         if (sharedPref != null) {
             sharedPref.edit().putString("lesson", json).commit()
         }
+        //TEST2
+        val jsonAsString = "{\"email\": \"admin4\", \"test\": \"12345\"}"
+        data class MyClass(@SerializedName("s1") val s1: Int)
+        val jsonAsObject = gson.fromJson<JsonObject>(jsonAsString, JsonObject::class.java)
         return root
     }
 

@@ -1,33 +1,25 @@
 package com.readytoride.ui.profile
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ScrollView
-import android.widget.TextView
 import android.widget.ViewSwitcher
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.readytoride.R
-import com.readytoride.databinding.FragmentHomeBinding
 import com.readytoride.databinding.FragmentProfileBinding
-import com.readytoride.network.HorseApi.HorseEntity
 import com.readytoride.network.LessonApi.PostingLessonEntity
-import com.readytoride.network.UserApi.TokenEntity
-import com.readytoride.ui.home.HomeFragment
-import com.readytoride.ui.login.FragmentNavigation
-import com.readytoride.ui.login.LoginFragment
-import com.readytoride.ui.login.LoginViewModel
-import com.readytoride.ui.login.RegisterFragment
 import kotlinx.android.synthetic.main.fragment_profile.view.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import java.util.*
+
 
 class ProfileFragment : Fragment() {
 
@@ -55,6 +47,10 @@ class ProfileFragment : Fragment() {
 
         binding.editProfile.setOnClickListener {
             onEditProfile()
+        }
+
+        binding.cancelEditProfile.setOnClickListener {
+            onCancelProfile()
         }
 
         binding.loginProfile.setOnClickListener {
@@ -132,13 +128,13 @@ class ProfileFragment : Fragment() {
                 binding.headerHeight.visibility = View.VISIBLE
                 binding.heightSwitcher.visibility = View.VISIBLE
                 binding.fieldHeight.text = it.height.toString() + "cm"
-                binding.editHeight.setText(it.height.toString() + "cm")
+                binding.editHeight.setText(it.height.toString())
 
                 //Set Weight
                 binding.headerWeight.visibility = View.VISIBLE
                 binding.weightSwitcher.visibility = View.VISIBLE
                 binding.fieldWeight.text = it.weight.toString() + "kg"
-                binding.editWeight.setText(it.weight.toString() + "kg")
+                binding.editWeight.setText(it.weight.toString())
 
                 //Set Proficiency
                 binding.headerProficiency.visibility = View.VISIBLE
@@ -216,9 +212,7 @@ class ProfileFragment : Fragment() {
 
         val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
         val role: String? = sharedPref?.getString("role", "defaultRole")
-        val horse: String = sharedPref?.getString("lesson", "Nothing").toString()
-        val gson: Gson = Gson()
-        val lesson: PostingLessonEntity = gson.fromJson<PostingLessonEntity>(horse, PostingLessonEntity::class.java)
+        val token: String? = sharedPref?.getString("token", "DefaultValue")
 
 
         binding.stickyScroll.fullScroll(ScrollView.FOCUS_UP)
@@ -238,10 +232,23 @@ class ProfileFragment : Fragment() {
             }
         }
         else {
+            val userObj: JsonObject = JsonObject()
+            val nameObj: JsonObject = JsonObject()
+            val wholeName: List<String> = binding.editName.text.toString().split(" ")
+            nameObj.addProperty("firstName", wholeName[0])
+            nameObj.addProperty("lastName", wholeName[1])
+            userObj.addProperty("age", binding.editAge.text.toString().toInt())
+            userObj.addProperty("email", binding.editMail.text.toString())
+            userObj.add("name", nameObj)
+
             binding.loginProfile.visibility = View.VISIBLE
             binding.cancelEditProfile.visibility = View.GONE
             binding.editProfile.text = "Profil bearbeiten"
             if(role == "User") {
+                userObj.addProperty("height", binding.editHeight.text.toString().toInt())
+                userObj.addProperty("weight", binding.editWeight.text.toString().toInt())
+                userObj.addProperty("proficiency", binding.editProficiency.text.toString())
+
                 binding.bookedHoursLayout.visibility = View.VISIBLE
             }
             else if(role == "Admin") {
@@ -251,7 +258,57 @@ class ProfileFragment : Fragment() {
                 binding.headerTrainerPasscode.visibility = View.VISIBLE
                 binding.fieldTrainerPasscode.visibility = View.VISIBLE
             }
+            val body = RequestBody.create(MediaType.parse("application/json"), userObj.toString())
+            val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+            profileViewModel.updateUser(token.toString(), body)
+        }
+    }
 
+    fun onCancelProfile() {
+        val nameSwitcher: ViewSwitcher = binding.nameSwitcher
+        nameSwitcher.showNext()
+        binding.editName.setText(binding.fieldName.text)
+        val mailSwitcher: ViewSwitcher = binding.mailSwitcher
+        mailSwitcher.showNext()
+        binding.editMail.setText(binding.fieldMail.text)
+        val ageSwitcher: ViewSwitcher = binding.ageSwitcher
+        ageSwitcher.showNext()
+        binding.editAge.setText(binding.fieldAge.text)
+        //User only
+        val heightSwitcher: ViewSwitcher = binding.heightSwitcher
+        heightSwitcher.showNext()
+        val weightSwitcher: ViewSwitcher = binding.weightSwitcher
+        weightSwitcher.showNext()
+        val proficiencySwitcher: ViewSwitcher = binding.proficiencySwitcher
+        proficiencySwitcher.showNext()
+        //Trainer only
+        val focusSwitcher: ViewSwitcher = binding.focusSwitcher
+        focusSwitcher.showNext()
+        val descriptionSwitcher: ViewSwitcher = binding.descriptionSwitcher
+        descriptionSwitcher.showNext()
+
+        val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
+        val role: String? = sharedPref?.getString("role", "defaultRole")
+
+        binding.loginProfile.visibility = View.VISIBLE
+        binding.cancelEditProfile.visibility = View.GONE
+        binding.editProfile.text = "Profil bearbeiten"
+        if(role == "User") {
+            binding.bookedHoursLayout.visibility = View.VISIBLE
+            binding.editHeight.setText(binding.fieldHeight.text.split("cm")[0])
+            binding.editWeight.setText(binding.fieldWeight.text.split("kg")[0])
+            binding.editProficiency.setText(binding.fieldProficiency.text)
+        }
+        else if(role == "Admin") {
+            binding.adminRegisterLayout.visibility = View.VISIBLE
+            binding.headerAdminPasscode.visibility = View.VISIBLE
+            binding.fieldAdminPasscode.visibility = View.VISIBLE
+            binding.headerTrainerPasscode.visibility = View.VISIBLE
+            binding.fieldTrainerPasscode.visibility = View.VISIBLE
+        }
+        else if(role == "Trainer") {
+            binding.editFocus.setText(binding.fieldFocus.text)
+            binding.editDescription.setText(binding.fieldDescription.text)
         }
     }
 

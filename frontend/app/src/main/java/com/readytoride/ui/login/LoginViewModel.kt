@@ -37,6 +37,7 @@ class LoginViewModel: ViewModel() {
                 var response = UserApi.retrofitService.getMyUser("Bearer $token")
                 _role.value = response.role
             } catch (e: Exception){
+                println("Failure: ${e.message}")
             }
         }
     }

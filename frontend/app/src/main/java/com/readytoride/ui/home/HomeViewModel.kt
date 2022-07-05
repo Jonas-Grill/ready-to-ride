@@ -8,6 +8,7 @@ import com.readytoride.network.HorseApi.HorseApi
 import com.readytoride.network.HorseApi.HorseEntity
 import com.readytoride.network.StableApi.StableApi
 import com.readytoride.network.StableApi.StableEntity
+import com.readytoride.network.UserApi.UserApi
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -19,8 +20,6 @@ class HomeViewModel : ViewModel() {
     private val _text = MutableLiveData<String>()
     val text: LiveData<String> = _text
     val horses: LiveData<List<HorseEntity>> = _horses
-    val stable: LiveData<StableEntity> = _stables
-    val races: LiveData<List<String>> = _races
 
     init {
         getAllStables()
@@ -43,17 +42,6 @@ class HomeViewModel : ViewModel() {
                 val listResult = StableApi.retrofitService.getStables()
                 _stables.value = listResult
             } catch (e: Exception){
-                _text.value = "Failure: ${e.message}"
-            }
-        }
-    }
-
-    private fun getAllRaces() {
-        viewModelScope.launch {
-            try {
-                val listResult = HorseApi.retrofitService.getHorseColours()
-                _races.value = listResult
-            }catch (e: Exception) {
                 _text.value = "Failure: ${e.message}"
             }
         }
