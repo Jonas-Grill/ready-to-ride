@@ -11,7 +11,10 @@ export interface RidingLessonSchema {
     arena: string;
     day: string;
     startHour: number;
-    horse?: string;
+    horse?: {
+        name: string;
+        id: string;
+    };
 }
 
 export const instanceOfRidingLesson = (object: any): object is RidingLessonSchema => {
