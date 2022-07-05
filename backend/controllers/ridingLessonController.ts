@@ -21,7 +21,7 @@ export const findRidingLesson = async (ctx: Context) => {
     } = helpers.getQuery(ctx, {mergeParams: true});
 
     const ridingLessons = await ridingLessonService.findRidingLesson(
-        normalizeString(trainer),
+        normalizeString(trainer) ? trainer.replace(/\s/g, '').split(',') : undefined,
         normalizeString(horses) ? horses.replace(/\s/g, '').split(',') : undefined,
         normalizeString(fromDate),
         normalizeString(toDate),
