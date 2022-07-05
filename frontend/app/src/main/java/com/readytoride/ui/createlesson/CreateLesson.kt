@@ -49,11 +49,11 @@ class CreateLesson : Fragment() {
         var arenas: MutableList<String> = mutableListOf()
         var bookedLessons: MutableList<LessonEntity> =  mutableListOf()
 
-        for (i in 8..20){
+        for (i in 0..23){
             timeslotsFrom.add(i.toString() + ":00 Uhr")
         }
 
-        for (i in 9..21){
+        for (i in 1..24){
             timeslotsTo.add(i.toString() + ":00 Uhr")
         }
 
@@ -93,7 +93,7 @@ class CreateLesson : Fragment() {
         viewModel.getAllLessons()
         val myLessonsObserver = Observer<MutableList<LessonEntity>> {  newLessons -> run {
             bookedLessons = newLessons.filter { it.arena == viewModel.selectedArena }.toMutableList()
-        }
+
             for (lesson in bookedLessons){
                 var start = lesson.startHour.toString() + ":00 Uhr"
                 if (start in timeslotsFrom){
@@ -157,7 +157,7 @@ class CreateLesson : Fragment() {
                     viewModel.setTimeTo(selectedInt)
                 }
             }
-        }
+        }}
         viewModel.lessons.observe(viewLifecycleOwner, myLessonsObserver)
     }
 }

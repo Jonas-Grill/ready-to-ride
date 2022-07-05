@@ -70,14 +70,14 @@ class BookingFragment : Fragment() {
         viewModel.trainer.observe(viewLifecycleOwner, myTrainerObserver)
 
         var date1 = LocalDate.now()
-        var date2 = date1.plusDays(1)
-        var date3 = date1.plusDays(2)
-        var date4 = date1.plusDays(3)
-        var date5 = date1.plusDays(4)
-        var date6 = date1.plusDays(5)
-        var date7 = date1.plusDays(6)
+        var date2 = LocalDate.now().plusDays(1)
+        var date3 = LocalDate.now().plusDays(2)
+        var date4 = LocalDate.now().plusDays(3)
+        var date5 = LocalDate.now().plusDays(4)
+        var date6 = LocalDate.now().plusDays(5)
+        var date7 = LocalDate.now().plusDays(6)
 
-        viewModel.getAllLessons(date1.toString())
+        viewModel.getAllLessons(date1.toString(), date7.toString())
         val myLessonsObserver = Observer<MutableList<LessonEntity>> { newLessonsList -> run{
 
             timeframe.text = date1.dayOfMonth.toString() + "." + date1.monthValue + "." + date1.year + " - " + date7.dayOfMonth + "." + date7.monthValue + "." + date7.year
@@ -166,7 +166,7 @@ class BookingFragment : Fragment() {
             date7 = date1.plusDays(6)
 
             buttonBefore.visibility = View.VISIBLE
-            viewModel.getAllLessons(date1.toString())
+            viewModel.getAllLessons(date1.toString(), date7.toString())
         }
 
         buttonBefore.setOnClickListener {
@@ -182,14 +182,14 @@ class BookingFragment : Fragment() {
                 buttonBefore.visibility = View.INVISIBLE
             }
 
-            viewModel.getAllLessons(date1.toString())
+            viewModel.getAllLessons(date1.toString(), date7.toString())
         }
 
         val buttonSubmit: Button = view.findViewById(R.id.button4)
         buttonSubmit.setOnClickListener {
             expandedView.visibility = View.GONE
 
-            viewModel.getAllLessons(date1.toString())
+            viewModel.getAllLessons(date1.toString(), date7.toString())
 
             //TODO: Später noch rausnehmen, gerade nur zu Testzwecken
             val action = BookingFragmentDirections.actionNavLessonsToCreateLesson()

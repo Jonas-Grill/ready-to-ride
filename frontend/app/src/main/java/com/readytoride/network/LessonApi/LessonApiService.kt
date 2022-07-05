@@ -1,6 +1,5 @@
 package com.readytoride.network.LessonApi
 
-import com.readytoride.network.NewsApi.NewsEntity
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -17,7 +16,13 @@ private val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFact
 interface LessonApiService {
 
     @GET("ridinglessons")
-    suspend fun getLessons(): MutableList<LessonEntity>
+    suspend fun getLessons(@Query("trainer") trainer: String,
+                           @Query("horses") horses: MutableList<String>,
+                           @Query("fromDate") fromDate: String,
+                           @Query("toDate") toDate: String,
+                           @Query("getPossibleHorseCombinations") getPossibleHorseCombinations: Boolean,
+                           @Query("bookedLessons") bookedLessons: Boolean
+    ): MutableList<LessonEntity>
 
     //probably not needed
     //@POST("ridinglessons")

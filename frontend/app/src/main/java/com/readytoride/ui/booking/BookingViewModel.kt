@@ -14,7 +14,7 @@ import java.lang.Exception
 
 class BookingViewModel : ViewModel() {
     private val selectedTrainer: MutableList<String> = mutableListOf()
-    private val selectedHorses: MutableList<String> = mutableListOf()
+    private val selectedHorses: MutableList<String> = mutableListOf("")
     private var lessonsId: String = ""
     private var horseId: HorseIdForLesson = HorseIdForLesson("")
 
@@ -50,16 +50,13 @@ class BookingViewModel : ViewModel() {
         }
     }
 
-    internal fun getAllLessons(date: String) {
-        //selected Trainer, selected Horses, date, true, false
+    internal fun getAllLessons(dateFrom: String, dateTo: String) {
         viewModelScope.launch {
             try {
-                val listResult = LessonApi.retrofitService.getLessons()
+                val listResult = LessonApi.retrofitService.getLessons("", selectedHorses, dateFrom, dateTo,true, false)
                 _lessons.value = listResult
-                println(lessons)
             } catch (e: Exception){
                 _text.value = "Failure: ${e.message}"
-                println(e)
             }
         }
     }

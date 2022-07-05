@@ -40,7 +40,9 @@ class CreateLessonViewModel : ViewModel() {
         // selectedDate, selectedDate, false, true
         viewModelScope.launch {
             try {
-                val listResult = LessonApi.retrofitService.getLessons()
+                val listResult = LessonApi.retrofitService.getLessons("",
+                    mutableListOf(), selectedDate, selectedDate,false,true)
+                _lessons.value = listResult
             } catch (e: Exception){
                 _text.value = "Failure: ${e.message}"
             }
