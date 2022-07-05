@@ -20,11 +20,25 @@ export const findRidingLesson = async (ctx: Context) => {
         bookedLessons
     } = helpers.getQuery(ctx, {mergeParams: true});
 
+    let horsesArray: string[];
+
+    if (horses) {
+        const tmp = horses.replace(/\s/g, '');
+
+        if (tmp === '') {
+            horsesArray = undefined;
+        } else {
+            horsesArray = tmp.split(',');
+        }
+    } else {
+        horsesArray = undefined;
+    }
+
     const ridingLessons = await ridingLessonService.findRidingLesson(
-        trainer,
-        horses ? horses.replace(/\s/g, '').split(',') : undefined,
-        fromDate,
-        toDate,
+        trainer.replace(/\s/g, '') === '' ? undefined : trainer,
+        horsesArray,
+        fromDate.replace(/\s/g, '') === '' ? undefined : fromDate,
+        toDate.replace(/\s/g, '') === '' ? undefined : toDate,
         toBool(getPossibleHorseCombinations),
         toBool(bookedLessons)
     );
