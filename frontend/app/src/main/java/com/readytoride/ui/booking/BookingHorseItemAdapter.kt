@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
 import com.readytoride.network.HorseApi.HorseEntity
-import com.readytoride.ui.horse.Horse
 
 class BookingHorseItemAdapter(
     private val context: BookingFragment,

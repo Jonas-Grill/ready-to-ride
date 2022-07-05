@@ -24,12 +24,10 @@ class EditBoxesViewModel : ViewModel() {
         }
     }
 
-    internal fun setStable(stableEdited: StableEntity){
+    internal fun setStable(token: String?, stableEdited: StableEntity){
         viewModelScope.launch {
             try {
-                val stableEntity = stableEdited
-                val token = " " //TODO: Richtigen Token laden
-                var response = StableApi.retrofitService.updateStable(token, stableEntity)
+                var response = StableApi.retrofitService.updateStable("Bearer $token", stableEdited)
             } catch (e: Exception){
 
             }

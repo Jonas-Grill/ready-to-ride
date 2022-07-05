@@ -1,5 +1,6 @@
 package com.readytoride.ui.editboxes
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -30,10 +31,6 @@ class EditBoxesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_edit_boxes, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val changeName: TextInputEditText = view.findViewById(R.id.edit_box_name)
@@ -56,6 +53,9 @@ class EditBoxesFragment : Fragment() {
         var boxes: MutableList<Box> = mutableListOf()
         var selectedBoxEdit = ""
         var selectedBoxDelete = ""
+
+        val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
+        val token: String? = sharedPref?.getString("token", "DefaultValue")
 
         layoutAdd.visibility = View.GONE
         layoutEdit.visibility = View.GONE
@@ -173,7 +173,7 @@ class EditBoxesFragment : Fragment() {
             }
 
             stableObject.boxes = boxes
-            viewModel.setStable(stableObject)
+            viewModel.setStable(token, stableObject)
         }
     }
 }

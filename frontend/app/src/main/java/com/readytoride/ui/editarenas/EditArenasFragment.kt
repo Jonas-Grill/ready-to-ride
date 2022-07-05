@@ -1,5 +1,6 @@
 package com.readytoride.ui.editarenas
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -52,6 +53,9 @@ class EditArenasFragment : Fragment() {
         layoutAdd.visibility = View.GONE
         layoutEdit.visibility = View.GONE
         layoutDelete.visibility = View.GONE
+
+        val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
+        val token: String? = sharedPref?.getString("token", "DefaultValue")
 
         viewModel.getStable()
         val myObserver = Observer<StableEntity> { newStable ->
@@ -183,7 +187,7 @@ class EditArenasFragment : Fragment() {
             }
 
             stableObject.arenas = arenas
-            viewModel.setStable(stableObject)
+            viewModel.setStable(token, stableObject)
 
         }
     }

@@ -1,5 +1,6 @@
 package com.readytoride.ui.stable
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -52,7 +53,9 @@ class StableFragment : Fragment(){
         val buttonEditArenas = view.findViewById<Button>(R.id.button9)
 
         //TODO: Buttons only visible for Admins
-        val role = ""
+        val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
+        val role: String? = sharedPref?.getString("role", "defaultRole")
+        println(role)
         if (role != "Admin") {
             buttonEditBoxes.visibility = View.GONE
             buttonEditArenas.visibility = View.GONE
