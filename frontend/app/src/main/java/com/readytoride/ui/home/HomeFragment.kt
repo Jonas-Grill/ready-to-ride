@@ -1,6 +1,7 @@
 package com.readytoride.ui.home
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,12 +18,14 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import com.readytoride.R
 import com.readytoride.databinding.FragmentHomeBinding
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.news_detail_dialog.*
 import com.readytoride.network.HorseApi.HorseApi
 import com.readytoride.network.HorseApi.HorseEntity
+import com.readytoride.network.LessonApi.PostingLessonEntity
 
 class HomeFragment : Fragment() {
 
@@ -56,7 +59,24 @@ class HomeFragment : Fragment() {
         val textView: TextView = binding.textHome
         homeViewModel.horses.observe(viewLifecycleOwner) {
             //Everytime there are any changes to the observing instance, this code will be called
+            val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
+            val gson: Gson = Gson()
+            val json: String = gson.toJson(it[0])
+            if (sharedPref != null) {
+                sharedPref.edit().putString("Horse", json).commit()
+            }
             textView.text = it[0].description
+        }
+        //Beispiel wie Rolle des Users geholt / verwendet werden kann
+        val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
+        val role: String? = sharedPref?.getString("role", "DefaultRole")
+
+        //TEST
+        val postingLesson: PostingLessonEntity = PostingLessonEntity("Arena2", "heute", 1200)
+        val gson: Gson = Gson()
+        val json: String = gson.toJson(postingLesson)
+        if (sharedPref != null) {
+            sharedPref.edit().putString("lesson", json).commit()
         }
         return root
     }

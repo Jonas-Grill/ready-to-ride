@@ -41,8 +41,7 @@ class LoginFragment : Fragment() {
 
 
         view.findViewById<Button>(R.id.btn_register).setOnClickListener {
-            var navRegister = activity as FragmentNavigation
-            navRegister.navigateFrag(RegisterFragment(), false)
+            view.findNavController().navigate(R.id.nav_register)
         }
 
         view.findViewById<Button>(R.id.btn_login).setOnClickListener {
@@ -50,7 +49,6 @@ class LoginFragment : Fragment() {
             //Weiterleitung nach Login
             val loginEntity = LoginEntity(mail.text.toString().trim(), password.text.toString().trim())
             loginViewModel.loginUser(mail.text.toString().trim(), password.text.toString().trim())
-        //ToDo: Loginanbindung an Backend
         }
 
         loginViewModel.token.observe(viewLifecycleOwner) {
@@ -58,9 +56,19 @@ class LoginFragment : Fragment() {
 
             val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
             val editor = sharedPref?.edit()
-            println("Login: " + it)
             if (editor != null) {
                 editor.putString("token", it.token)
+                editor.commit()
+                editor.apply()
+            }
+            loginViewModel.getUserRole(it.token)
+        }
+
+        loginViewModel.role.observe(viewLifecycleOwner) {
+            val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
+            val editor = sharedPref?.edit()
+            if (editor != null) {
+                editor.putString("role", it)
                 editor.commit()
                 editor.apply()
             }
