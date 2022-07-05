@@ -19,9 +19,9 @@ interface LessonApiService {
     suspend fun getLessons(@Query("trainer") trainer: String,
                            @Query("horses") horses: MutableList<String>,
                            @Query("fromDate") fromDate: String,
-                           @Query("toDate") toDate: String,
+                           @Query("toDate") toDate: String?,
                            @Query("getPossibleHorseCombinations") getPossibleHorseCombinations: Boolean,
-                           @Query("bookedLessons") bookedLessons: Boolean
+                           @Query("bookedLessons") bookedLessons: Boolean?
     ): MutableList<LessonEntity>
 
     //probably not needed

@@ -19,10 +19,12 @@ class CreateLessonViewModel : ViewModel() {
     var selectedArena: String = ""
 
     private val _lessons = MutableLiveData<MutableList<LessonEntity>>()
+    private val _lessons2 = MutableLiveData<MutableList<LessonEntity>>()
     private val _text = MutableLiveData<String>()
     private val _stable = MutableLiveData<StableEntity>()
     val stable: LiveData<StableEntity> = _stable
     val lessons: LiveData<MutableList<LessonEntity>> = _lessons
+    val lessons2: LiveData<MutableList<LessonEntity>> = _lessons2
     val text: LiveData<String> = _text
 
     internal fun getStable() {
@@ -37,11 +39,10 @@ class CreateLessonViewModel : ViewModel() {
     }
 
     internal fun getAllLessons() {
-        // selectedDate, selectedDate, false, true
         viewModelScope.launch {
             try {
                 val listResult = LessonApi.retrofitService.getLessons("",
-                    mutableListOf(), selectedDate, selectedDate,false,true)
+                    mutableListOf(), selectedDate, null,false, null)
                 _lessons.value = listResult
             } catch (e: Exception){
                 _text.value = "Failure: ${e.message}"
@@ -49,20 +50,32 @@ class CreateLessonViewModel : ViewModel() {
         }
     }
 
-    internal fun createLessons() {
-        val token = "" //TODO: Token auslesen
+    internal fun getAllLessons2() {
         viewModelScope.launch {
             try {
-                val listResult = LessonApi.retrofitService.postNewLessons(token, PostingLessonEntity(selectedArena,selectedDate,selectedTimeFrom,selectedTimeTo))
+                val listResult = LessonApi.retrofitService.getLessons("",
+                    mutableListOf(), selectedDate, null,false, null)
+                _lessons2.value = listResult
             } catch (e: Exception){
                 _text.value = "Failure: ${e.message}"
             }
         }
     }
 
+    internal fun createLessons(token: String?) {
+        viewModelScope.launch {
+            try {
+                val listResult = LessonApi.retrofitService.postNewLessons("Bearer $token", PostingLessonEntity(selectedArena,selectedDate,selectedTimeFrom,selectedTimeTo))
+                println("Success")
+            } catch (e: Exception){
+                _text.value = "Failure: ${e.message}"
+                println(e.message)
+            }
+        }
+    }
+
     fun setDate(date: String){
         selectedDate = date
-        println(selectedDate)
     }
 
     fun setArena(arena: String){

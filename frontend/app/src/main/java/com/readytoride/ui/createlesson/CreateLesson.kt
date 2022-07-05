@@ -1,5 +1,6 @@
 package com.readytoride.ui.createlesson
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.readytoride.network.LessonApi.LessonEntity
 import com.readytoride.network.StableApi.Arena
 import com.readytoride.network.StableApi.StableEntity
 import com.readytoride.ui.horse.HorseItemAdapter
+import java.util.Locale.filter
 
 class CreateLesson : Fragment() {
 
@@ -46,8 +48,10 @@ class CreateLesson : Fragment() {
 
         val timeslotsFrom: MutableList<String> = mutableListOf()
         val timeslotsTo: MutableList<String> = mutableListOf()
+        var extraTimeSlots: MutableList<String> = mutableListOf()
         var arenas: MutableList<String> = mutableListOf()
         var bookedLessons: MutableList<LessonEntity> =  mutableListOf()
+        var selectedDate: String = ""
 
         for (i in 0..23){
             timeslotsFrom.add(i.toString() + ":00 Uhr")
@@ -58,13 +62,22 @@ class CreateLesson : Fragment() {
         }
 
         date.setOnDateChangeListener { view, year, month, dayOfMonth ->  run {
-            val selectedDate = year.toString()+"-"+(month+1)+"-"+dayOfMonth
+            var selectedDay: String = ""
+            var selectedMonth: String = ""
+            if (dayOfMonth < 10) {
+                selectedDay = "0" + dayOfMonth
+            } else {
+                selectedDay = dayOfMonth.toString()
+            }
+            if (month < 10) {
+                selectedMonth = "0" + (month+1)
+            } else {
+                selectedMonth = (month+1).toString()
+            }
+            selectedDate = year.toString()+"-"+selectedMonth+"-"+selectedDay
             viewModel.setDate(selectedDate)
             viewModel.getAllLessons()
         }}
-
-        spinnerTo.visibility = View.INVISIBLE
-        labenSpinnerTo.visibility = View.INVISIBLE
 
         viewModel.getStable()
         val myLocationObserver = Observer<StableEntity> { newStable -> run{
@@ -92,7 +105,8 @@ class CreateLesson : Fragment() {
 
         viewModel.getAllLessons()
         val myLessonsObserver = Observer<MutableList<LessonEntity>> {  newLessons -> run {
-            bookedLessons = newLessons.filter { it.arena == viewModel.selectedArena }.toMutableList()
+            bookedLessons = newLessons.filter { it.day == selectedDate }
+                .filter { it.arena == spinnerArena.selectedItem.toString()}.toMutableList()
 
             for (lesson in bookedLessons){
                 var start = lesson.startHour.toString() + ":00 Uhr"
@@ -122,25 +136,47 @@ class CreateLesson : Fragment() {
                     for (time in timeslotsTo){
                         var timeList = time.split(":")
                         var timeInt = timeList[0].toInt()
-                        if (timeInt <= selectedInt){
-                            timeslotsFrom.remove(time)
+                        if (timeInt > selectedInt){
+                            extraTimeSlots.add(time)
                         }
                     }
-                    for (lesson in bookedLessons){
-                        if (selectedInt < lesson.startHour) {
-                            for (time in timeslotsTo){
-                                var timeList2 = time.split(":")
-                                var timeInt2 = timeList2[0].toInt()
-                                if (timeInt2 > lesson.startHour){
-                                    timeslotsFrom.remove(time)
-                                }
-                            }
-                        }
+                    viewModel.getAllLessons2()
+                }
+            }
+        }}
+        viewModel.lessons.observe(viewLifecycleOwner, myLessonsObserver)
+
+        viewModel.getAllLessons2()
+        val myLessonsObserver2 = Observer<MutableList<LessonEntity>> {  newLessons -> run {
+
+            val timeComparator = Comparator<LessonEntity> { o1, o2 -> o1.startHour - o2.startHour }
+            bookedLessons = newLessons.filter { it.day == selectedDate }
+                .filter { it.arena == spinnerArena.selectedItem.toString()}
+                .sortedWith(timeComparator).toMutableList()
+
+            val selectedTime = spinnerFrom.selectedItem.toString()
+            val selectedList = selectedTime.split(":")
+            val selectedInt = selectedList[0].toInt()
+
+            val removalList: MutableList<String> = mutableListOf()
+
+            extraTimeSlots.clear()
+            for (i in (selectedInt+1)..24) {
+                extraTimeSlots.add(i.toString() + ":00 Uhr")
+            }
+
+            for (lesson in bookedLessons) {
+                if (lesson.startHour > selectedInt) {
+                    val begin = lesson.startHour + 1
+                    for (j in begin..24){
+                        removalList.add(j.toString() + ":00 Uhr")
                     }
+                    extraTimeSlots.removeAll(removalList)
+                    break
                 }
             }
 
-            ArrayAdapter(view.context, android.R.layout.simple_spinner_item, timeslotsTo
+            ArrayAdapter(view.context, android.R.layout.simple_spinner_item, extraTimeSlots
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 // Apply the adapter to the spinner
@@ -157,7 +193,15 @@ class CreateLesson : Fragment() {
                     viewModel.setTimeTo(selectedInt)
                 }
             }
+
         }}
-        viewModel.lessons.observe(viewLifecycleOwner, myLessonsObserver)
+        viewModel.lessons2.observe(viewLifecycleOwner, myLessonsObserver2)
+
+        val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
+        val token: String? = sharedPref?.getString("token", "DefaultValue")
+
+        button.setOnClickListener {
+            viewModel.createLessons(token)
+        }
     }
 }
