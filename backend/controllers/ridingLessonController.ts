@@ -20,29 +20,11 @@ export const findRidingLesson = async (ctx: Context) => {
         bookedLessons
     } = helpers.getQuery(ctx, {mergeParams: true});
 
-    let horsesArray: string[] | undefined;
-
-    console.log(horses);
-
-    if (horses) {
-        const tmp = horses.replace(/\s/g, '');
-
-        if (tmp === '') {
-            horsesArray = undefined;
-        } else {
-            horsesArray = tmp.split(',');
-        }
-    } else {
-        horsesArray = undefined;
-    }
-
-    console.log(horsesArray)
-
     const ridingLessons = await ridingLessonService.findRidingLesson(
-        trainer.replace(/\s/g, '') === '' ? undefined : trainer,
-        horsesArray,
-        fromDate.replace(/\s/g, '') === '' ? undefined : fromDate,
-        toDate.replace(/\s/g, '') === '' ? undefined : toDate,
+        normalizeString(trainer),
+        normalizeString(horses) ? horses.replace(/\s/g, '').split(',') : undefined,
+        normalizeString(fromDate),
+        normalizeString(toDate),
         toBool(getPossibleHorseCombinations),
         toBool(bookedLessons)
     );
@@ -173,4 +155,18 @@ export const cancelRidingLesson = async (ctx: Context) => {
 
 const toBool = (value: string) => {
     return value ? value.toLowerCase() == 'true' : undefined;
+}
+
+const normalizeString = (value: string): string | undefined => {
+    if (value) {
+        value = value.replace(/\s/g, '');
+
+        if (value === '') {
+            return  undefined;
+        } else {
+            return value;
+        }
+    } else {
+        return undefined;
+    }
 }
