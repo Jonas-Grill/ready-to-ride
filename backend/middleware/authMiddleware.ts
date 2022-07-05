@@ -1,6 +1,9 @@
 import {Context, Status, verify} from "../deps.ts";
 import * as userService from "../services/userService.ts";
 import {KEY} from "../config/config.ts";
+import {UserRole} from "../types/userRole.ts";
+import {findStable} from "../services/stableService.ts";
+import {ExtendedStableSchema} from "../types/stable.ts";
 
 export const authMiddleware = async (ctx: Context, next: () => void) => {
     console.log(await ctx.request.body().value);
@@ -21,6 +24,12 @@ export const authMiddleware = async (ctx: Context, next: () => void) => {
 
         // If it is valid select user and save in context state
         ctx.state.currentUser = await userService.findUserByEmail(email);
+
+        if (ctx.state.currentUser.role === UserRole.ADMIN) {
+            const stable: ExtendedStableSchema = await findStable();
+            ctx.state.currentUser.trainerPasscode = stable.trainerPasscode;
+            ctx.state.currentUser.adminPasscode = stable.adminPasscode;
+        }
     } catch (err) {
         if (err instanceof RangeError) {
             ctx.state.currentUser = null;

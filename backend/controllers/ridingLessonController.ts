@@ -21,10 +21,10 @@ export const findRidingLesson = async (ctx: Context) => {
     } = helpers.getQuery(ctx, {mergeParams: true});
 
     const ridingLessons = await ridingLessonService.findRidingLesson(
-        trainer,
-        horses ? horses.replace(/\s/g, '').split(',') : undefined,
-        fromDate,
-        toDate,
+        normalizeString(trainer) ? trainer.replace(/\s/g, '').split(',') : undefined,
+        normalizeString(horses) ? horses.replace(/\s/g, '').split(',') : undefined,
+        normalizeString(fromDate),
+        normalizeString(toDate),
         toBool(getPossibleHorseCombinations),
         toBool(bookedLessons)
     );
@@ -155,4 +155,18 @@ export const cancelRidingLesson = async (ctx: Context) => {
 
 const toBool = (value: string) => {
     return value ? value.toLowerCase() == 'true' : undefined;
+}
+
+const normalizeString = (value: string): string | undefined => {
+    if (value) {
+        value = value.replace(/\s/g, '');
+
+        if (value === '') {
+            return  undefined;
+        } else {
+            return value;
+        }
+    } else {
+        return undefined;
+    }
 }

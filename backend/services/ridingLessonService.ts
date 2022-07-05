@@ -12,7 +12,7 @@ import {findUserById} from "./userService.ts";
 
 const ridingLessonDurationInHours = 1;
 
-export const findRidingLesson = async (trainer?: string, horses?: string[], fromDate?: string, toDate?: string, getPossibleRidingLessonCombinations?: boolean, bookedLessons?: boolean): Promise<RidingLessonSchema[]> => {
+export const findRidingLesson = async (trainer?: string[], horses?: string[], fromDate?: string, toDate?: string, getPossibleRidingLessonCombinations?: boolean, bookedLessons?: boolean): Promise<RidingLessonSchema[]> => {
     bookedLessons = getPossibleRidingLessonCombinations ? false : bookedLessons;
 
     let ridingLessons: RidingLessonModel[] | undefined;
@@ -79,7 +79,7 @@ export const findRidingLesson = async (trainer?: string, horses?: string[], from
                         arena: ridingLesson.arena,
                         day: ridingLesson.day,
                         startHour: ridingLesson.startHour,
-                        horse: horse.name,
+                        horse: horse,
                     });
                 }
             }
@@ -94,7 +94,7 @@ export const findRidingLesson = async (trainer?: string, horses?: string[], from
 }
 
 export async function findRidingLessonsByTrainerIdAndDay(id: string, fromDate: string, toDate: string) {
-    const ridingLessons = await ridingLessonRepo.findRidingLessonsByTrainerIdAndDay(id, fromDate, toDate);
+    const ridingLessons = await ridingLessonRepo.findRidingLessonsByTrainerIdAndDay([id], fromDate, toDate);
     return ridingLessons.map(ridingLessonModelToRidingLesson);
 }
 
@@ -250,7 +250,7 @@ const ridingLessonModelToRidingLesson = (ridingLesson: RidingLessonModel): Ridin
     }
 
     if (ridingLesson.horse) {
-        ridingLessonSchema.horse = ridingLesson.horse.name;
+        ridingLessonSchema.horse = ridingLesson.horse;
     }
 
     return ridingLessonSchema;

@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1c346c7d-003f-4b4c-8874-8c36983721a6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/ridingLessonService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/ridingLessonService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/ridingLesson.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/ridingLesson.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,11 +78,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Uni Projekte\ready-to-ride\backend\apk" />
       <recent name="D:\Uni Projekte\ready-to-ride\backend" />
       <recent name="D:\Uni Projekte\ready-to-ride\backend\repositories" />
       <recent name="D:\Uni Projekte\ready-to-ride\backend\controllers" />
       <recent name="D:\Uni Projekte\ready-to-ride\backend\models" />
-      <recent name="C:\Users\i518027\OneDrive - SAP SE\Diversity VT\Repo\ready-to-ride\backend\types" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Uni Projekte\ready-to-ride\backend" />
@@ -178,6 +180,11 @@
       <workItem from="1656429471918" duration="931000" />
       <workItem from="1656576168718" duration="312000" />
       <workItem from="1656613662189" duration="116000" />
+      <workItem from="1656930348330" duration="384000" />
+      <workItem from="1656931113336" duration="1403000" />
+      <workItem from="1656932631873" duration="4057000" />
+      <workItem from="1656940221720" duration="1882000" />
+      <workItem from="1657009009095" duration="1065000" />
     </task>
     <servers />
   </component>

@@ -1,22 +1,26 @@
 package com.readytoride.ui.login
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.readytoride.R
-import com.readytoride.ui.home.HomeFragment
+import com.readytoride.network.UserApi.LoginEntity
+import com.readytoride.network.UserApi.TokenEntity
+import com.readytoride.network.UserApi.UserApi
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private var callback = true
 
 
 class LoginFragment : Fragment() {
@@ -28,6 +32,8 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        val loginViewModel =
+            ViewModelProvider(this).get(LoginViewModel::class.java)
         var view = inflater.inflate(R.layout.fragment_login, container, false)
 
         mail = view.findViewById(R.id.login_mail)
@@ -35,15 +41,38 @@ class LoginFragment : Fragment() {
 
 
         view.findViewById<Button>(R.id.btn_register).setOnClickListener {
-            var navRegister = activity as FragmentNavigation
-            navRegister.navigateFrag(RegisterFragment(), false)
+            view.findNavController().navigate(R.id.nav_register)
         }
 
         view.findViewById<Button>(R.id.btn_login).setOnClickListener {
             //if(validateInput()){//ToDo: Später wieder aktivieren, nur für Testzwecke ausgeschaltet
             //Weiterleitung nach Login
+            val loginEntity = LoginEntity(mail.text.toString().trim(), password.text.toString().trim())
+            loginViewModel.loginUser(mail.text.toString().trim(), password.text.toString().trim())
+        }
+
+        loginViewModel.token.observe(viewLifecycleOwner) {
+            //Everytime there are any changes to the observing instance, this code will be called
+
+            val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
+            val editor = sharedPref?.edit()
+            if (editor != null) {
+                editor.putString("token", it.token)
+                editor.commit()
+                editor.apply()
+            }
+            loginViewModel.getUserRole(it.token)
+        }
+
+        loginViewModel.role.observe(viewLifecycleOwner) {
+            val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
+            val editor = sharedPref?.edit()
+            if (editor != null) {
+                editor.putString("role", it)
+                editor.commit()
+                editor.apply()
+            }
             view.findNavController().navigate(R.id.nav_home)
-            //ToDo: Loginanbindung an Backend
         }
 
         return view
@@ -70,6 +99,13 @@ class LoginFragment : Fragment() {
             }
         }
         return true
+    }
+
+    override fun onDestroyView() {
+        //while(callback) {
+
+        //}
+        super.onDestroyView()
     }
 
     companion object {

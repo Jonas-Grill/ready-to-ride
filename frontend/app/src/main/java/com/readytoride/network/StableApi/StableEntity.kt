@@ -1,7 +1,7 @@
 package com.readytoride.network.StableApi
 
 data class StableEntity(
-    val _id: String = " ",
+    val _id: String = "",
     val name: String,
     val description: String,
     var arenas: List<Arena>,

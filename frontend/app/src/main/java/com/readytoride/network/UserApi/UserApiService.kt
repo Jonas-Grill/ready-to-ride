@@ -35,10 +35,10 @@ interface UserApiService {
     @GET("users/proficiencies")
     suspend fun getProficiencies(): List<String>
 
-    @GET("users/me")
+    @GET("me")
     suspend fun getMyUser(@Header("Authorization") token: String): UserEntity
 
-    @GET("users/me/calendar")
+    @GET("me/calendar")
     suspend fun getMyUserCalendar(@Header("Authorization") token: String): List<LessonEntity>
 
     @PUT("users")
@@ -48,7 +48,7 @@ interface UserApiService {
     suspend fun postNewUser(@Header("Authorization") token: String, @Body requestBody: UserEntity): HorseEntity
 
     @POST("users/login")
-    suspend fun login(@Body requestBody: LoginEntity): TokenEntity
+    suspend  fun login(@Body requestBody: LoginEntity): TokenEntity
 
 }
 

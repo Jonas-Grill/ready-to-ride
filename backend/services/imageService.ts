@@ -1,6 +1,7 @@
 import InvalidIdException from "../exceptions/invalidIdException.ts";
+import {ensureDir} from "../deps.ts";
 
-const imageDir = "./images/";
+export const imageDir = "./images/";
 
 export async function findImage(id: string): Promise<Uint8Array> {
     id = id.replace(/\s/g, '');
@@ -20,6 +21,8 @@ export async function findImage(id: string): Promise<Uint8Array> {
 
 export async function addImage(data: Uint8Array): Promise<string> {
     const id: string = crypto.randomUUID();
+
+    await ensureDir(imageDir);
 
     await Deno.writeFile(`${imageDir}${id}.png`, data);
 

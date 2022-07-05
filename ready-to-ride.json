@@ -1245,7 +1245,7 @@
         }
       }
     },
-    "/users/me": {
+    "/me": {
       "get": {
         "description": "Returns the currently authenticated user.",
         "operationId": "find user by email",
@@ -1291,7 +1291,7 @@
         }
       }
     },
-    "/users/me/calendar": {
+    "/me/calendar": {
       "get": {
         "description": "Get all bookings from the authorized user.",
         "operationId": "find booking by user",
@@ -2136,6 +2136,14 @@
                 "writeOnly": true,
                 "type": "string",
                 "example": "4hz879erah"
+              },
+              "adminPasscode": {
+                "type": "string",
+                "readOnly": true
+              },
+              "trainerPasscode": {
+                "type": "string",
+                "readOnly": true
               }
             }
           }
@@ -2171,11 +2179,6 @@
           "boxes"
         ],
         "properties": {
-          "_id": {
-            "type": "string",
-            "readOnly": true,
-            "example": "611d5cd230dd29fc60df7b94"
-          },
           "name": {
             "type": "string",
             "example": "Ready to Ride"

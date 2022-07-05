@@ -88,9 +88,9 @@ export async function findBookedRidingLessonsByDay(fromDate: string, toDate: str
     }).toArray();
 }
 
-export async function findBookedRidingLessonsByTrainerIdAndHorseIdsAndDay(trainerId: string, horseIds: string[], fromDate: string, toDate: string) {
+export async function findBookedRidingLessonsByTrainerIdAndHorseIdsAndDay(trainerId: string[], horseIds: string[], fromDate: string, toDate: string) {
     return await ridingLessons.find({
-        "trainer.id": trainerId,
+        "trainer.id": {$in: trainerId},
         "horse.id": {$in: horseIds},
         booked: true,
         day: {
@@ -111,9 +111,9 @@ export async function findBookedRidingLessonsByHorseIdAndDay(horseIds: string[],
     }).toArray();
 }
 
-export async function findBookedRidingLessonsByTrainerIdAndDay(trainerId: string, fromDate: string, toDate: string) {
+export async function findBookedRidingLessonsByTrainerIdAndDay(trainerId: string[], fromDate: string, toDate: string) {
     return await ridingLessons.find({
-        "trainer.id": trainerId,
+        "trainer.id": {$in: trainerId},
         booked: true,
         day: {
             $gte: fromDate,
@@ -122,9 +122,9 @@ export async function findBookedRidingLessonsByTrainerIdAndDay(trainerId: string
     }).toArray();
 }
 
-export const findUnbookedRidingLessonByTrainerAndDay = async (trainerId: string, fromDate: string, toDate: string) => {
+export const findUnbookedRidingLessonByTrainerAndDay = async (trainerId: string[], fromDate: string, toDate: string) => {
     return await ridingLessons.find({
-        "trainer.id": trainerId,
+        "trainer.id": {$in: trainerId},
         booked: false,
         day: {
             $gte: fromDate,
@@ -133,9 +133,9 @@ export const findUnbookedRidingLessonByTrainerAndDay = async (trainerId: string,
     }).toArray();
 }
 
-export const findRidingLessonsByTrainerIdAndDay = async (trainerId: string, fromDate: string, toDate: string) => {
+export const findRidingLessonsByTrainerIdAndDay = async (trainerId: string[], fromDate: string, toDate: string) => {
     return await ridingLessons.find({
-        "trainer.id": trainerId,
+        "trainer.id": {$in: trainerId},
         day: {
             $gte: fromDate,
             $lt: toDate
