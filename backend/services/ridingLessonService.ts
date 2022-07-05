@@ -12,7 +12,7 @@ import {findUserById} from "./userService.ts";
 
 const ridingLessonDurationInHours = 1;
 
-export const findRidingLesson = async (trainer?: string, horses?: string[], fromDate?: string, toDate?: string, getPossibleRidingLessonCombinations?: boolean, bookedLessons?: boolean): Promise<RidingLessonSchema[]> => {
+export const findRidingLesson = async (trainer?: string[], horses?: string[], fromDate?: string, toDate?: string, getPossibleRidingLessonCombinations?: boolean, bookedLessons?: boolean): Promise<RidingLessonSchema[]> => {
     bookedLessons = getPossibleRidingLessonCombinations ? false : bookedLessons;
 
     let ridingLessons: RidingLessonModel[] | undefined;
