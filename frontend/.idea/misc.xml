@@ -14,21 +14,6 @@
         <entry key="..\:/Users/I517965/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/fragment_trainer_detail.xml" value="0.25226449275362317" />
         <entry key="..\:/Users/I517965/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/fragment_trainer_register.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/I517965/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/fragment_user_register.xml" value="0.15208333333333332" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/drawable/top_to_bottom.xml" value="0.3665" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/add_news_dialog.xml" value="0.365625" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/fragment_admin_register.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/fragment_horse.xml" value="0.3278985507246377" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/fragment_login.xml" value="0.3278985507246377" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/fragment_profile.xml" value="0.3278985507246377" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/fragment_register.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/fragment_trainer.xml" value="0.3278985507246377" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/fragment_trainer_detail.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/fragment_trainer_register.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/fragment_user_register.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/list_item_trainer.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/news_detail_dialog.xml" value="0.27421875" />
-        <entry key="..\:/Users/schae/Documents/GitHub/ready-to-ride/frontend/app/src/main/res/layout/news_list_row.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.138" />
         <entry key="app/src/main/res/drawable/ic_baseline_cake_24.xml" value="0.21" />
         <entry key="app/src/main/res/drawable/ic_baseline_category_24.xml" value="0.21" />
@@ -45,12 +30,15 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.19610507246376813" />
-        <entry key="app/src/main/res/layout/fragment_booking.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/fragment_admin_register.xml" value="0.23278985507246377" />
+        <entry key="app/src/main/res/layout/fragment_booking.xml" value="0.3016806339872057" />
         <entry key="app/src/main/res/layout/fragment_booking_dialog.xml" value="0.5150540074558123" />
         <entry key="app/src/main/res/layout/fragment_contact.xml" value="0.343333567743716" />
+        <entry key="app/src/main/res/layout/fragment_create_horse.xml" value="0.2746307295748045" />
+        <entry key="app/src/main/res/layout/fragment_create_horse2.xml" value="0.22035241610762002" />
         <entry key="app/src/main/res/layout/fragment_create_lesson.xml" value="0.375" />
-        <entry key="app/src/main/res/layout/fragment_edit_arenas.xml" value="0.326230627933909" />
-        <entry key="app/src/main/res/layout/fragment_edit_boxes.xml" value="0.17391304347826086" />
+        <entry key="app/src/main/res/layout/fragment_edit_arenas.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_edit_boxes.xml" value="0.23104805324388583" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_horse.xml" value="0.26666666666666666" />

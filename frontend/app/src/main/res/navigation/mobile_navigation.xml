@@ -59,9 +59,7 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue='""' />
-        <action
-            android:id="@+id/action_nav_lessons_to_createLesson"
-            app:destination="@id/createLesson" />
+
     </fragment>
 
     <fragment
@@ -129,11 +127,7 @@
         android:name="com.readytoride.ui.login.LoginFragment"
         android:label="@string/menu_login"
         tools:layout="@layout/fragment_login" />
-    <fragment
-        android:id="@+id/createLesson"
-        android:name="com.readytoride.ui.createlesson.CreateLesson"
-        android:label="Reitstunden erstellen"
-        tools:layout="@layout/fragment_create_lesson" />
+
     <fragment
         android:id="@+id/nav_register"
         android:name="com.readytoride.ui.login.RegisterFragment"

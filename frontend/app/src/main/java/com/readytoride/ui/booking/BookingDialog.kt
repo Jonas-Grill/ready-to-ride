@@ -1,5 +1,6 @@
 package com.readytoride.ui.booking
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,8 +33,9 @@ class BookingDialog : DialogFragment() {
         val failMessage: LinearLayout = view.findViewById(R.id.linear_layout_fail)
         val submitButton: Button = view.findViewById(R.id.booking_button)
 
-        val role = "A" //TODO: Richtige Rolle laden
-        if (role == "") {
+        val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
+        val role: String? = sharedPref?.getString("role", "defaultRole")
+        if (role == "defaultRole") {
             failMessage.visibility = View.VISIBLE
             firstMessage.visibility = View.GONE
             submitButton.visibility = View.GONE

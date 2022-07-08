@@ -41,6 +41,12 @@ class BookingSlotItemAdapter(
         holder.timeframe.text = timeframe
         holder.location.text = item.arena
 
+        val role = viewModel.role
+
+        if (role == "Admin") {
+            holder.button.visibility = View.GONE
+        }
+
         holder.button.setOnClickListener {
             viewModel.setBookingData(item._id, item.horse.id)
 
