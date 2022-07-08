@@ -18,6 +18,8 @@ class NewsDetailDialog(private val title: CharSequence, private val description:
     ): View? {
         var rootView: View = inflater.inflate(R.layout.news_detail_dialog, container, false)
 
+
+
         return rootView
     }
 

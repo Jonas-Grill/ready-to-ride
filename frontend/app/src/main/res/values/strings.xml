@@ -14,6 +14,9 @@
     <string name="menu_contact">Kontakt</string>
     <string name="menu_login">Login</string>
     <string name="menu_register">Registrieren</string>
+    <string name="register_user">Registrieren - User</string>
+    <string name="register_admin">Registrieren - Admin</string>
+    <string name="register_trainer">Registrieren - Trainer</string>
 
     <string name="book_lesson">Jetzt Reitstunde buchen</string>
     <string name="horse_details">Mehr erfahren</string>

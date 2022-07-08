@@ -10,7 +10,6 @@ import android.widget.ViewSwitcher
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.readytoride.R
 import com.readytoride.databinding.FragmentProfileBinding
@@ -172,8 +171,10 @@ class ProfileFragment : Fragment() {
                 //SET RolePasscode
                 binding.adminRegisterLayout.visibility = View.VISIBLE
                 binding.headerAdminPasscode.visibility = View.VISIBLE
+                binding.fieldAdminPasscode.text = it.adminPasscode
                 binding.fieldAdminPasscode.visibility = View.VISIBLE
                 binding.headerTrainerPasscode.visibility = View.VISIBLE
+                binding.fieldTrainerPasscode.text = it.trainerPasscode
                 binding.fieldTrainerPasscode.visibility = View.VISIBLE
             }
 

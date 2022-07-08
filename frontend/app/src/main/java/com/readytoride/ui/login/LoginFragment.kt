@@ -16,6 +16,7 @@ import com.readytoride.R
 import com.readytoride.network.UserApi.LoginEntity
 import com.readytoride.network.UserApi.TokenEntity
 import com.readytoride.network.UserApi.UserApi
+import com.readytoride.ui.home.NewsDetailDialog
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -45,10 +46,11 @@ class LoginFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.btn_login).setOnClickListener {
-            //if(validateInput()){//ToDo: Später wieder aktivieren, nur für Testzwecke ausgeschaltet
-            //Weiterleitung nach Login
-            val loginEntity = LoginEntity(mail.text.toString().trim(), password.text.toString().trim())
-            loginViewModel.loginUser(mail.text.toString().trim(), password.text.toString().trim())
+            if(validateInput()) {
+                //Weiterleitung nach Login
+                val loginEntity = LoginEntity(mail.text.toString().trim(), password.text.toString().trim())
+                loginViewModel.loginUser(mail.text.toString().trim(), password.text.toString().trim())
+            }
         }
 
         loginViewModel.token.observe(viewLifecycleOwner) {
@@ -75,30 +77,34 @@ class LoginFragment : Fragment() {
             view.findNavController().navigate(R.id.nav_home)
         }
 
+        loginViewModel.error.observe(viewLifecycleOwner) {
+            var dialog = FailedLoginDialog()
+            dialog.show(parentFragmentManager, "FailedLoginDialog")
+            mail.setText("")
+            password.setText("")
+        }
+
         return view
     }
 
     fun validateInput(): Boolean {
-        when {
-            TextUtils.isEmpty(mail.text.toString().trim()) -> {
-                mail.setError("Bitte E-Mail eintragen")
-                return false
-            }
-            TextUtils.isEmpty(password.text.toString().trim()) -> {
-                password.setError("Bitte Passwort eintragen")
-                return false
-            }
-            mail.text.toString().isNotEmpty() && password.toString().isNotEmpty() -> {
-                //ToDo: Mail Regex
-                //if (mail.text.toString().matches(Regex("(?:[a-z0-9!#\$%&'+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\$%&'+/=?^_`{|}~-]+)|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])\")@(?:(?:[a-z0-9](?:[a-z0-9-][a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-][a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"))) {
-                //direkter Mail Check: android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
-                //} else {
-                // mail.setError("Bitte gültige E-Mail eintragen")
-                return false
-                // }
+        var validater: Boolean = true
+        if(TextUtils.isEmpty(mail.text.toString().trim())) {
+            mail.setError("Bitte E-Mail eintragen")
+            validater = false
+        }
+        if(TextUtils.isEmpty(password.text.toString().trim())) {
+            password.setError("Bitte Passwort eintragen")
+            validater = false
+        }
+        if(mail.text.toString().isNotEmpty() && password.toString().isNotEmpty()) {
+            if(android.util.Patterns.EMAIL_ADDRESS.matcher(mail.text.toString()).matches()) {
+            } else {
+                mail.setError("Bitte gültige E-Mail eintragen")
+                validater =  false
             }
         }
-        return true
+        return validater
     }
 
     override fun onDestroyView() {

@@ -1,5 +1,6 @@
 package com.readytoride.ui.home
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -12,6 +13,7 @@ import android.widget.AdapterView
 import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -28,6 +30,7 @@ import kotlinx.android.synthetic.main.news_detail_dialog.*
 import com.readytoride.network.HorseApi.HorseApi
 import com.readytoride.network.HorseApi.HorseEntity
 import com.readytoride.network.LessonApi.PostingLessonEntity
+import com.readytoride.network.NewsApi.NewsEntity
 import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 class HomeFragment : Fragment() {
@@ -37,7 +40,7 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
+    private var newsFeed: MutableList<NewsEntity> = mutableListOf()
     //val listLayout: ConstraintLayout = fragmentHome
     //val vto: Unit = listLayout.viewTreeObserver.addOnGlobalLayoutListener {
 
@@ -55,43 +58,41 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        /////Example to call the getAllHorses() Method in the ViewModel
-        //homeViewModel.getAllHorses()
-        /////
-
-        val textView: TextView = binding.textHome
-        homeViewModel.horses.observe(viewLifecycleOwner) {
-            //Everytime there are any changes to the observing instance, this code will be called
-            val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
-            val gson: Gson = Gson()
-            val json: String = gson.toJson(it[0])
-            if (sharedPref != null) {
-                sharedPref.edit().putString("Horse", json).commit()
-            }
-            textView.text = it[0].description
+        context.let {
+            val fragmentManager = (context as AppCompatActivity).supportFragmentManager
         }
+
+        homeViewModel.getAllNews()
+        homeViewModel.news.observe(viewLifecycleOwner) {
+            newsFeed = it
+            setNewsList()
+        }
+
         //Beispiel wie Rolle des Users geholt / verwendet werden kann
         val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
         val role: String? = sharedPref?.getString("role", "DefaultRole")
 
-        //TEST
-        val postingLesson: PostingLessonEntity = PostingLessonEntity("Arena2", "heute", 1200)
-        val gson: Gson = Gson()
-        val json: String = gson.toJson(postingLesson)
-        if (sharedPref != null) {
-            sharedPref.edit().putString("lesson", json).commit()
-        }
-        //TEST2
-        val jsonAsString = "{\"email\": \"admin4\", \"test\": \"12345\"}"
-        data class MyClass(@SerializedName("s1") val s1: Int)
-        val jsonAsObject = gson.fromJson<JsonObject>(jsonAsString, JsonObject::class.java)
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val myDataset = NewsDataSource().loadNewsFeed()
-        val listView = view.findViewById<ListView>(R.id.newsList)
+        val newsButton: View = addNewsButton
+        newsButton.setOnClickListener { view ->
+            val layout = view.parent
+            var addNewsDialog = AddNewsDialog(this)
+            addNewsDialog.show(parentFragmentManager, "AddNewsDialog")
+        }
+    }
+    fun getAllNews() {
+        val homeViewModel =
+            ViewModelProvider(this).get(HomeViewModel::class.java)
+        homeViewModel.getAllNews()
+    }
+
+    fun setNewsList() {
+        val myDataset: MutableList<NewsEntity> = newsFeed
+        val listView = binding.newsList
         listView.adapter = HomeAdapter(this, myDataset)
         if (listView.adapter != null) {
             var totalHeight: Int = 0;
@@ -113,12 +114,6 @@ class HomeFragment : Fragment() {
             var desc = (listView.adapter as HomeAdapter).getDesc(position, null, listView)
             var dialog = NewsDetailDialog(title, desc)
             dialog.show(parentFragmentManager, "NewsDetailDialog")
-        }
-
-        val newsButton: View = addNewsButton
-        newsButton.setOnClickListener { view ->
-            var addNewsDialog = AddNewsDialog()
-            addNewsDialog.show(parentFragmentManager, "AddNewsDialog")
         }
     }
 
