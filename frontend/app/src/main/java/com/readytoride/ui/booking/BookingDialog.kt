@@ -43,13 +43,10 @@ class BookingDialog : DialogFragment() {
         } else {
             failMessage.visibility = View.GONE
             secondMessage.visibility = View.GONE
-            println("1: "+submitButton.isClickable)
         }
 
         firstMessage.setOnClickListener {
-            println("2: "+submitButton.isClickable)
             submitButton.isClickable = !submitButton.isClickable
-            println("3: "+submitButton.isClickable)
         }
 
         submitButton.setOnClickListener {
