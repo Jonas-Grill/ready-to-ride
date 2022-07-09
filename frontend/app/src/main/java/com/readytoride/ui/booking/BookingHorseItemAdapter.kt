@@ -7,11 +7,11 @@ import android.widget.CheckBox
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
-import com.readytoride.ui.horse.Horse
+import com.readytoride.network.HorseApi.HorseEntity
 
 class BookingHorseItemAdapter(
     private val context: BookingFragment,
-    private val dataset: List<Horse>,
+    private val dataset: MutableList<HorseEntity>,
     private val horseId: String,
     ) :
     RecyclerView.Adapter<BookingHorseItemAdapter.ItemViewHolder>() {
@@ -27,14 +27,13 @@ class BookingHorseItemAdapter(
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_selection_horse, parent, false)
         viewModel = ViewModelProvider(context).get(BookingViewModel::class.java)
-
         return ItemViewHolder(adapterLayout)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = dataset[position]
-        holder.checkbox.text = context.resources.getString(item.nameStringResourceId)
-        holder.checkbox.tooltipText = context.resources.getString(item.horseId)
+        holder.checkbox.text = item.name
+        holder.checkbox.tooltipText = item._id
 
         holder.checkbox.setOnClickListener {
             val horseid = holder.checkbox.tooltipText.toString()

@@ -7,7 +7,7 @@ data class LessonEntity(
     val arena: String,
     val day: String,
     val startHour: Int,
-    val horse: HorseForLesson
+    val horse: HorseForLesson = HorseForLesson("", "")
 
 )
 

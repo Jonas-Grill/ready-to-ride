@@ -6,16 +6,21 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.readytoride.DownloadImageTask
 import com.readytoride.R
+import com.readytoride.network.UserApi.Accomplishment
+import com.readytoride.network.UserApi.Name
+import com.readytoride.network.UserApi.UserEntity
 
-class TrainerItemAdapter(private val context: TrainerFragment, private val dataset: List<Trainer>) :
+class TrainerItemAdapter(private val context: TrainerFragment, private val dataset: List<UserEntity>) :
     RecyclerView.Adapter<TrainerItemAdapter.ItemViewHolder>(), View.OnClickListener {
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val textViewName: TextView = view.findViewById(R.id.item_trainer)
-        val textViewHeight: TextView = view.findViewById(R.id.item_qualification)
+        val textViewQualification: TextView = view.findViewById(R.id.item_qualification)
         val textViewAge: TextView = view.findViewById(R.id.item_age)
         val textViewFocus: TextView = view.findViewById(R.id.item_focus)
         val imageView: ImageView = view.findViewById(R.id.item_trainerimage)
@@ -32,12 +37,28 @@ class TrainerItemAdapter(private val context: TrainerFragment, private val datas
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = dataset[position]
-        holder.textViewName.text = context.resources.getString(item.trainerStringResourceId)
-        holder.textViewHeight.text = context.resources.getString(item.qualificationStringResourceId)
-        holder.textViewAge.text = context.resources.getString(item.ageStringResourceId)
-        holder.textViewFocus.text = context.resources.getString(item.focusStringResourceId)
-        holder.imageView.setImageResource(item.trainerimageResourceId[0])
-        holder.button.tooltipText = context.resources.getString(item.trainerId)
+
+        val name: Name = item.name
+        val nameString: String = name.firstName + " " + name.lastName
+        holder.textViewName.text = nameString
+
+        val certificates: List<Accomplishment> = item.certificates
+        var year: Int = 0
+        var qual: String = ""
+        for (certificate in certificates) {
+            if (certificate.year > year){
+                year = certificate.year
+                qual = certificate.name
+            }
+        }
+
+        holder.textViewQualification.text = qual
+
+        holder.textViewAge.text = item.age.toString()
+        holder.textViewFocus.text = item.focus
+        DownloadImageTask(holder.imageView)
+            .execute("https://ready-to-ride-backend.tk/images/" + item.profilePicture)
+        holder.button.tooltipText = item._id
         holder.button.setOnClickListener(this)
     }
 

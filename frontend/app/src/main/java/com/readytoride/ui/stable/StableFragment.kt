@@ -1,5 +1,6 @@
 package com.readytoride.ui.stable
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
+import com.readytoride.network.StableApi.StableEntity
 
 class StableFragment : Fragment(){
 
@@ -21,22 +26,51 @@ class StableFragment : Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view = inflater.inflate(R.layout.fragment_stable, container, false)
-
-        //ToDo: Rollencheck macht Button sichtbar
-       // if (rolle == Admin){//ToDo: Rollencheck
-            view.findViewById<Button>(R.id.btn_edit_stable).visibility = View.VISIBLE
-      //  }
-        view.findViewById<Button>(R.id.btn_edit_stable).setOnClickListener{
-            //ToDo: Felder bearbeitbar machen
-        }
-
-        return view
+        viewModel = ViewModelProvider(this).get(StableViewModel::class.java)
+        return inflater.inflate(R.layout.fragment_stable, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(StableViewModel::class.java)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getStable()
+        val myObserver = Observer<StableEntity> { newStable -> run{
+            val myDatasetArena = newStable.arenas
+            val myDatasetBox = newStable.boxes
+            val recyclerViewBox = view.findViewById<RecyclerView>(R.id.recycler_view_box)
+            val recyclerViewArena = view.findViewById<RecyclerView>(R.id.recycler_view_arenas)
+
+            recyclerViewBox.adapter = BoxItemAdapter(this, myDatasetBox)
+            recyclerViewBox.setHasFixedSize(true)
+
+            recyclerViewArena.adapter = ArenaItemAdapter(this, myDatasetArena)
+            recyclerViewArena.setHasFixedSize(true)
+
+        }}
+        viewModel.stable.observe(viewLifecycleOwner, myObserver)
+
+        val buttonEditBoxes = view.findViewById<Button>(R.id.button8)
+        val buttonEditArenas = view.findViewById<Button>(R.id.button9)
+
+        //TODO: Buttons only visible for Admins
+        val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
+        val role: String? = sharedPref?.getString("role", "defaultRole")
+        println(role)
+        if (role != "Admin") {
+            buttonEditBoxes.visibility = View.GONE
+            buttonEditArenas.visibility = View.GONE
+        }
+
+        buttonEditBoxes.setOnClickListener{
+            val action = StableFragmentDirections.actionNavStableToEditBoxesFragment()
+            view.findNavController().navigate(action)
+        }
+
+        buttonEditArenas.setOnClickListener{
+            val action = StableFragmentDirections.actionNavStableToEditArenasFragment()
+            view.findNavController().navigate(action)
+        }
+
     }
 
 }

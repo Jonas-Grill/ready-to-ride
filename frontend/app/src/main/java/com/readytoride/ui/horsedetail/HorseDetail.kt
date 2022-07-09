@@ -12,8 +12,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
+import com.readytoride.DownloadImageTask
 import com.readytoride.R
-import com.readytoride.ui.horse.HorseDatasource
+import com.readytoride.network.HorseApi.HorseEntity
 
 class HorseDetail : Fragment() {
 
@@ -23,20 +24,20 @@ class HorseDetail : Fragment() {
 
     private lateinit var viewModel: HorseDetailViewModel
     private lateinit var horseId: String
+    private lateinit var horse: HorseEntity
     val args: HorseDetailArgs by navArgs<HorseDetailArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        horseId = args.horseId.toString()
+        this.horseId = args.horseId.toString()
+        viewModel = ViewModelProvider(this).get(HorseDetailViewModel::class.java)
         return inflater.inflate(R.layout.fragment_horse_detail, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HorseDetailViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,31 +51,31 @@ class HorseDetail : Fragment() {
         val textViewDifficulty: TextView = view.findViewById(R.id.difficulty_detail)
         val textViewDescription: TextView = view.findViewById(R.id.horsedescription_detail)
 
-        val index: Int = horseId.toInt()
+        viewModel.getHorse(this.horseId)
 
-        val horse = HorseDatasource().loadHorses()[index - 1]
+        viewModel.horse.observe(viewLifecycleOwner) {
+            textViewHorsename.text = it.name
+            textViewHeight.text = it.height.toString() + " cm"
+            textViewRace.text =  it.race
+            textViewAge.text = it.age.toString()
+            textViewColour.text = it.colour
+            textViewDifficulty.text = it.difficultyLevel
+            textViewDescription.text = it.description
 
-        textViewHorsename.text = getString(horse.nameStringResourceId)
-        textViewHeight.text = getString(horse.heightStringResourceId)
-        textViewRace.text = getString(horse.raceStringResourceId)
-        textViewAge.text = getString(horse.ageStringResourceId)
-        textViewColour.text = getString(horse.colourStringResourceId)
-        textViewDifficulty.text = getString(horse.difficultyStringResourceId)
-        textViewDescription.text = getString(horse.descriptionStringResourceId)
+            val imageList = ArrayList<SlideModel>()
 
-        val imageList = ArrayList<SlideModel>()
+            for (image in it.pictures) {
+                imageList.add(SlideModel("https://ready-to-ride-backend.tk/images/$image"))
+            }
 
-        for (image in horse.imageResourceId) {
-            imageList.add(SlideModel(image))
+            val imageSlider = view.findViewById<ImageSlider>(R.id.imageSliderTrainer)
+            imageSlider.setImageList(imageList)
         }
-
-        val imageSlider = view.findViewById<ImageSlider>(R.id.imageSliderTrainer)
-        imageSlider.setImageList(imageList)
 
         val bookingButton: Button = view.findViewById(R.id.button)
         bookingButton.setOnClickListener {
-            val action = HorseDetailDirections.actionNavHorseDetailToNavLessons(null, horseId)
-            view.findNavController().navigate(action)
+            val action = HorseDetailDirections.actionNavHorseDetailToNavLessons("", this.horseId)
+            view.findNavController().navigate(action) //kann auch id sein
         }
     }
 }
