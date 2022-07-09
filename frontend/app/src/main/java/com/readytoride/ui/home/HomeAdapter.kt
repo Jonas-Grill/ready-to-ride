@@ -10,7 +10,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.readytoride.R
 import com.readytoride.network.NewsApi.NewsEntity
-import com.readytoride.ui.horse.Horse
 
 class HomeAdapter(private val context: HomeFragment, private val dataset: MutableList<NewsEntity>): BaseAdapter() {
 
@@ -41,13 +40,6 @@ class HomeAdapter(private val context: HomeFragment, private val dataset: Mutabl
         return convertView
     }
 
-    fun getDataset(): List<NewsEntity> {
-        return dataset
-    }
-
-    fun addData(newNews: NewsEntity) {
-        dataset.add(newNews)
-    }
 
     fun getTitle(position: Int, convertView: View?, parent: ViewGroup?): CharSequence {
         val item = dataset[position]

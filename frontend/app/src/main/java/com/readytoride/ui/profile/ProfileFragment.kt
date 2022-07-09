@@ -10,13 +10,17 @@ import android.widget.ViewSwitcher
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.google.gson.reflect.TypeToken
 import com.readytoride.R
 import com.readytoride.databinding.FragmentProfileBinding
-import com.readytoride.network.LessonApi.PostingLessonEntity
+import com.readytoride.network.LessonApi.LessonEntity
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import java.lang.reflect.Type
 import java.util.*
 
 
@@ -43,7 +47,6 @@ class ProfileFragment : Fragment() {
         val root: View = binding.root
 
         val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-
         binding.editProfile.setOnClickListener {
             onEditProfile()
         }
@@ -61,6 +64,7 @@ class ProfileFragment : Fragment() {
                 if (sharedPref != null) {
                     sharedPref.edit().remove("token").commit()
                     sharedPref.edit().remove("role").commit()
+                    sharedPref.edit().remove("userLessons").commit()
                 };
                 binding.loginProfile.text = "Anmelden"
                 binding.headerName.visibility = View.GONE
@@ -77,6 +81,7 @@ class ProfileFragment : Fragment() {
                 binding.headerProficiency.visibility = View.GONE
                 binding.proficiencySwitcher.visibility = View.GONE
                 binding.bookedHoursLayout.visibility = View.GONE
+                binding.recyclerViewUserBookings.visibility = View.GONE
 
                 //Admin only
                 binding.adminRegisterLayout.visibility = View.GONE
@@ -143,6 +148,11 @@ class ProfileFragment : Fragment() {
 
                 //Set Booked Hours
                 binding.bookedHoursLayout.visibility = View.VISIBLE
+                binding.recyclerViewUserBookings.visibility = View.VISIBLE
+
+                binding.stickyScroll.fullScroll(ScrollView.FOCUS_UP)
+                val stringToken: String = sharedPref.getString("token", "DefaultValue").toString()
+                profileViewModel.getUserBookings(stringToken)
             }
             else if(role == "Trainer") {
                 //Set Focus
@@ -166,6 +176,7 @@ class ProfileFragment : Fragment() {
                 binding.headerCertifiates.visibility = View.VISIBLE
                 //binding.fieldFocus.visibility = View.VISIBLE
                 //binding.fieldFocus.text = it.focus
+                binding.stickyScroll.fullScroll(ScrollView.FOCUS_UP)
             }
             else if(role == "Admin") {
                 //SET RolePasscode
@@ -176,6 +187,8 @@ class ProfileFragment : Fragment() {
                 binding.headerTrainerPasscode.visibility = View.VISIBLE
                 binding.fieldTrainerPasscode.text = it.trainerPasscode
                 binding.fieldTrainerPasscode.visibility = View.VISIBLE
+
+                binding.stickyScroll.fullScroll(ScrollView.FOCUS_UP)
             }
 
             binding.fieldName.text = it.name.firstName + " " + it.name.lastName
@@ -186,7 +199,32 @@ class ProfileFragment : Fragment() {
             binding.editAge.setText(it.age.toString())
 
         }
-        //textView.text = token
+
+        profileViewModel.lessons.observe(viewLifecycleOwner) {
+            val userLessons: String = sharedPref?.getString("userLessons", "defaultLesson").toString()
+            if(userLessons == "defaultLesson") {
+                val recyclerViewBookings: RecyclerView = binding.recyclerViewUserBookings
+                recyclerViewBookings.adapter = UserBookingAdapter(this, it)
+                recyclerViewBookings.setHasFixedSize(true)
+                val gson: Gson = Gson()
+                val lessonString: String = gson.toJson(it)
+                val editor = sharedPref?.edit()
+                if (editor != null) {
+                    editor.putString("userLessons", lessonString)
+                    editor.commit()
+                    editor.apply()
+                }
+            }
+        }
+        val userLessons: String = sharedPref?.getString("userLessons", "defaultLesson").toString()
+        if(userLessons != "defaultLesson") {
+            val gson: Gson = Gson()
+            val collectionType = object : TypeToken<List<LessonEntity>>() {}.type
+            val jsonUserLessons = gson.fromJson<List<LessonEntity>>(userLessons, collectionType)
+            val recyclerViewBookings: RecyclerView = binding.recyclerViewUserBookings
+            recyclerViewBookings.adapter = UserBookingAdapter(this, jsonUserLessons)
+            recyclerViewBookings.setHasFixedSize(true)
+        }
 
         return root
     }
@@ -223,6 +261,7 @@ class ProfileFragment : Fragment() {
             binding.editProfile.text = "Profil speichern"
             if(role == "User") {
                 binding.bookedHoursLayout.visibility = View.GONE
+                binding.recyclerViewUserBookings.visibility = View.GONE
             }
             else if(role == "Admin") {
                 binding.adminRegisterLayout.visibility = View.GONE
@@ -251,6 +290,7 @@ class ProfileFragment : Fragment() {
                 userObj.addProperty("proficiency", binding.editProficiency.text.toString())
 
                 binding.bookedHoursLayout.visibility = View.VISIBLE
+                binding.recyclerViewUserBookings.visibility = View.VISIBLE
             }
             else if(role == "Admin") {
                 binding.adminRegisterLayout.visibility = View.VISIBLE
@@ -296,6 +336,7 @@ class ProfileFragment : Fragment() {
         binding.editProfile.text = "Profil bearbeiten"
         if(role == "User") {
             binding.bookedHoursLayout.visibility = View.VISIBLE
+            binding.recyclerViewUserBookings.visibility = View.VISIBLE
             binding.editHeight.setText(binding.fieldHeight.text.split("cm")[0])
             binding.editWeight.setText(binding.fieldWeight.text.split("kg")[0])
             binding.editProficiency.setText(binding.fieldProficiency.text)

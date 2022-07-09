@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonObject
+import com.readytoride.network.LessonApi.LessonEntity
 import com.readytoride.network.UserApi.LoginEntity
 import com.readytoride.network.UserApi.TokenEntity
 import com.readytoride.network.UserApi.UserApi
@@ -18,13 +19,24 @@ import java.lang.Exception
 class ProfileViewModel : ViewModel() {
 
     private val _user = MutableLiveData<UserEntity>()
+    private val _lessons = MutableLiveData<List<LessonEntity>>()
     val user: LiveData<UserEntity> = _user
+    val lessons: LiveData<List<LessonEntity>> = _lessons
 
     internal fun getUserData(token: String) {
         viewModelScope.launch {
             try {
                 var response = UserApi.retrofitService.getMyUser("Bearer $token")
                 _user.value = response
+            } catch (e: Exception){
+            }
+        }
+    }
+    internal fun getUserBookings(token: String) {
+        viewModelScope.launch {
+            try {
+                var response = UserApi.retrofitService.getMyUserCalendar("Bearer $token")
+                _lessons.value = response
             } catch (e: Exception){
             }
         }

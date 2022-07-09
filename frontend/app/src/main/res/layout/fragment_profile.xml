@@ -519,11 +519,27 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_user_bookings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:visibility="gone"
+                    app:layoutManager="StaggeredGridLayoutManager" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/admin_register_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-
                 android:tag="sticky"
                 android:visibility="gone"
                 android:orientation="vertical">
@@ -635,6 +651,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="Anmelden"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
