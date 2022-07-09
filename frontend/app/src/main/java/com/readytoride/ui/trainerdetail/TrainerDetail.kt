@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
 import com.readytoride.R
-import com.readytoride.ui.trainer.TrainerDatasource
+import com.readytoride.network.UserApi.Accomplishment
+import com.readytoride.network.UserApi.Name
 
 class TrainerDetail : Fragment() {
 
@@ -31,12 +32,8 @@ class TrainerDetail : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         trainerId = args.trainerId.toString()
-        return inflater.inflate(R.layout.fragment_trainer_detail, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(TrainerDetailViewModel::class.java)
+        return inflater.inflate(R.layout.fragment_trainer_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,37 +42,49 @@ class TrainerDetail : Fragment() {
         val textViewTrainername: TextView = view.findViewById(R.id.item_trainername_detail)
         val textViewAge: TextView = view.findViewById(R.id.item_age_trainer_detail)
         val textViewFocus: TextView = view.findViewById(R.id.item_focus_trainer_detail)
-        val textViewQualification: TextView =
-            view.findViewById(R.id.item_qualification_trainer_detail)
+        val textViewQualification: TextView = view.findViewById(R.id.item_qualification_trainer_detail)
         val textViewDescription: TextView = view.findViewById(R.id.item_description_trainer_detail)
 
-        val index: Int = trainerId.toInt()
+        viewModel.getTrainer(trainerId)
 
-        val trainer = TrainerDatasource().loadTrainer()[index - 1]
+        viewModel.trainer.observe(viewLifecycleOwner){
+            val name: Name = it.name
+            val nameString: String = name.firstName + " " + name.lastName
+            textViewTrainername.text = nameString
 
-        textViewTrainername.text = getString(trainer.trainerStringResourceId)
-        textViewAge.text = getString(trainer.ageStringResourceId)
-        textViewFocus.text = getString(trainer.focusStringResourceId)
-        textViewQualification.text = getString(trainer.qualificationStringResourceId)
-        textViewDescription.text = getString(trainer.descriptionStringResourceId)
+            textViewAge.text = it.age.toString()
+            textViewFocus.text = it.focus
 
-        val imageList = ArrayList<SlideModel>()
+            val certificates: List<Accomplishment> = it.certificates
+            var year: Int = 0
+            var qual: String = ""
+            for (certificate in certificates) {
+                if (certificate.year > year){
+                    year = certificate.year
+                    qual = certificate.name
+                }
+            }
+            textViewQualification.text = qual
+            textViewDescription.text = it.description
 
-        for (image in trainer.trainerimageResourceId) {
-            imageList.add(SlideModel(image))
+            val imageList = ArrayList<SlideModel>()
+
+            for (image in it.pictures) {
+                imageList.add(SlideModel("https://ready-to-ride-backend.tk/images/$image"))
+            }
+
+            val imageSlider = view.findViewById<ImageSlider>(R.id.imageSliderTrainer)
+            imageSlider.setImageList(imageList)
+
+            val myDataset = it.achievements
+            val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_trainer_achievements)
+            recyclerView.adapter = AchievementsItemAdapter(this, myDataset)
+            recyclerView.setHasFixedSize(true)
         }
-
-        val imageSlider = view.findViewById<ImageSlider>(R.id.imageSliderTrainer)
-        imageSlider.setImageList(imageList)
-
-        val myDataset = trainer.achievementsStringResourceId
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_trainer_achievements)
-        recyclerView.adapter = AchievementsItemAdapter(this, myDataset)
-        recyclerView.setHasFixedSize(true)
 
         val bookingButton: Button = view.findViewById(R.id.button_book_trainer)
         bookingButton.setOnClickListener {
-            val action = TrainerDetailDirections.actionTrainerDetail2ToNavLessons(trainerId, null)
+            val action = TrainerDetailDirections.actionTrainerDetail2ToNavLessons(trainerId, "")
             view.findNavController().navigate(action)
         }
     }

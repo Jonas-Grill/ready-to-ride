@@ -1,23 +1,26 @@
 package com.readytoride
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
-import android.view.View
-import androidx.activity.viewModels
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.readytoride.databinding.ActivityMainBinding
 import com.readytoride.ui.horse.HorseViewModel
 import com.readytoride.ui.login.LoginFragment
 import kotlin.reflect.jvm.internal.impl.utils.DFS
+import java.net.URL
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -66,4 +69,25 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+}
+
+class DownloadImageTask(var bmImage: ImageView) :
+    AsyncTask<String?, Void?, Bitmap?>() {
+
+    override fun onPostExecute(result: Bitmap?) {
+        bmImage.setImageBitmap(result)
+    }
+
+    override fun doInBackground(vararg params: String?): Bitmap? {
+        var url = params[0]
+        var mIcon11: Bitmap? = null
+        try {
+            val `in` = URL(url).openStream()
+            mIcon11 = BitmapFactory.decodeStream(`in`)
+        } catch (e: Exception) {
+            Log.e("Error", e.message!!)
+            e.printStackTrace()
+        }
+        return mIcon11
+    }
 }

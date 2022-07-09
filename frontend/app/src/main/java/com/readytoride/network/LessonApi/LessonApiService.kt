@@ -1,6 +1,5 @@
 package com.readytoride.network.LessonApi
 
-import com.readytoride.network.NewsApi.NewsEntity
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -17,14 +16,20 @@ private val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFact
 interface LessonApiService {
 
     @GET("ridinglessons")
-    suspend fun getLessons(): List<LessonEntity>
+    suspend fun getLessons(@Query("trainer") trainer: String,
+                           @Query("horses") horses: MutableList<String>,
+                           @Query("fromDate") fromDate: String,
+                           @Query("toDate") toDate: String?,
+                           @Query("getPossibleHorseCombinations") getPossibleHorseCombinations: Boolean,
+                           @Query("bookedLessons") bookedLessons: Boolean?
+    ): MutableList<LessonEntity>
 
-    @POST("ridinglessons")
-    suspend fun postNewLesson(@Header("Authorization") token: String, @Body requestBody: PostingLessonEntity): LessonEntity
+    //probably not needed
+    //@POST("ridinglessons")
+    //suspend fun postNewLesson(@Header("Authorization") token: String, @Body requestBody: PostingLessonEntity): LessonEntity
 
-//May or may not be in final Version
-    //@POST("ridinglessons/multiple")
-    //suspend fun postNewLessons(@Header("Authorization") token: String, @Body requestBody: List<PostingLessonEntity>): List<LessonEntity>
+    @POST("ridinglessons/multiple")
+    suspend fun postNewLessons(@Header("Authorization") token: String, @Body requestBody: PostingLessonEntity): List<LessonEntity>
 
     @POST("ridinglessons/{id}/book")
     suspend fun makeBookingRequest(@Header("Authorization") token: String, @Body requestBody: HorseIdForLesson, @Path("id") lessonId: String): LessonEntity

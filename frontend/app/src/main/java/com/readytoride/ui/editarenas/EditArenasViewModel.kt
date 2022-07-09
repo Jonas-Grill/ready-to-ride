@@ -1,4 +1,4 @@
-package com.readytoride.ui.stable
+package com.readytoride.ui.editarenas
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,18 +9,29 @@ import com.readytoride.network.StableApi.StableEntity
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class StableViewModel : ViewModel() {
+class EditArenasViewModel : ViewModel() {
     private val _stable = MutableLiveData<StableEntity>()
     val stable: LiveData<StableEntity> = _stable
 
     internal fun getStable() {
         viewModelScope.launch {
             try {
-                val result = StableApi.retrofitService.getStables()
-                _stable.value = result
+                val listResult = StableApi.retrofitService.getStables()
+                _stable.value = listResult
             } catch (e: Exception){
 
             }
         }
     }
+
+    internal fun setStable(token: String?, stableEdited: StableEntity){
+        viewModelScope.launch {
+            try {
+                var response = StableApi.retrofitService.updateStable("Bearer $token", stableEdited)
+            } catch (e: Exception){
+
+            }
+        }
+    }
+
 }
