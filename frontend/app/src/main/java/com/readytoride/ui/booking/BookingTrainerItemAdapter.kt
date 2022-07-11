@@ -11,8 +11,7 @@ import com.readytoride.network.UserApi.UserEntity
 
 class BookingTrainerItemAdapter(
     private val context: BookingFragment,
-    private val dataset: MutableList<UserEntity>,
-    private val trainerId: String,
+    private val dataset: MutableList<UserEntity>
 ) :
     RecyclerView.Adapter<BookingTrainerItemAdapter.ItemViewHolder>() {
 
@@ -23,7 +22,6 @@ class BookingTrainerItemAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        // create a new view
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_selection_trainer, parent, false)
         viewModel = ViewModelProvider(context).get(BookingViewModel::class.java)
@@ -44,11 +42,6 @@ class BookingTrainerItemAdapter(
             } else {
                 viewModel.addTrainer(trainerid)
             }
-        }
-
-        if (holder.checkbox.tooltipText == trainerId) {
-            holder.checkbox.isChecked = true
-            viewModel.addTrainer(trainerId)
         }
     }
 

@@ -24,8 +24,6 @@ class BookingFragment : Fragment() {
         fun newInstance() = BookingFragment()
     }
 
-    var horseId = ""
-    var trainerId = ""
     val args: BookingFragmentArgs by navArgs<BookingFragmentArgs>()
 
     private lateinit var viewModel: BookingViewModel
@@ -34,8 +32,6 @@ class BookingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        trainerId = args.trainerid.toString()
-        horseId = args.horseid.toString()
         viewModel = ViewModelProvider(this).get(BookingViewModel::class.java)
         return inflater.inflate(R.layout.fragment_booking, container, false)
     }
@@ -84,7 +80,7 @@ class BookingFragment : Fragment() {
         viewModel.getAllHorses()
         val myHorseObserver = Observer<MutableList<HorseEntity>> { newHorseList -> run{
             val recyclerViewHorse = view.findViewById<RecyclerView>(R.id.recycler_view_selection_horse)
-            recyclerViewHorse.adapter = BookingHorseItemAdapter(this, newHorseList, horseId)
+            recyclerViewHorse.adapter = BookingHorseItemAdapter(this, newHorseList)
             recyclerViewHorse.setHasFixedSize(true)
         }}
         viewModel.horses.observe(viewLifecycleOwner, myHorseObserver)
@@ -92,7 +88,7 @@ class BookingFragment : Fragment() {
         viewModel.getAllTrainer()
         val myTrainerObserver = Observer<MutableList<UserEntity>> { newTrainerList -> run{
             val recyclerViewTrainer = view.findViewById<RecyclerView>(R.id.recycler_view_selection_trainer)
-            recyclerViewTrainer.adapter = BookingTrainerItemAdapter(this, newTrainerList, trainerId)
+            recyclerViewTrainer.adapter = BookingTrainerItemAdapter(this, newTrainerList)
             recyclerViewTrainer.setHasFixedSize(true)
         }}
         viewModel.trainer.observe(viewLifecycleOwner, myTrainerObserver)
@@ -360,7 +356,6 @@ class BookingFragment : Fragment() {
                     viewModel.setTimeTo(selectedInt)
                 }
             }
-
         }}
         viewModel.lessons2.observe(viewLifecycleOwner, myLessonsObserver2)
 

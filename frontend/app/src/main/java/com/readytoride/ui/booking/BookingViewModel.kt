@@ -43,8 +43,10 @@ class BookingViewModel : ViewModel() {
             try {
                 val listResult = HorseApi.retrofitService.getHorses().toMutableList()
                 _horses.value = listResult
+                println(listResult)
             } catch (e: Exception){
                 _text.value = "Failure: ${e.message}"
+                println(e)
             }
         }
     }
@@ -65,6 +67,7 @@ class BookingViewModel : ViewModel() {
             try {
                 val listResult = LessonApi.retrofitService.getLessons("", selectedHorses, dateFrom, dateTo,true, false)
                 _lessons.value = listResult
+                println(listResult)
             } catch (e: Exception){
                 _text.value = "Failure: ${e.message}"
             }

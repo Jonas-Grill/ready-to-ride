@@ -55,6 +55,7 @@
         <entry key="app/src/main/res/layout/list_item_horse.xml" value="0.4330245971679688" />
         <entry key="app/src/main/res/layout/list_item_selection_arena.xml" value="0.17391304347826086" />
         <entry key="app/src/main/res/layout/list_item_selection_box.xml" value="0.20697463768115942" />
+        <entry key="app/src/main/res/layout/list_item_selection_horse.xml" value="0.1" />
         <entry key="app/src/main/res/layout/list_item_selection_trainer.xml" value="0.6676742553710938" />
         <entry key="app/src/main/res/layout/list_item_trainer.xml" value="0.25448028673835127" />
         <entry key="app/src/main/res/layout/list_item_trainer_achievements.xml" value="0.24398625429553264" />
