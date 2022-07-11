@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.R
@@ -220,8 +219,6 @@ class BookingFragment : Fragment() {
 
             viewModel.getAllLessons(date1.toString(), date7.toString())
         }
-
-        /////////////////////// Create Lesson ////////////////////////////
 
         for (i in 0..23){
             timeslotsFrom.add(i.toString() + ":00 Uhr")

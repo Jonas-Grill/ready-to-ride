@@ -75,7 +75,6 @@ class EditBoxesFragment : Fragment() {
             ArrayAdapter.createFromResource(view.context, R.array.actionsbox, android.R.layout.simple_spinner_item
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                // Apply the adapter to the spinner
                 spinnerAction.adapter = adapter
             }
             spinnerAction.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -102,7 +101,6 @@ class EditBoxesFragment : Fragment() {
             ArrayAdapter(view.context, android.R.layout.simple_spinner_item, myBoxNames
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                // Apply the adapter to the spinner
                 spinnerBoxDelete.adapter = adapter
             }
             spinnerBoxDelete.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -117,7 +115,6 @@ class EditBoxesFragment : Fragment() {
             ArrayAdapter(view.context, android.R.layout.simple_spinner_item, myBoxNames
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                // Apply the adapter to the spinner
                 spinnerBoxEdit.adapter = adapter
             }
             spinnerBoxEdit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{

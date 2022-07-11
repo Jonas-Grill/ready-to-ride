@@ -55,7 +55,6 @@ class BookingDialog : DialogFragment() {
             secondMessage.visibility = View.VISIBLE
 
             viewModel.bookLesson()
-
         }
 
         submitButton.isClickable = false

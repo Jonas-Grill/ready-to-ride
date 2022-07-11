@@ -23,7 +23,6 @@ class BookingHorseItemAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        // create a new view
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_selection_horse, parent, false)
         viewModel = ViewModelProvider(context).get(BookingViewModel::class.java)

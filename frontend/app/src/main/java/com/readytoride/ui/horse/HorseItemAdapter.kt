@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.readytoride.DownloadImageTask
 import com.readytoride.R
 import com.readytoride.network.HorseApi.HorseEntity
-import com.readytoride.ui.booking.BookingFragment
 
 class HorseItemAdapter(private val context: HorseFragment, private val dataset: MutableList<HorseEntity>) :
     RecyclerView.Adapter<HorseItemAdapter.ItemViewHolder>(), View.OnClickListener {
@@ -28,7 +27,6 @@ class HorseItemAdapter(private val context: HorseFragment, private val dataset: 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        // create a new view
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_horse, parent, false)
 

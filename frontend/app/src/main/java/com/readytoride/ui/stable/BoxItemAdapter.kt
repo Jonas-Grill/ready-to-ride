@@ -19,7 +19,6 @@ class BoxItemAdapter(private val context: StableFragment, private val dataset: L
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        // create a new view
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_box, parent, false)
 

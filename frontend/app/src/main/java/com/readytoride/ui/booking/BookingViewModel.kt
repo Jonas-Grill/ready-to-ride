@@ -158,10 +158,8 @@ class BookingViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val listResult = LessonApi.retrofitService.postNewLessons("Bearer $token", PostingLessonEntity(selectedArena,selectedDate,selectedTimeFrom,selectedTimeTo))
-                println("Success")
             } catch (e: Exception){
                 _text.value = "Failure: ${e.message}"
-                println(e.message)
             }
         }
     }

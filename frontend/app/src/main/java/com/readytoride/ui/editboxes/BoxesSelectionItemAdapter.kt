@@ -29,7 +29,6 @@ class BoxesSelectionItemAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = dataset[position]
         holder.checkbox.text = item.name
-        holder.checkbox.tooltipText = "item._id" //Muss ID von Arena bekommen
     }
 
     override fun getItemCount() = dataset.size
