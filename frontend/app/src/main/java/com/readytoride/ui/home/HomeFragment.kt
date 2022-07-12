@@ -57,27 +57,9 @@ class HomeFragment : Fragment() {
         /////
 
         val textView: TextView = binding.textHome
-        homeViewModel.horses.observe(viewLifecycleOwner) {
-            //Everytime there are any changes to the observing instance, this code will be called
-            val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
-            val gson: Gson = Gson()
-            val json: String = gson.toJson(it[0])
-            if (sharedPref != null) {
-                sharedPref.edit().putString("Horse", json).commit()
-            }
-            textView.text = it[0].description
-        }
         //Beispiel wie Rolle des Users geholt / verwendet werden kann
         val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
         val role: String? = sharedPref?.getString("role", "DefaultRole")
-
-        //TEST
-        val postingLesson: PostingLessonEntity = PostingLessonEntity("Arena2", "heute", 1200)
-        val gson: Gson = Gson()
-        val json: String = gson.toJson(postingLesson)
-        if (sharedPref != null) {
-            sharedPref.edit().putString("lesson", json).commit()
-        }
         return root
     }
 
