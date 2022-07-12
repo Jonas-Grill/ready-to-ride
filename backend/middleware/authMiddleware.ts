@@ -6,8 +6,6 @@ import {findStable} from "../services/stableService.ts";
 import {ExtendedStableSchema} from "../types/stable.ts";
 
 export const authMiddleware = async (ctx: Context, next: () => void) => {
-    console.log(await ctx.request.body().value);
-
     const authHeader = ctx.request.headers.get("authorization");
 
     ctx.assert(!(authHeader === null), Status.Unauthorized, "Please authenticate yourself");
