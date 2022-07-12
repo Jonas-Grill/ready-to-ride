@@ -33,6 +33,7 @@ class ProfileViewModel : ViewModel() {
                 _user.postValue(response)
                 //_user.value = response
             } catch (e: Exception){
+                println("Failure: ${e.message}")
             }
         }
     }
@@ -43,6 +44,7 @@ class ProfileViewModel : ViewModel() {
                 _lessons.postValue(response)
                 //_lessons.value = response
             } catch (e: Exception){
+                println("Failure: ${e.message}")
             }
         }
     }
