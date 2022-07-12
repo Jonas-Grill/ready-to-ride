@@ -11,12 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.Observer
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.readytoride.R
 import com.readytoride.databinding.FragmentProfileBinding
+import com.readytoride.network.HorseApi.HorseEntity
 import com.readytoride.network.LessonApi.LessonEntity
+import com.readytoride.ui.horse.HorseItemAdapter
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -45,6 +48,12 @@ class ProfileFragment : Fragment() {
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         binding.editProfile.setOnClickListener {
@@ -106,6 +115,7 @@ class ProfileFragment : Fragment() {
 
         val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
         val token: String? = sharedPref?.getString("token", "DefaultValue")
+        val role: String? = sharedPref?.getString("role", "defaultRole")
         if(token != "DefaultValue") {
             binding.loginProfile.text = "Abmelden"
             binding.headerName.visibility = View.VISIBLE
@@ -125,8 +135,6 @@ class ProfileFragment : Fragment() {
 
         profileViewModel.user.observe(viewLifecycleOwner) {
             //Everytime there are any changes to the observing instance, this code will be called
-            val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
-            val role: String? = sharedPref?.getString("role", "defaultRole")
             if(role == "User") {
                 //Set Height
                 binding.headerHeight.visibility = View.VISIBLE
@@ -150,7 +158,11 @@ class ProfileFragment : Fragment() {
                 binding.bookedHoursLayout.visibility = View.VISIBLE
                 binding.recyclerViewUserBookings.visibility = View.VISIBLE
 
-                binding.stickyScroll.fullScroll(ScrollView.FOCUS_UP)
+                val scrollState = binding.stickyScroll.scrollY
+                val stateFocusUp = ScrollView.FOCUS_UP
+                if(binding.stickyScroll.scrollY != 0) {
+                    binding.stickyScroll.fullScroll(0)
+                }
                 val stringToken: String = sharedPref.getString("token", "DefaultValue").toString()
                 profileViewModel.getUserBookings(stringToken)
             }
@@ -168,15 +180,24 @@ class ProfileFragment : Fragment() {
                 binding.editDescription.setText(it.description)
 
                 //Set Achievements
-                binding.headerAchievements.visibility = View.VISIBLE
+                //binding.headerAchievements.visibility = View.VISIBLE
                 //binding.fieldFocus.visibility = View.VISIBLE
                 //binding.fieldFocus.text = it.focus
 
                 //Set Certificates
-                binding.headerCertifiates.visibility = View.VISIBLE
+                //binding.headerCertifiates.visibility = View.VISIBLE
                 //binding.fieldFocus.visibility = View.VISIBLE
                 //binding.fieldFocus.text = it.focus
-                binding.stickyScroll.fullScroll(ScrollView.FOCUS_UP)
+
+                //Set Booked Hours
+                binding.bookedHoursLayout.visibility = View.VISIBLE
+                binding.recyclerViewUserBookings.visibility = View.VISIBLE
+
+                if(binding.stickyScroll.scrollY == ScrollView.FOCUS_UP) {
+                    binding.stickyScroll.fullScroll(ScrollView.FOCUS_UP)
+                }
+                val stringToken: String = sharedPref.getString("token", "DefaultValue").toString()
+                profileViewModel.getUserBookings(stringToken)
             }
             else if(role == "Admin") {
                 //SET RolePasscode
@@ -188,7 +209,9 @@ class ProfileFragment : Fragment() {
                 binding.fieldTrainerPasscode.text = it.trainerPasscode
                 binding.fieldTrainerPasscode.visibility = View.VISIBLE
 
-                binding.stickyScroll.fullScroll(ScrollView.FOCUS_UP)
+                if(binding.stickyScroll.scrollY == ScrollView.FOCUS_UP) {
+                    binding.stickyScroll.fullScroll(ScrollView.FOCUS_UP)
+                }
             }
 
             binding.fieldName.text = it.name.firstName + " " + it.name.lastName
@@ -200,11 +223,16 @@ class ProfileFragment : Fragment() {
 
         }
 
-        profileViewModel.lessons.observe(viewLifecycleOwner) {
+        val myObserver = Observer<MutableList<LessonEntity>> { newList -> run{
+            val recyclerViewBookings: RecyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_user_bookings)
+            recyclerViewBookings.adapter = UserBookingAdapter(this, newList, token.toString(), role.toString())
+            recyclerViewBookings.setHasFixedSize(true)
+        }}
+        profileViewModel.lessons.observe(viewLifecycleOwner, myObserver) /*{
             val userLessons: String = sharedPref?.getString("userLessons", "defaultLesson").toString()
-            if(userLessons == "defaultLesson") {
+            //if(userLessons == "defaultLesson") {
                 val recyclerViewBookings: RecyclerView = binding.recyclerViewUserBookings
-                recyclerViewBookings.adapter = UserBookingAdapter(this, it)
+                recyclerViewBookings.adapter = UserBookingAdapter(this, it, token.toString())
                 recyclerViewBookings.setHasFixedSize(true)
                 val gson: Gson = Gson()
                 val lessonString: String = gson.toJson(it)
@@ -214,19 +242,17 @@ class ProfileFragment : Fragment() {
                     editor.commit()
                     editor.apply()
                 }
-            }
-        }
-        val userLessons: String = sharedPref?.getString("userLessons", "defaultLesson").toString()
+            //}
+        }*/
+        /*val userLessons: String = sharedPref?.getString("userLessons", "defaultLesson").toString()
         if(userLessons != "defaultLesson") {
             val gson: Gson = Gson()
             val collectionType = object : TypeToken<List<LessonEntity>>() {}.type
             val jsonUserLessons = gson.fromJson<List<LessonEntity>>(userLessons, collectionType)
             val recyclerViewBookings: RecyclerView = binding.recyclerViewUserBookings
-            recyclerViewBookings.adapter = UserBookingAdapter(this, jsonUserLessons)
+            recyclerViewBookings.adapter = UserBookingAdapter(this, jsonUserLessons, token.toString())
             recyclerViewBookings.setHasFixedSize(true)
-        }
-
-        return root
+        }*/
     }
 
     fun onEditProfile() {
@@ -259,7 +285,7 @@ class ProfileFragment : Fragment() {
             binding.loginProfile.visibility = View.GONE
             binding.cancelEditProfile.visibility = View.VISIBLE
             binding.editProfile.text = "Profil speichern"
-            if(role == "User") {
+            if(role == "User" || role == "Trainer") {
                 binding.bookedHoursLayout.visibility = View.GONE
                 binding.recyclerViewUserBookings.visibility = View.GONE
             }
@@ -284,20 +310,22 @@ class ProfileFragment : Fragment() {
             binding.loginProfile.visibility = View.VISIBLE
             binding.cancelEditProfile.visibility = View.GONE
             binding.editProfile.text = "Profil bearbeiten"
-            if(role == "User") {
-                userObj.addProperty("height", binding.editHeight.text.toString().toInt())
-                userObj.addProperty("weight", binding.editWeight.text.toString().toInt())
-                userObj.addProperty("proficiency", binding.editProficiency.text.toString())
-
-                binding.bookedHoursLayout.visibility = View.VISIBLE
-                binding.recyclerViewUserBookings.visibility = View.VISIBLE
-            }
-            else if(role == "Admin") {
+            if(role == "Admin") {
                 binding.adminRegisterLayout.visibility = View.VISIBLE
                 binding.headerAdminPasscode.visibility = View.VISIBLE
                 binding.fieldAdminPasscode.visibility = View.VISIBLE
                 binding.headerTrainerPasscode.visibility = View.VISIBLE
                 binding.fieldTrainerPasscode.visibility = View.VISIBLE
+            }
+            else{
+                binding.bookedHoursLayout.visibility = View.VISIBLE
+                binding.recyclerViewUserBookings.visibility = View.VISIBLE
+
+                if(role == "User") {
+                    userObj.addProperty("height", binding.editHeight.text.toString().toInt())
+                    userObj.addProperty("weight", binding.editWeight.text.toString().toInt())
+                    userObj.addProperty("proficiency", binding.editProficiency.text.toString())
+                }
             }
             val body = RequestBody.create(MediaType.parse("application/json"), userObj.toString())
             val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
@@ -349,6 +377,8 @@ class ProfileFragment : Fragment() {
             binding.fieldTrainerPasscode.visibility = View.VISIBLE
         }
         else if(role == "Trainer") {
+            binding.bookedHoursLayout.visibility = View.VISIBLE
+            binding.recyclerViewUserBookings.visibility = View.VISIBLE
             binding.editFocus.setText(binding.fieldFocus.text)
             binding.editDescription.setText(binding.fieldDescription.text)
         }

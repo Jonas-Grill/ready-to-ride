@@ -34,7 +34,7 @@ interface LessonApiService {
     @POST("ridinglessons/{id}/book")
     suspend fun makeBookingRequest(@Header("Authorization") token: String, @Body requestBody: HorseIdForLesson, @Path("id") lessonId: String): LessonEntity
 
-    @DELETE("ridingkessons/{id}")
+    @DELETE("ridinglessons/{id}")
     suspend fun cancelLesson(@Header("Authorization") token: String, @Path("id") lessonId: String)
 }
 

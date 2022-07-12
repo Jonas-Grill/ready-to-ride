@@ -43,7 +43,7 @@ interface UserApiService {
     suspend fun getMyUser(@Header("Authorization") token: String): UserEntity
 
     @GET("me/calendar")
-    suspend fun getMyUserCalendar(@Header("Authorization") token: String): List<LessonEntity>
+    suspend fun getMyUserCalendar(@Header("Authorization") token: String): MutableList<LessonEntity>
 
     @PUT("users")
     suspend fun updateUser(@Header("Authorization") token: String, @Body requestBody: RequestBody): UserEntity

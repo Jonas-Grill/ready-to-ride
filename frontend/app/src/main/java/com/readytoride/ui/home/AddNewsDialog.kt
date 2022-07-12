@@ -100,7 +100,7 @@ class AddNewsDialog(val fragment: HomeFragment): DialogFragment() {
                 }
             }
         }*/
-        val fragTransaction = parentFragmentManager.beginTransaction()
+        val fragTransaction = fragment.childFragmentManager.beginTransaction()
         fragTransaction.detach(fragment)
         fragTransaction.attach(fragment)
         fragTransaction.commit()

@@ -532,7 +532,7 @@
                     android:overScrollMode="never"
                     android:scrollbars="none"
                     android:visibility="gone"
-                    app:layoutManager="StaggeredGridLayoutManager" />
+                    app:layoutManager="GridLayoutManager" />
             </LinearLayout>
 
             <LinearLayout
