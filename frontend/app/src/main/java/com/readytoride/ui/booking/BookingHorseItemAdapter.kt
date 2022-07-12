@@ -11,19 +11,17 @@ import com.readytoride.network.HorseApi.HorseEntity
 
 class BookingHorseItemAdapter(
     private val context: BookingFragment,
-    private val dataset: MutableList<HorseEntity>,
-    private val horseId: String,
+    private val dataset: MutableList<HorseEntity>
     ) :
     RecyclerView.Adapter<BookingHorseItemAdapter.ItemViewHolder>() {
 
     private lateinit var viewModel: BookingViewModel
 
     class ItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val checkbox: CheckBox = view.findViewById(R.id.checkBox_trainer)
+        val checkbox: CheckBox = view.findViewById(R.id.checkBox_horse)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        // create a new view
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_selection_horse, parent, false)
         viewModel = ViewModelProvider(context).get(BookingViewModel::class.java)
@@ -42,11 +40,6 @@ class BookingHorseItemAdapter(
             } else {
                 viewModel.addHorse(horseid)
             }
-        }
-
-        if (holder.checkbox.tooltipText == horseId) {
-            holder.checkbox.isChecked = true
-            viewModel.addHorse(horseId)
         }
     }
 

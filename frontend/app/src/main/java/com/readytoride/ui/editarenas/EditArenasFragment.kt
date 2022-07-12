@@ -73,7 +73,6 @@ class EditArenasFragment : Fragment() {
                     view.context, R.array.actionsarena, android.R.layout.simple_spinner_item
                 ).also { adapter ->
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    // Apply the adapter to the spinner
                     spinnerAction.adapter = adapter
                 }
                 spinnerAction.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -130,13 +129,11 @@ class EditArenasFragment : Fragment() {
                     view.context, android.R.layout.simple_spinner_item, myArenaNames
                 ).also { adapter ->
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    // Apply the adapter to the spinner
                     spinnerArenaEdit.adapter = adapter
                 }
                 spinnerArenaEdit.onItemSelectedListener =
                     object : AdapterView.OnItemSelectedListener {
                         override fun onNothingSelected(parent: AdapterView<*>?) {
-
                         }
 
                         override fun onItemSelected(
@@ -188,7 +185,6 @@ class EditArenasFragment : Fragment() {
 
             stableObject.arenas = arenas
             viewModel.setStable(token, stableObject)
-
         }
     }
 }
