@@ -440,6 +440,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
                     android:textAlignment="center"
                     android:text="Ich bin ein toller Trainer und reite schon 20 Jahre."
                     android:visibility="gone"

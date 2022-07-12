@@ -24,10 +24,6 @@ class HomeViewModel : ViewModel() {
     val news: LiveData<MutableList<NewsEntity>> = _news
     val newNews: LiveData<NewsEntity> = _newNews
 
-    init {
-        getAllStables()
-    }
-
     internal fun getAllNews() {
         viewModelScope.launch {
             try {
