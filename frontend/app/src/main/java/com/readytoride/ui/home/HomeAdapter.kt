@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.readytoride.R
-import com.readytoride.ui.horse.Horse
 
 class HomeAdapter(private val context: HomeFragment, private val dataset: List<NewsEntry>): BaseAdapter() {
 
