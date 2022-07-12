@@ -22,7 +22,6 @@ class AchievementsItemAdapter(
         parent: ViewGroup,
         viewType: Int
     ): AchievementsItemAdapter.ItemViewHolder {
-        // create a new view
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_trainer_achievements, parent, false)
 

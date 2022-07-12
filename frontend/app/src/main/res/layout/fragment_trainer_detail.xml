@@ -164,11 +164,5 @@
             android:layout_height="match_parent"
             android:paddingBottom="12dp"
             app:layoutManager="LinearLayoutManager" />
-
-        <Button
-            android:id="@+id/button_book_trainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/book_lesson" />
     </LinearLayout>
 </FrameLayout>

@@ -52,10 +52,8 @@ class StableFragment : Fragment(){
         val buttonEditBoxes = view.findViewById<Button>(R.id.button8)
         val buttonEditArenas = view.findViewById<Button>(R.id.button9)
 
-        //TODO: Buttons only visible for Admins
         val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
         val role: String? = sharedPref?.getString("role", "defaultRole")
-        println(role)
         if (role != "Admin") {
             buttonEditBoxes.visibility = View.GONE
             buttonEditArenas.visibility = View.GONE

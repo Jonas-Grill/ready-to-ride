@@ -50,7 +50,6 @@ class BookingSlotItemAdapter(
         holder.button.setOnClickListener {
             viewModel.setBookingData(item._id, item.horse.id)
 
-            //hier wird ein PopUp erzeugt mit Einverständniserklärung, ggf. Infos und Buchungsbestätigung
             var dialog = BookingDialog()
             dialog.show(context.childFragmentManager, "BookingDialog")
         }

@@ -17,7 +17,6 @@ class ArenaItemAdapter(private val context: StableFragment, private val dataset:
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        // create a new view
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_arena, parent, false)
 
