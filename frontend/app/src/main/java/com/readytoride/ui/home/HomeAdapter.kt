@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.readytoride.R
 import com.readytoride.network.NewsApi.NewsEntity
 
+
 class HomeAdapter(private val context: HomeFragment, private val dataset: MutableList<NewsEntity>): BaseAdapter() {
 
     private lateinit var title: TextView
