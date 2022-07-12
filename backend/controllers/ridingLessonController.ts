@@ -59,7 +59,13 @@ export const findRidingLessonsByCurrentUser = async (ctx: Context) => {
         toDate,
     } = helpers.getQuery(ctx, {mergeParams: true});
 
-    const ridingLessons = await ridingLessonService.findRidingLessonsByBookerEmailAndDay(ctx.state.currentUser.email, fromDate, toDate);
+    const ridingLessons = ctx.state.currentUser.role === UserRole.TRAINER ?
+        await ridingLessonService.findRidingLessonsByTrainerIdAndDay(ctx.state.currentUser._id.toString(), fromDate, toDate) :
+        await ridingLessonService.findRidingLessonsByBookerEmailAndDay(ctx.state.currentUser.email, fromDate, toDate);
+
+    console.log(ridingLessons);
+    console.log(ctx.state.currentUser);
+
 
     ctx.response.status = Status.OK;
     ctx.response.body = ridingLessons;
@@ -162,7 +168,7 @@ const normalizeString = (value: string): string | undefined => {
         value = value.replace(/\s/g, '');
 
         if (value === '') {
-            return  undefined;
+            return undefined;
         } else {
             return value;
         }
