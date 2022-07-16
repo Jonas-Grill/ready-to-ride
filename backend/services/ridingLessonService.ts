@@ -94,6 +94,10 @@ export const findRidingLesson = async (trainer?: string[], horses?: string[], fr
 }
 
 export async function findRidingLessonsByTrainerIdAndDay(id: string, fromDate: string, toDate: string) {
+    const dateRange = getDateRange(fromDate, toDate)
+    fromDate = dateRange.fromDate;
+    toDate = dateRange.toDate;
+
     const ridingLessons = await ridingLessonRepo.findRidingLessonsByTrainerIdAndDay([id], fromDate, toDate);
     return ridingLessons.map(ridingLessonModelToRidingLesson);
 }
