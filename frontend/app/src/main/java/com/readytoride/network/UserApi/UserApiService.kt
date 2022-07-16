@@ -1,9 +1,13 @@
 package com.readytoride.network.UserApi
 
+import com.google.gson.JsonObject
 import com.readytoride.network.HorseApi.HorseEntity
 import com.readytoride.network.LessonApi.LessonEntity
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okhttp3.Request
+import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
@@ -39,13 +43,13 @@ interface UserApiService {
     suspend fun getMyUser(@Header("Authorization") token: String): UserEntity
 
     @GET("me/calendar")
-    suspend fun getMyUserCalendar(@Header("Authorization") token: String): List<LessonEntity>
+    suspend fun getMyUserCalendar(@Header("Authorization") token: String): MutableList<LessonEntity>
 
     @PUT("users")
-    suspend fun updateUser(@Header("Authorization") token: String, @Body requestBody: UserEntity): UserEntity
+    suspend fun updateUser(@Header("Authorization") token: String, @Body requestBody: RequestBody): UserEntity
 
     @POST("users")
-    suspend fun postNewUser(@Header("Authorization") token: String, @Body requestBody: UserEntity): HorseEntity
+    suspend fun postNewUser(@Body requestBody: RequestBody): UserEntity
 
     @POST("users/login")
     suspend  fun login(@Body requestBody: LoginEntity): TokenEntity

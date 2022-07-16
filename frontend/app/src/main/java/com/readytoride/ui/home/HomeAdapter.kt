@@ -9,8 +9,10 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.readytoride.R
+import com.readytoride.network.NewsApi.NewsEntity
 
-class HomeAdapter(private val context: HomeFragment, private val dataset: List<NewsEntry>): BaseAdapter() {
+
+class HomeAdapter(private val context: HomeFragment, private val dataset: MutableList<NewsEntity>): BaseAdapter() {
 
     private lateinit var title: TextView
     private lateinit var description: TextView
@@ -34,17 +36,18 @@ class HomeAdapter(private val context: HomeFragment, private val dataset: List<N
         convertView = LayoutInflater.from(parent!!.context).inflate(R.layout.news_list_row, parent, false)
         title = convertView.findViewById(R.id.news_name)
         description = convertView.findViewById(R.id.desc)
-        title.text = context.resources.getString(item.titleStringResourceId)
-        description.text = context.resources.getString(item.descriptionStringResourceId)
+        title.text = item.caption
+        description.text = item.text
         return convertView
     }
+
 
     fun getTitle(position: Int, convertView: View?, parent: ViewGroup?): CharSequence {
         val item = dataset[position]
         var convertView = convertView
         convertView = LayoutInflater.from(parent!!.context).inflate(R.layout.news_list_row, parent, false)
         title = convertView.findViewById(R.id.news_name)
-        title.text = context.resources.getString(item.titleStringResourceId)
+        title.text = item.caption
         return title.text
     }
 
@@ -53,7 +56,7 @@ class HomeAdapter(private val context: HomeFragment, private val dataset: List<N
         var convertView = convertView
         convertView = LayoutInflater.from(parent!!.context).inflate(R.layout.news_list_row, parent, false)
         description = convertView.findViewById(R.id.desc)
-        description.text = context.resources.getString(item.descriptionStringResourceId)
+        description.text = item.text
         return description.text
     }
 }

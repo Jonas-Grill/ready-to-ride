@@ -37,10 +37,12 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="Größe">
+            android:hint="Größe (in cm)">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/user_height"
+                android:inputType="number"
+                android:digits="0123456789"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -52,10 +54,12 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:hint="Gewicht">
+            android:hint="Gewicht (in Kg)">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/user_weight"
+                android:inputType="number"
+                android:digits="0123456789"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -71,6 +75,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/user_age"
+                android:inputType="number"
+                android:digits="0123456789"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -83,6 +89,7 @@
             android:orientation="horizontal">
 
             <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
@@ -100,19 +107,19 @@
                     android:id="@+id/radioButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="rb_user1" />
+                    android:text="Anfänger" />
 
                 <RadioButton
                     android:id="@+id/radioButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="rb_user2" />
+                    android:text="Fortgeschritten" />
 
                 <RadioButton
                     android:id="@+id/radioButton3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="rb_user3" />
+                    android:text="Turnierreiter" />
 
             </RadioGroup>
 

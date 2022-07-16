@@ -20,10 +20,10 @@ private val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFact
 interface NewsApiService {
 
     @GET("news")
-    suspend fun getNews(): List<NewsEntity>
+    suspend fun getNews(): MutableList<NewsEntity>
 
     @POST("news")
-    suspend fun postNews(@Header("Authorization") token: String, @Body requestBody: NewsEntity): List<NewsEntity>
+    suspend fun postNews(@Header("Authorization") token: String, @Body requestBody: PostNewsEntity): NewsEntity
 
 }
 

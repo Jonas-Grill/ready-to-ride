@@ -1,5 +1,6 @@
 package com.readytoride.ui.login
 
+import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -7,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import com.google.gson.Gson
 import com.readytoride.R
+import com.readytoride.network.UserApi.Name
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -75,13 +79,24 @@ class RegisterFragment : Fragment() {
 
         view.findViewById<Button>(R.id.btn_nxt).setOnClickListener {
             if (validateInput()) {
-                var navRegister = activity as FragmentNavigation
+                val userName: Name = Name(reg_name.text.toString(), reg_name2.text.toString())
+                val gson: Gson = Gson()
+                val nameString: String = gson.toJson(userName)
+                val sharedPref = activity?.getSharedPreferences(R.string.user_token.toString(), Context.MODE_PRIVATE)
+                val editor = sharedPref?.edit()
+                if (editor != null) {
+                    editor.putString("mail", reg_mail.text.toString())
+                    editor.putString("password", reg_pwd1.text.toString())
+                    editor.putString("name", nameString)
+                    editor.commit()
+                    editor.apply()
+                }
                 if (item == "Trainer") {
-                    navRegister.navigateFrag(TrainerRegisterFragment(), true)
+                    view.findNavController().navigate(R.id.nav_reg_trainer)
                 } else if (item == "Nutzer") {
-                    navRegister.navigateFrag(UserRegisterFragment(), true)
+                    view.findNavController().navigate(R.id.nav_reg_user)
                 } else if (item == "Admin") {
-                    navRegister.navigateFrag(AdminRegisterFragment(), true)
+                    view.findNavController().navigate(R.id.nav_reg_admin)
                 }
             } else {
             }
@@ -91,46 +106,44 @@ class RegisterFragment : Fragment() {
 
 
     fun validateInput(): Boolean {
-        when {
-            TextUtils.isEmpty(reg_mail.text.toString().trim()) -> {
-                reg_mail.setError("Bitte E-Mail eintragen")
-                return false
+        var validater: Boolean = true
+        if(TextUtils.isEmpty(reg_mail.text.toString().trim())) {
+            reg_mail.setError("Bitte E-Mail eintragen")
+            validater = false
+        }
+        if (TextUtils.isEmpty(reg_pwd1.text.toString().trim())) {
+            reg_pwd1.setError("Bitte Passwort eintragen")
+            validater = false
+        }
+        if(TextUtils.isEmpty(reg_pwd2.text.toString().trim())) {
+            reg_pwd2.setError("Bitte Passwort eintragen")
+            validater = false
+        }
+        if(TextUtils.isEmpty(reg_name.text.toString().trim())) {
+            reg_name.setError("Bitte Vornamen eintragen")
+            validater = false
+        }
+        if(TextUtils.isEmpty(reg_name2.text.toString().trim())) {
+            reg_name2.setError("Bitte Nachnamen eintragen")
+            validater = false
+        }
+        if(reg_mail.text.toString().isNotEmpty() && reg_pwd1.toString()
+                .isNotEmpty() && reg_pwd2.toString().isNotEmpty()) {
+
+            if(android.util.Patterns.EMAIL_ADDRESS.matcher(reg_mail.text.toString()).matches()) {
+            } else {
+                reg_mail.setError("Bitte gültige E-Mail eintragen")
+                validater = false
             }
-            TextUtils.isEmpty(reg_pwd1.text.toString().trim()) -> {
-                reg_pwd1.setError("Bitte Passwort eintragen")
-                return false
-            }
-            TextUtils.isEmpty(reg_pwd2.text.toString().trim()) -> {
-                reg_pwd2.setError("Bitte Passwort eintragen")
-                return false
-            }
-            TextUtils.isEmpty(reg_name.text.toString().trim()) -> {
-                reg_name.setError("Bitte Vornamen eintragen")
-                return false
-            }
-            TextUtils.isEmpty(reg_name2.text.toString().trim()) -> {
-                reg_name2.setError("Bitte Nachnamen eintragen")
-                return false
-            }
-            reg_mail.text.toString().isNotEmpty() && reg_pwd1.toString()
-                .isNotEmpty() && reg_pwd2.toString().isNotEmpty() -> {
-                if (reg_mail.text.toString()
-                        .matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\\\.+[a-z]+"))
-                ) {
-                    if (reg_pwd1.text.toString() == reg_pwd2.text.toString()) {
-                        //Passwörter stimmen überein
-                    } else {
-                        reg_pwd1.setError("Die Passwörter stimmen nicht überein")
-                        reg_pwd2.setError("Die Passwörter stimmen nicht überein")
-                        return false
-                    }
-                } else {
-                    reg_mail.setError("Bitte gültige E-Mail eintragen")
-                    return false
-                }
+            if (reg_pwd1.text.toString() == reg_pwd2.text.toString()) {
+                //Passwörter stimmen überein
+            } else {
+                reg_pwd1.setError("Die Passwörter stimmen nicht überein")
+                reg_pwd2.setError("Die Passwörter stimmen nicht überein")
+                validater = false
             }
         }
-        return true
+        return validater
     }
 
     companion object {

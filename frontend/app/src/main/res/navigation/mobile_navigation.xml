@@ -132,4 +132,16 @@
         android:id="@+id/nav_register"
         android:name="com.readytoride.ui.login.RegisterFragment"
         android:label="@string/menu_register" />
+    <fragment
+        android:id="@+id/nav_reg_user"
+        android:name="com.readytoride.ui.login.UserRegisterFragment"
+        android:label="@string/register_user" />
+    <fragment
+        android:id="@+id/nav_reg_admin"
+        android:name="com.readytoride.ui.login.AdminRegisterFragment"
+        android:label="@string/register_admin" />
+    <fragment
+        android:id="@+id/nav_reg_trainer"
+        android:name="com.readytoride.ui.login.TrainerRegisterFragment"
+        android:label="@string/register_trainer" />
 </navigation>

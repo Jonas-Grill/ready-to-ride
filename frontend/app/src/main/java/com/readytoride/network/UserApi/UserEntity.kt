@@ -15,8 +15,9 @@ data class UserEntity(
     val height: Int = 0,
     val proficiency: String = "",
 
-//for Admin and Trainer only
-    val rolePasscode: String = "",
+//for Admin only
+    val adminPasscode: String = "",
+    val trainerPasscode: String = "",
 
 //for Trainer only
     val focus: String = "",

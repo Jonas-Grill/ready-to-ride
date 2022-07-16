@@ -16,9 +16,11 @@ class LoginViewModel: ViewModel() {
 
     private val _token = MutableLiveData<TokenEntity>()
     private val _role = MutableLiveData<String>()
+    private val _error = MutableLiveData<String>()
 
     val token: LiveData<TokenEntity> = _token
     val role : LiveData<String> = _role
+    val error: LiveData<String> = _error
 
     internal fun loginUser(email: String, pwd: String) {
         viewModelScope.launch {
@@ -27,6 +29,7 @@ class LoginViewModel: ViewModel() {
                 var response = UserApi.retrofitService.login(loginEntity)
                 _token.value = response
             } catch (e: Exception){
+                _error.value = e.message
             }
         }
     }
@@ -37,6 +40,7 @@ class LoginViewModel: ViewModel() {
                 var response = UserApi.retrofitService.getMyUser("Bearer $token")
                 _role.value = response.role
             } catch (e: Exception){
+                println("Failure: ${e.message}")
             }
         }
     }

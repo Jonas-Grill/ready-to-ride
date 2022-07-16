@@ -191,10 +191,12 @@
 
                 <EditText
                     android:id="@+id/edit_age"
-                    android:layout_width="match_parent"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
+                    android:inputType="number"
+                    android:digits="0123456789"
                     android:textSize="15dp"
                     android:text="20" />
             </ViewSwitcher>
@@ -232,14 +234,34 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/header_height" />
 
-                <EditText
-                    android:id="@+id/edit_height"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/edit_height_layout"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:textSize="15dp"
-                    android:text="20" />
+                    android:tag="sticky"
+                    android:visibility="gone"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edit_height"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="5dp"
+                        android:inputType="number"
+                        android:digits="0123456789"
+                        android:textSize="15dp"
+                        android:text="20" />
+                    <TextView
+                        android:id="@+id/height_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="cm"
+                        android:textAlignment="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.498"
+                        app:layout_constraintStart_toStartOf="parent"/>
+                </LinearLayout>
             </ViewSwitcher>
 
             <TextView
@@ -276,14 +298,34 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/header_weight" />
 
-                <EditText
-                    android:id="@+id/edit_weight"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/edit_weight_layout"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:textSize="15dp"
-                    android:text="20" />
+                    android:tag="sticky"
+                    android:visibility="gone"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edit_weight"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="5dp"
+                        android:inputType="number"
+                        android:digits="0123456789"
+                        android:textSize="15dp"
+                        android:text="20" />
+                    <TextView
+                        android:id="@+id/weight_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="kg"
+                        android:textAlignment="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.498"
+                        app:layout_constraintStart_toStartOf="parent"/>
+                </LinearLayout>
             </ViewSwitcher>
 
             <TextView
@@ -398,6 +440,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
                     android:textAlignment="center"
                     android:text="Ich bin ein toller Trainer und reite schon 20 Jahre."
                     android:visibility="gone"
@@ -477,11 +521,27 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_user_bookings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:visibility="gone"
+                    app:layoutManager="GridLayoutManager" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/admin_register_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-
                 android:tag="sticky"
                 android:visibility="gone"
                 android:orientation="vertical">
@@ -593,6 +653,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="Anmelden"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
