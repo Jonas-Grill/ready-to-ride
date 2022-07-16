@@ -10,7 +10,7 @@ Eine native Android-App, in der man als Stallbesitzer seinen Reitstall verwalten
 
 **Alexander Salzmann:** Frontend, Code Review    
 **Anne Krämer:** Frontend, Logo, Code Review  
-**Gina Weber:** Backend, Dokumentation, Code Review
+**Gina Weber:** Backend, Dokumentation, Code Review   
 **Jonas Grill:** Backend, CI/CD, Security, Code Review  
 **Niklas Schäfer:** Frontend, Code Review  
 
