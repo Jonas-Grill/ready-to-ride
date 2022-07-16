@@ -8,19 +8,16 @@ Eine native Android-App, in der man als Stallbesitzer seinen Reitstall verwalten
 
 ## Team
 
-**Alexander Salzmann:** Backend, Erstellung PPT, Code Review    
+**Alexander Salzmann:** Frontend, Code Review    
 **Anne Krämer:** Frontend, Logo, Code Review  
-**Gina Weber:** Frontend, Dokumentation, Code Review, Organisation  
-**Jonas Grill:** Backend, Linting-Integration, Code Review  
-**Niklas Schäfer:** Frontend, Dokumentation, Code Review  
+**Gina Weber:** Backend, Dokumentation, Code Review
+**Jonas Grill:** Backend, CI/CD, Security, Code Review  
+**Niklas Schäfer:** Frontend, Code Review  
 
 ## Unsere App
 
 https://www.ready-to-ride-backend.tk
 
-## Unsere PPT-Präsentation
-
-[Präsentation](https://github.com/JoJotoPlay/ready-to-ride/blob/main/documentation/Pr%C3%A4sentation.pdf)
 
 ## Dokumentation
 
@@ -31,5 +28,5 @@ https://www.ready-to-ride-backend.tk
  - [Frontend](https://github.com/Jonas-Grill/ready-to-ride/wiki/4.-Frontend)
  - [Linting](https://github.com/Jonas-Grill/ready-to-ride/wiki/5.-Linting)
  - [Arbeitsweise](https://github.com/Jonas-Grill/ready-to-ride/wiki/6.-Arbeitsweise)
- - [Logo & Präsentation](https://github.com/Jonas-Grill/ready-to-ride/wiki/7.-Logo-&-Pr%C3%A4sentation)
+ - [Logo](https://github.com/Jonas-Grill/ready-to-ride/wiki/7.-Logo-&-Pr%C3%A4sentation)
  - [Ausblick](https://github.com/Jonas-Grill/ready-to-ride/wiki/8.-Ausblick)
