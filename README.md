@@ -28,5 +28,5 @@ https://www.ready-to-ride-backend.tk
  - [Frontend](https://github.com/Jonas-Grill/ready-to-ride/wiki/4.-Frontend)
  - [Linting](https://github.com/Jonas-Grill/ready-to-ride/wiki/5.-Linting)
  - [Arbeitsweise](https://github.com/Jonas-Grill/ready-to-ride/wiki/6.-Arbeitsweise)
- - [Logo](https://github.com/Jonas-Grill/ready-to-ride/wiki/7.-Logo-&-Pr%C3%A4sentation)
+ - [Logo](https://github.com/Jonas-Grill/ready-to-ride/wiki/7.-Logo)
  - [Ausblick](https://github.com/Jonas-Grill/ready-to-ride/wiki/8.-Ausblick)
